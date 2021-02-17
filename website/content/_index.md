@@ -1,5 +1,6 @@
 ---
-header_headline: Jane Doe
+header_headline: Des statistiques pour bien manger
 header_image: images/cover-image.jpg
-header_subheadline: Hi there , I am a Nutrition Coach & Chef Consultant
+header_subheadline: Exploration des données d'Openfoodfacts 
+ 
 ---
