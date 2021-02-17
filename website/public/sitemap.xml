@@ -3,11 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://example.com/</loc>
+    <loc>/</loc>
   </url>
   
   <url>
-    <loc>https://example.com/services/</loc>
+    <loc>/services/</loc>
   </url>
   
 </urlset>
