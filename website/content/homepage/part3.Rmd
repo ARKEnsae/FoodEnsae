@@ -87,15 +87,15 @@ hchart(
     style = list(fontFamily = "Gloria Hallelujah")
   ) %>% 
   hc_title(
-    text = "Nutriscore des produits des principales marques",
+    text = "Nombre de produits par nutriscore des principales marques",
     style = list(fontFamily = "Gloria Hallelujah")
   ) )
 ```
 
-Ensuite un histogramme
+Ensuite un histogramme :
 ```{r,echo=FALSE}
 frameWidget(
-  hchart(
+hchart(
   brand_grade_t15, 
   "bar",
   hcaes(x = brands, y = n, group = nutriscore_grade)
@@ -104,9 +104,13 @@ frameWidget(
     style = list(fontFamily = "Gloria Hallelujah")
   ) %>% 
   hc_title(
-    text = "Nutriscore des produits des principales marques",
+    text = "Nombre de produits par nutriscore des principales marques",
     style = list(fontFamily = "Gloria Hallelujah")
-  ) 
+  ) %>% 
+  hc_yAxis(
+    title = list(text="Nombre de produits"))%>% 
+  hc_xAxis(
+    title = list(text=""))
 )
 ```
 
