@@ -93,7 +93,7 @@ hchart(
 ```
 
 Ensuite un histogramme
-```{r}
+```{r,echo=FALSE}
 frameWidget(
   hchart(
   brand_grade_t15, 
