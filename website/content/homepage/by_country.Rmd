@@ -11,6 +11,10 @@ library(dplyr)
 colors_grade <- readRDS("data/colors.RDS")
 top_n <- readRDS("data/country_prop_plot.RDS")
 bubble_plot <- readRDS("data/bubble_plot.RDS")
+
+hcoptslang_nouv <- getOption("highcharter.lang")
+hcoptslang_nouv$decimalPoint <- ","
+options(highcharter.lang = hcoptslang_nouv)
 ```
 
 
@@ -21,7 +25,7 @@ titre <- "Nutriscore principaux pays"
 caption_txt <- paste(c(
   paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
                 collapse = " ; "),"."),
-"On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacs."),
+"On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts."),
 collapse = "<br>")
 
 

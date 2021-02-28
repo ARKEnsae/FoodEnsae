@@ -135,33 +135,42 @@ caption_txt <- paste(c(
                 collapse = " ; "),"."),
   "On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacs."),
   collapse = "<br>")
-hchart(
+p <- hchart(
   top_n, 
   type="bar",
-  hcaes(x = country, y = n_prop, group = nutriscore_grade),
+  hcaes(x = country, y = n_prop, group = nutriscore_grade,
+        index = nutriscore_grade),
   color = colors_grade,
   reversed=TRUE
-) %>% 
+)
+
+p$x$hc_opts$series[[1]]$index = 4
+p$x$hc_opts$series[[2]]$index = 3
+p$x$hc_opts$series[[3]]$index = 2
+p$x$hc_opts$series[[4]]$index = 1
+p$x$hc_opts$series[[5]]$index = 0
+
+p%>%
   hc_chart(
     style = list(fontFamily = "Gloria Hallelujah")
-  ) %>% 
+  ) %>%
   hc_title(
     text = titre,
     style = list(fontFamily = "Gloria Hallelujah")
-  ) %>% 
+  ) %>%
   hc_yAxis(
     title = list(text="Pourcentage du total"),
-    labels = list(format = "{value} %"), 
-    max = 100,reversed = TRUE
-  )%>% 
+    labels = list(format = "{value} %"),
+    max = 100
+  )%>%
   hc_xAxis(
-    title = list(text="")) %>% 
+    title = list(text="")) %>%
   hc_plotOptions(series=list(stacking="normal"))%>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
     text = caption_txt,
     style = list(fontSize = "10px")
-  )
+  ) %>% hc_legend(reversed=T)
 
 saveRDS(top_n, "website/content/homepage/data/country_prop_plot.RDS")
 saveRDS(colors_grade, "website/content/homepage/data/colors.RDS")
@@ -219,55 +228,6 @@ hchart(
   hc_caption(
     text = caption_txt,
     style = list(fontSize = "10px")
-  )
-
-data_plot <- data_to_hierarchical(top_n, c(country,nutriscore_grade),n)
-data_plot2 <- lapply(data_plot,function(x){
-  if(x$level==1){
-    x$showInLegend = FALSE
-    return(x)
-  }else{
-    x$color = as.character(colors_grade[x$name])
-    return(x)
-  }
-})
-lvl_opts <-  list(
-  list(
-    level = 1,
-    borderWidth = 4,
-    borderColor = "black",
-    dataLabels = list(
-      enabled = TRUE,
-      align = "left",
-      verticalAlign = "top",
-      style = list(fontSize = "12px", textOutline = FALSE, color = "white")
-    )
-  ),
-  list(
-    level = 2,
-    borderWidth = 0,
-    borderColor = "white",
-    # colorVariation = list(key = "brightness", to = 0.250),
-    dataLabels = list(enabled = FALSE), # pour ne pas afficher legend sur graph
-    style = list(fontSize = "8px", textOutline = FALSE, color = "white")
-  )
-)
-hchart(
-  data_plot2,
-  type = "sunburst",
-  # levelIsConstant = FALSE,
-  # allowDrillToNode = TRUE,
-  levels = lvl_opts,
-  tooltip = list(valueDecimals = FALSE),
-  showInLegend = FALSE,
-  legendType= 'point'
-) %>% 
-  hc_chart(
-    style = list(fontFamily = "Gloria Hallelujah")
-  ) %>% 
-  hc_title(
-    text = "Nutriscore des produits des principales marques",
-    style = list(fontFamily = "Gloria Hallelujah")
   )
 
 
