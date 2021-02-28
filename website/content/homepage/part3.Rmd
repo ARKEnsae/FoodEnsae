@@ -74,7 +74,7 @@ lvl_opts <-  list(
     style = list(fontSize = "8px", textOutline = FALSE, color = "white")
   )
 )
-frameWidget(
+
 hchart(
   data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade), n),
   type = "treemap",
@@ -89,12 +89,11 @@ hchart(
   hc_title(
     text = "Nombre de produits par nutriscore des principales marques",
     style = list(fontFamily = "Gloria Hallelujah")
-  ) )
+  ) %>% frameWidget()
 ```
 
 Ensuite un histogramme :
 ```{r,echo=FALSE}
-frameWidget(
 hchart(
   brand_grade_t15, 
   "bar",
@@ -110,7 +109,6 @@ hchart(
   hc_yAxis(
     title = list(text="Nombre de produits"))%>% 
   hc_xAxis(
-    title = list(text=""))
-)
+    title = list(text="")) %>% frameWidget()
 ```
 

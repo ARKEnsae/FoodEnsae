@@ -1,0 +1,119 @@
+---
+title: "Nutriscore par pays"
+weight: 1
+---
+
+
+```{r, include=FALSE}
+library(highcharter)
+library(widgetframe)
+library(dplyr)
+colors_grade <- readRDS("data/colors.RDS")
+top_n <- readRDS("data/country_prop_plot.RDS")
+bubble_plot <- readRDS("data/bubble_plot.RDS")
+```
+
+
+Certains pays (comme l'Espagne et l'Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu'en France !
+
+```{r, echo=FALSE}
+titre <- "Nutriscore principaux pays"
+caption_txt <- paste(c(
+  paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
+                collapse = " ; "),"."),
+"On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacs."),
+collapse = "<br>")
+
+
+p <- hchart(
+  top_n, 
+  type="bar",
+  hcaes(x = country, y = n_prop, group = nutriscore_grade,
+        index = nutriscore_grade),
+  color = colors_grade,
+  reversed=TRUE
+)
+
+p$x$hc_opts$series[[1]]$index = 4
+p$x$hc_opts$series[[2]]$index = 3
+p$x$hc_opts$series[[3]]$index = 2
+p$x$hc_opts$series[[4]]$index = 1
+p$x$hc_opts$series[[5]]$index = 0
+
+p%>%
+  hc_chart(
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>%
+  hc_title(
+    text = titre,
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>%
+  hc_yAxis(
+    title = list(text="Pourcentage du total"),
+    labels = list(format = "{value} %"),
+    max = 100
+  )%>%
+  hc_xAxis(
+    title = list(text="")) %>%
+  hc_plotOptions(series=list(stacking="normal"))%>%
+  hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
+  hc_caption(
+    text = caption_txt,
+    style = list(fontSize = "10px")
+  ) %>% hc_legend(reversed=T) %>% frameWidget()
+```
+
+
+Mais attention, ces disparités peuvent aussi s'expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu'ailleurs !!
+
+```{r,echo=FALSE}
+titre <- "Nombre de produits par vendus par pays"
+caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
+                         "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
+                         "NB : certains produits peuvent être vendus dans plusieurs pays"),
+                         collapse = "<br>"),
+        nrow(bubble_plot),
+        bubble_plot$country[1],
+        bubble_plot$tot[1]/bubble_plot$tot[2],
+        bubble_plot$country[2])
+frameWidget(hchart(
+  bubble_plot,
+  type="packedbubble",
+  hcaes(name = country, value = tot),
+  name = ""
+) %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = "<b>{point.name} :</b> {point.value}",
+    headerFormat=""
+  ) %>% 
+  hc_plotOptions(
+    packedbubble = list(
+      maxSize = "150%",
+      # layoutAlgorithm = list(
+      #   gravitationalConstant =  0.05,
+      #   seriesInteraction = TRUE,
+      #   dragBetweenSeries = TRUE,
+      #   parentNodeLimit = TRUE
+      # ),
+      dataLabels = list(
+        enabled = TRUE,
+        format = "{point.name}",
+        style = list(
+          color = "black",
+          textOutline = "none",
+          fontWeight = "normal"
+        )
+      )
+    ),
+    series = list(showInLegend = FALSE)
+  )%>% 
+  hc_title(
+    text = titre,
+    style = list(fontFamily = "Gloria Hallelujah")
+  )%>%
+  hc_caption(
+    text = caption_txt,
+    style = list(fontSize = "10px")
+  ))
+```
