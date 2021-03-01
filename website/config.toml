@@ -9,7 +9,7 @@ defaultContentLanguage = "fr"
 theme = "hugo-scroll"
 
 # The "title" of your website
-title = "ARKEnsae - Des statistiques pour bien manger"
+title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
 
 [params]
     # A "copyright"-line to be added at the bottom of the page.
@@ -17,7 +17,7 @@ title = "ARKEnsae - Des statistiques pour bien manger"
     copyright = "© ARKEnsae Kim & Alain 2021"
 
     # The "description" of your website. This is used in the meta data of your generated html.
-    description = "Des statistiques pour bien manger"
+    description = "Bien s'alimenter pour être en bonne santé"
 
     # The path to your "favicon". This should be a square (at least 32px x 32px) png-file.
     favicon = "images/favicon.png"
@@ -26,12 +26,12 @@ title = "ARKEnsae - Des statistiques pour bien manger"
     # services like Twitter or Slack want to generate a preview of a link to your site.
     # See https://gohugo.io/templates/internal#twitter-cards and
     # https://gohugo.io/templates/internal#open-graph.
-    images = ["images/cover-image.jpg"]
+    images = ["images/cover-image.png"]
 
     # Another "title" :-). This one is used as the site_name on the Hugo's internal
     # opengraph structured data template.
     # See https://ogp.me/ and https://gohugo.io/templates/internal#open-graph.
-    title = "ARKEnsae - Des statistiques pour bien manger"
+    title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
 
     # This theme will, by default, inject a design-by-line at the bottom of the page.
     # You can turn it off, but we would really appreciate if you don’t :-)
@@ -39,3 +39,9 @@ title = "ARKEnsae - Des statistiques pour bien manger"
 
     [params.meta]
         keywords = "some, keywords, for, seo, you, know, google, duckduckgo, and, such"
+
+# Pour que l'html s'affiche dans les pages
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true

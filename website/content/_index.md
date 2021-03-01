@@ -1,6 +1,6 @@
 ---
-header_headline: Des statistiques pour bien manger
-header_image: images/cover-image.jpg
-header_subheadline: Exploration des données d'Openfoodfacts 
+header_headline: Bien s'alimenter pour être en bonne santé
+header_image: images/cover-image.png
+header_subheadline: Datavisualisations à partir des données d'Openfoodfacts 
  
 ---

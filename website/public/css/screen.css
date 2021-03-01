@@ -500,7 +500,7 @@ ul li {
   height: 100px; /* NEW*/
   margin-bottom: 0rem;
   text-align: center;
-  color: #fff;
+  color: #000; /*NEW* #fff*/
   background: #b80135 no-repeat center center;
   background-size: cover;
 }
@@ -531,6 +531,8 @@ ul li {
   margin: 10px 0 10px 0;
   font-size: 5rem;
   letter-spacing: -1px;
+  color:#000; /*NEW*/
+  background:#fff; /*NEW*/
   animation: slide-from-right 1s cubic-bezier(0.87, 0, 0.13, 1) forwards; /*NEW*/
   animation-delay: 100ms; /*NEW*/
 
@@ -542,6 +544,7 @@ ul li {
   line-height: 1.5em;
   font-weight: 400;
   font-family: "Roboto Slab", serif;
+  color:#00000; /*NEW*/
   letter-spacing: 0;
 }
 
@@ -987,11 +990,14 @@ a.fn-item.active {
     padding: 15% 0;
     height: 100%;
     margin-bottom: 0rem;
+    backgroud-color: #000; /*NEW*/
   }
 
   .blog-title {
     font-size: 4rem;
     letter-spacing: -1px;
+    color:#000; /*NEW*/
+    background:#fff; /*NEW*/
   }
 
   .blog-description {

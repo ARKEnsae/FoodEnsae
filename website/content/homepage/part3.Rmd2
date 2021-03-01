@@ -1,0 +1,114 @@
+---
+title: "Partie 2"
+weight: 2
+---
+
+Explorons un peu les principales marques et les nutriscores de leurs produits !
+
+Pour rappel, le Nutri-Score est un logo qui montre la qualité nutritionnelle des produits alimentaires de A à E. Avec le NutriScore, les produits peuvent être comparés facilement et rapidement. C'est un score créé par la France donc il est forcément intéressant, utilisons le !
+![nutriscore](images/nutriscore-a.png)
+
+La note Nutri-Score est déterminée par la quantité de nutriments sains et malsains:
+
+- Points négatifs : énergie, graisses saturées, sucres, sodium (des niveaux élevés sont considérés comme malsains)
+
+- Points positifs : la proportion de fruits, légumes et noix, d'huiles d'olive, de colza et de noix, de fibres et de protéines (des teneurs élevées sont considérées comme bonnes pour la santé).
+
+Cliquer [ici](https://world.openfoodfacts.org/nutriscore) pour plus d'informations !
+
+```{r, include=FALSE}
+library(highcharter)
+library(widgetframe)
+library(dplyr)
+brand_grade_t15 <- 
+structure(list(brands = c("Carrefour", "Auchan", "U", "Carrefour", 
+                         "Auchan", "U", "U", "Auchan", "Carrefour", "Carrefour", "Casino", 
+                         "Auchan", "Casino", "U", "Auchan", "Casino", "Carrefour", "U", 
+                         "Meijer", "Picard", "Lindt", "Meijer", "Great Value", "Leader Price", 
+                         "Kroger", "Casino", "Casino", "Spartan", "Picard", "Leader Price", 
+                         "Haribo", "Hacendado", "Kroger", "Picard", "Great Value", "Hacendado", 
+                         "Ahold", "Bonduelle", "Leader Price", "Meijer", "Spartan", "Leader Price", 
+                         "Picard", "Hacendado", "Kroger", "Ahold", "Leader Price", "Ahold", 
+                         "Hacendado", "Great Value", "Meijer", "Spartan", "Kroger", "Ahold", 
+                         "Ahold", "Hacendado", "Meijer", "Spartan", "Great Value", "Great Value", 
+                         "Kroger", "Spartan", "Picard", "Bonduelle", "Lindt", "Bonduelle", 
+                         "Haribo", "Haribo", "Haribo", "Lindt", "Bonduelle", "Lindt"), 
+              nutriscore_grade = c("d", "d", "d", "c", "c", "a", "c", "a", 
+                                   "a", "e", "d", "b", "a", "b", "e", "c", "b", "e", "d", "a", 
+                                   "e", "a", "d", "d", "d", "b", "e", "d", "d", "c", "d", "c", 
+                                   "a", "c", "a", "d", "d", "a", "a", "c", "a", "e", "b", "a", 
+                                   "c", "c", "b", "a", "b", "c", "e", "c", "e", "b", "e", "e", 
+                                   "b", "e", "b", "e", "b", "b", "e", "b", "d", "c", "e", "b", 
+                                   "c", "c", "d", "b"), n = c(1015L, 967L, 959L, 894L, 791L, 
+                                                              768L, 743L, 729L, 668L, 604L, 594L, 549L, 531L, 521L, 520L, 
+                                                              515L, 507L, 502L, 475L, 440L, 429L, 423L, 407L, 407L, 383L, 
+                                                              376L, 337L, 332L, 331L, 327L, 322L, 306L, 306L, 299L, 296L, 
+                                                              295L, 289L, 284L, 280L, 277L, 262L, 259L, 258L, 241L, 228L, 
+                                                              219L, 218L, 217L, 212L, 199L, 186L, 168L, 156L, 148L, 147L, 
+                                                              142L, 141L, 140L, 137L, 119L, 111L, 93L, 84L, 53L, 24L, 13L, 
+                                                              12L, 4L, 3L, 2L, 1L, 1L)), row.names = c(NA, -72L), class = c("data.frame"))
+brand_grade_t15$nutriscore_grade <- toupper(brand_grade_t15$nutriscore_grade)
+```
+
+D'abord un treemap :
+
+```{r, echo=FALSE}
+lvl_opts <-  list(
+  list(
+    level = 1,
+    borderWidth = 0,
+    borderColor = "transparent",
+    dataLabels = list(
+      enabled = TRUE,
+      align = "left",
+      verticalAlign = "top",
+      style = list(fontSize = "12px", textOutline = FALSE, color = "white")
+    )
+  ),
+  list(
+    level = 2,
+    borderWidth = 0,
+    borderColor = "transparent",
+    colorVariation = list(key = "brightness", to = 0.250),
+    dataLabels = list(enabled = FALSE),
+    style = list(fontSize = "8px", textOutline = FALSE, color = "white")
+  )
+)
+
+hchart(
+  data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade), n),
+  type = "treemap",
+  # levelIsConstant = FALSE,
+  # allowDrillToNode = TRUE,
+  levels = lvl_opts,
+  tooltip = list(valueDecimals = FALSE)
+) %>% 
+  hc_chart(
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>% 
+  hc_title(
+    text = "Nombre de produits par nutriscore des principales marques",
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>% frameWidget()
+```
+
+Ensuite un histogramme :
+```{r,echo=FALSE}
+hchart(
+  brand_grade_t15, 
+  "bar",
+  hcaes(x = brands, y = n, group = nutriscore_grade)
+) %>% 
+  hc_chart(
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>% 
+  hc_title(
+    text = "Nombre de produits par nutriscore des principales marques",
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>% 
+  hc_yAxis(
+    title = list(text="Nombre de produits"))%>% 
+  hc_xAxis(
+    title = list(text="")) %>% frameWidget()
+```
+
