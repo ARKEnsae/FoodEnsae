@@ -18,9 +18,9 @@ options(highcharter.lang = hcoptslang_nouv)
 ```
 
 
-Certains pays (comme l'Espagne et l'Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu'en France !
+Certains pays (comme l'Espagne et l'Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu'en France ! 
 
-```{r, echo=FALSE}
+```{r bar, echo=FALSE}
 titre <- "Nutriscore principaux pays"
 caption_txt <- paste(c(
   paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
@@ -64,14 +64,15 @@ p%>%
   hc_caption(
     text = caption_txt,
     style = list(fontSize = "10px")
-  ) %>% hc_legend(reversed=T) %>% frameWidget()
+  ) %>% hc_legend(reversed=T) %>% 
+  frameWidget(elementId = "barCountry")
 ```
 
 
 Mais attention, ces disparités peuvent aussi s'expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu'ailleurs !!
 
 ```{r,echo=FALSE}
-titre <- "Nombre de produits par vendus par pays"
+titre <- "Nombre de produits vendus par pays"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
                          "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
                          "NB : certains produits peuvent être vendus dans plusieurs pays"),
@@ -80,7 +81,7 @@ caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 
         bubble_plot$country[1],
         bubble_plot$tot[1]/bubble_plot$tot[2],
         bubble_plot$country[2])
-frameWidget(hchart(
+hchart(
   bubble_plot,
   type="packedbubble",
   hcaes(name = country, value = tot),
@@ -93,7 +94,7 @@ frameWidget(hchart(
   ) %>% 
   hc_plotOptions(
     packedbubble = list(
-      maxSize = "150%",
+      maxSize = "400%",
       # layoutAlgorithm = list(
       #   gravitationalConstant =  0.05,
       #   seriesInteraction = TRUE,
@@ -119,5 +120,6 @@ frameWidget(hchart(
   hc_caption(
     text = caption_txt,
     style = list(fontSize = "10px")
-  ))
+  ) %>% 
+  frameWidget(elementId = "bubbleCountry")
 ```

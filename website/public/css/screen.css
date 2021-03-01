@@ -531,6 +531,7 @@ ul li {
   margin: 10px 0 10px 0;
   font-size: 5rem;
   letter-spacing: -1px;
+<<<<<<< HEAD
   color:#000; 
   /*background:#fff;*/ /*NEW*/
   /*background-clip: padding-box;*/
@@ -540,6 +541,17 @@ ul li {
   /*width: auto;  Making auto-sizable width */
   /*height: auto; Making auto-sizable height */
   /*padding: 5px 10px 5px 10px; /* Making space around letters */
+=======
+  color:#000; /*NEW*/
+  background:#fff; /*NEW*/
+  background-clip: padding-box;
+  animation: slide-from-right 1s cubic-bezier(0.87, 0, 0.13, 1) forwards; /*NEW*/
+  animation-delay: 100ms; /*NEW*/
+  border-radius: 20px; /* Making border radius */
+  width: auto; /* Making auto-sizable width */
+  height: auto; /* Making auto-sizable height */
+  padding: 5px 10px 5px 10px; /* Making space around letters */
+>>>>>>> d8df3a21293afb0e5fda98f882613d1bea983a73
     
 }
 
@@ -550,7 +562,11 @@ ul li {
   font-weight: 400;
   font-family: "Roboto Slab", serif;
   letter-spacing: 0;
+<<<<<<< HEAD
   color:#3cd535; /*NEW*/
+=======
+  color:#ff000; /*NEW*/
+>>>>>>> d8df3a21293afb0e5fda98f882613d1bea983a73
   text-shadow: 1px -1px #ffffff, -1px -1px #ffffff, -1px 1px #ffffff, 1px 1px #ffffff;
 }
 

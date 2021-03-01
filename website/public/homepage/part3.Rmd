@@ -1,6 +1,6 @@
 ---
-title: "Partie 3"
-weight: 1
+title: "Partie 2"
+weight: 2
 ---
 
 Explorons un peu les principales marques et les nutriscores de leurs produits !
