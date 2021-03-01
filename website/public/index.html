@@ -59,34 +59,38 @@
 
 <style>
       
-     a:hover {
+      a:hover {
          color: #b6b84c;
      }
 
       
      a.btn {
          color: white;
-          background-color: #ced067;
+          background-color: #3cd535;   
      }
      a.btn:hover {
-          background-color: #b6b84c;
+          background-color: #d535b5;  
      }
 
       
+     a.fn-item {
+          color: #d535b5;  
+     }
      a.fn-item.active {
-          color: #b6b84c;
+          color: #ff75f8;  
      }
      a.fn-item:hover {
-          color: #ced067;
+          color: #ff75f8;  
      }
 
       
      .post-holder.odd {
-          background: #B80135;
-          color: white;
+          background: #FCFBD7;  
+          color: black;  
      }
      .post-holder {
-          background: #f2efe8;
+          color:black;  
+          background: #F5FCFF;  
      }
      body {
           color: #3A4145;
@@ -135,7 +139,7 @@
         <div id="site-head-content" class="inner">
 
             <h1 class="blog-title">Bien s&#39;alimenter pour être en bonne santé</h1>
-            <h2 class="blog-description">Exploration des données d&#39;Openfoodfacts</h2>
+            <h2 class="blog-description">Datavisualisations à partir des données d&#39;Openfoodfacts</h2>
 
             
                  <a class='btn site-menu' data-title-anchor='a-propos-de-nous'>A propos de nous</a>
@@ -150,12 +154,17 @@
     </div>
     
         <div class='post-holder'>
-            <article id='partie-1' class='post first'>
+            <article id='' class='post first'>
                 <header class="post-header">
-                    <h2 class="post-title">Partie 1</h2>
+                    <h2 class="post-title"> </h2>
                 </header>
                 <section class="post-content"  data-aos="fade-up" data-aos-duration="3000">
-                    <p>La nourriture passionne le monde entier&hellip;</p>
+                    <!--<main class="container">-->
+  <section class="effect effect-c">
+    <h1 class="effect__heading">“Que ton aliment soit ta seule médecine.” </h1>
+    <h2 class="effect__subheading">Hippocrate</h2>
+  </section>
+<!--</main>-->
 
                 </section>
             </article>
@@ -166,19 +175,6 @@
             <article id='partie-2' class='post '>
                 <header class="post-header">
                     <h2 class="post-title">Partie 2</h2>
-                </header>
-                <section class="post-content"  data-aos="fade-up" data-aos-duration="3000">
-                    <p>Pour les grands et les petits&hellip;</p>
-
-                </section>
-            </article>
-            <div class='post-after'></div>
-        </div>
-    
-        <div class='post-holder'>
-            <article id='partie-3' class='post '>
-                <header class="post-header">
-                    <h2 class="post-title">Partie 3</h2>
                 </header>
                 <section class="post-content"  data-aos="fade-up" data-aos-duration="3000">
                     
@@ -212,13 +208,40 @@
         </div>
     
         <div class='post-holder'>
+            <article id='nutriscore-par-pays' class='post '>
+                <header class="post-header">
+                    <h2 class="post-title">Nutriscore par pays</h2>
+                </header>
+                <section class="post-content"  data-aos="fade-up" data-aos-duration="3000">
+                    
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<link href="/rmarkdown-libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/anchor-sections/anchor-sections.js"></script>
+<script src="/rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="/rmarkdown-libs/pymjs/pym.v1.js"></script>
+<script src="/rmarkdown-libs/widgetframe-binding/widgetframe.js"></script>
+
+
+<p>Certains pays (comme l’Espagne et l’Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu’en France !</p>
+<div id="htmlwidget-1" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"url":"/homepage/by_country_files/figure-html//widgets/widget_unnamed-chunk-2.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+<p>Mais attention, ces disparités peuvent aussi s’expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu’ailleurs !!</p>
+<div id="htmlwidget-2" style="width:100%;height:480px;" class="widgetframe html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2">{"x":{"url":"/homepage/by_country_files/figure-html//widgets/widget_unnamed-chunk-3.html","options":{"xdomain":"*","allowfullscreen":false,"lazyload":false}},"evals":[],"jsHooks":[]}</script>
+
+                </section>
+            </article>
+            <div class='post-after'></div>
+        </div>
+    
+        <div class='post-holder'>
             <article id='a-propos-de-nous' class='post last'>
                 <header class="post-header">
                     <h2 class="post-title">A propos de nous</h2>
                 </header>
                 <section class="post-content"  data-aos="fade-up" data-aos-duration="3000">
                     <p><img src="images/avatar.png" alt="ARKEnsae"></p>
-<p>Nous sommes deux étudiants de l&rsquo;ENSAE passionnés par les <!-- raw HTML omitted -->data<!-- raw HTML omitted -->.</p>
+<p>Nous sommes deux étudiants de l&rsquo;ENSAE passionnés par les <b>data</b>.</p>
 <p><i class="fa fa-envelope show-on-scroll"></i> <a href="https://github.com/ARKEnsae/Data_Storytelling">github.com/ARKEnsae/Data_Storytelling</a></p>
 
                 </section>
