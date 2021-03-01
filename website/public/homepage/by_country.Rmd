@@ -23,12 +23,12 @@ La base de données d'**Openfoodfacts**, d'initiative Française, contient **une
 ```{r,echo=FALSE}
 titre <- "Nombre de produits vendus par pays"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
-                         "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
+                         "Le plus gros pays vendeur (%s) vend %s plus de produits que le second plus gros pays (%s).",
                          "NB : certains produits peuvent être vendus dans plusieurs pays"),
                          collapse = "<br>"),
         nrow(bubble_plot),
         bubble_plot$country[1],
-        bubble_plot$tot[1]/bubble_plot$tot[2],
+        formatC(bubble_plot$tot[1]/bubble_plot$tot[2],digits = 3, decimal.mark=","),
         bubble_plot$country[2])
 hchart(
   bubble_plot,
@@ -70,6 +70,9 @@ hchart(
     text = caption_txt,
     style = list(fontSize = "10px")
   ) %>% 
+  hc_size(
+    height = 300
+    ) %>% 
   frameWidget(elementId = "bubbleCountry")
 ```
 

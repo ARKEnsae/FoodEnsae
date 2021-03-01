@@ -9,6 +9,7 @@ Explorons les principales **marques** et les **nutri-scores** de leurs produits.
 library(highcharter)
 library(widgetframe)
 library(dplyr)
+colors_grade <- readRDS("data/colors.RDS")
 brand_grade_t15 <- 
 structure(list(brands = c("Carrefour", "Auchan", "U", "Carrefour", 
                          "Auchan", "U", "U", "Auchan", "Carrefour", "Carrefour", "Casino", 
@@ -40,12 +41,22 @@ brand_grade_t15$nutriscore_grade <- toupper(brand_grade_t15$nutriscore_grade)
 ```
 
 
-```{r, echo=FALSE}
+```{r treemapBrand, echo=FALSE}
+data_plot <- data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade),n)
+data_plot2 <- lapply(data_plot,function(x){
+  if(x$level==1){
+    x$showInLegend = FALSE
+    return(x)
+  }else{
+    x$color = as.character(colors_grade[x$name])
+    return(x)
+  }
+})
 lvl_opts <-  list(
   list(
     level = 1,
-    borderWidth = 0,
-    borderColor = "transparent",
+    borderWidth = 4,
+    borderColor = "black",
     dataLabels = list(
       enabled = TRUE,
       align = "left",
@@ -56,36 +67,38 @@ lvl_opts <-  list(
   list(
     level = 2,
     borderWidth = 0,
-    borderColor = "transparent",
-    colorVariation = list(key = "brightness", to = 0.250),
-    dataLabels = list(enabled = FALSE),
+    borderColor = "white",
+    # colorVariation = list(key = "brightness", to = 0.250),
+    dataLabels = list(enabled = FALSE), # pour ne pas afficher legend sur graph
     style = list(fontSize = "8px", textOutline = FALSE, color = "white")
   )
 )
-
 hchart(
-  data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade), n),
+  data_plot2,
   type = "treemap",
   # levelIsConstant = FALSE,
   # allowDrillToNode = TRUE,
   levels = lvl_opts,
-  tooltip = list(valueDecimals = FALSE)
+  tooltip = list(valueDecimals = FALSE),
+  showInLegend = FALSE,
+  legendType= 'point'
 ) %>% 
   hc_chart(
     style = list(fontFamily = "Gloria Hallelujah")
   ) %>% 
   hc_title(
-    text = "Nombre de produits par nutriscore des principales marques",
+    text = "Nutriscore des produits des principales marques",
     style = list(fontFamily = "Gloria Hallelujah")
-  ) %>% frameWidget()
+  )%>% frameWidget(elementId = "treemapBrand")
 ```
 
 
-```{r,echo=FALSE}
+```{r barBrand,echo=FALSE}
 hchart(
   brand_grade_t15, 
   "bar",
-  hcaes(x = brands, y = n, group = nutriscore_grade)
+  hcaes(x = brands, y = n, group = nutriscore_grade),
+  color = c(colors_grade)
 ) %>% 
   hc_chart(
     style = list(fontFamily = "Gloria Hallelujah")
@@ -97,6 +110,7 @@ hchart(
   hc_yAxis(
     title = list(text="Nombre de produits"))%>% 
   hc_xAxis(
-    title = list(text="")) %>% frameWidget()
+    title = list(text="")) %>% 
+  frameWidget(elementId = "barBrand")
 ```
 

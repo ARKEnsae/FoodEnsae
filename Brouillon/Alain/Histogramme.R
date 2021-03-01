@@ -65,7 +65,8 @@ c(56,66)
 hchart(
   brand_grade_t15, 
   "bar",
-  hcaes(x = brands, y = n, group = nutriscore_grade)
+  hcaes(x = brands, y = n, group = nutriscore_grade),
+  color = c(colors_grade)
 ) %>% 
   hc_chart(
     style = list(fontFamily = "Gloria Hallelujah")
