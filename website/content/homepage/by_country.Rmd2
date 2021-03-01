@@ -72,7 +72,7 @@ p%>%
 Mais attention, ces disparités peuvent aussi s'expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu'ailleurs !!
 
 ```{r,echo=FALSE}
-titre <- "Nombre de produits par vendus par pays"
+titre <- "Nombre de produits vendus par pays"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
                          "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
                          "NB : certains produits peuvent être vendus dans plusieurs pays"),
