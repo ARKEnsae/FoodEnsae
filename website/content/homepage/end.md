@@ -4,8 +4,10 @@ weight: 20
 header_menu: true
 ---
 
-![ARKEnsae](images/avatar.png)
+Nous sommes **Kim** et **Alain**, deux étudiants de l'**ENSAE** passionnés par l'**Open-data**. 
+<img src="images/avatar.png" alt="Kim et Alain" height="150"> 
 
-Nous sommes deux étudiants de l'ENSAE passionnés par les <b>data</b>. 
+Cette page web a été réalisée dans le cadre d'un projet libre pour un cours dédié à la **datavisualisation**. 
 
-{{<icon class="fa fa-envelope show-on-scroll">}}&nbsp;[github.com/ARKEnsae/Data_Storytelling](https://github.com/ARKEnsae/Data_Storytelling)
+Vous pouvez nous contacter sur [**notre github**](https://github.com/ARKEnsae) pour toute demande.
+

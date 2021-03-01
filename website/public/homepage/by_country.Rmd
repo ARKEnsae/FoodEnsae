@@ -1,5 +1,5 @@
 ---
-title: "Nutriscore par pays"
+title: "Nutri-score par pays"
 weight: 3
 ---
 
@@ -18,9 +18,64 @@ options(highcharter.lang = hcoptslang_nouv)
 ```
 
 
-Certains pays (comme l'Espagne et l'Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu'en France ! 
+La base de données d'**Openfoodfacts**, d'initiative Française, contient **une majorité de produits vendus en France**. Pour les autres pays du monde, la base est donc loin d'être exhaustive. 
 
-```{r, echo=FALSE}
+```{r,echo=FALSE}
+titre <- "Nombre de produits vendus par pays"
+caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
+                         "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
+                         "NB : certains produits peuvent être vendus dans plusieurs pays"),
+                         collapse = "<br>"),
+        nrow(bubble_plot),
+        bubble_plot$country[1],
+        bubble_plot$tot[1]/bubble_plot$tot[2],
+        bubble_plot$country[2])
+hchart(
+  bubble_plot,
+  type="packedbubble",
+  hcaes(name = country, value = tot),
+  name = ""
+) %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = "<b>{point.name} :</b> {point.value}",
+    headerFormat=""
+  ) %>% 
+  hc_plotOptions(
+    packedbubble = list(
+      maxSize = "400%",
+      # layoutAlgorithm = list(
+      #   gravitationalConstant =  0.05,
+      #   seriesInteraction = TRUE,
+      #   dragBetweenSeries = TRUE,
+      #   parentNodeLimit = TRUE
+      # ),
+      dataLabels = list(
+        enabled = TRUE,
+        format = "{point.name}",
+        style = list(
+          color = "black",
+          textOutline = "none",
+          fontWeight = "normal"
+        )
+      )
+    ),
+    series = list(showInLegend = FALSE)
+  )%>% 
+  hc_title(
+    text = titre,
+    style = list(fontFamily = "Gloria Hallelujah")
+  )%>%
+  hc_caption(
+    text = caption_txt,
+    style = list(fontSize = "10px")
+  ) %>% 
+  frameWidget(elementId = "bubbleCountry")
+```
+
+Parmi les aliments référencés dans les 10 pays les plus représentés dans la base d'Openfoodfacts, la **France** se situe en **8ème position** dans ses ventes d'aliments à la qualité nutritionnelle élevée : **36,4 % de produits classés A ou B**, loin derrière l'**Espagne** (**51,8 %**) et l'**Italie** (**45,5 %**). 
+
+```{r bar, echo=FALSE}
 titre <- "Nutriscore principaux pays"
 caption_txt <- paste(c(
   paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
@@ -64,60 +119,8 @@ p%>%
   hc_caption(
     text = caption_txt,
     style = list(fontSize = "10px")
-  ) %>% hc_legend(reversed=T) %>% frameWidget()
+  ) %>% hc_legend(reversed=T) %>% 
+  frameWidget(elementId = "barCountry")
 ```
 
 
-Mais attention, ces disparités peuvent aussi s'expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu'ailleurs !!
-
-```{r,echo=FALSE}
-titre <- "Nombre de produits par vendus par pays"
-caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
-                         "Le plus gros pays vendeur (%s) vend %.2f plus de produits que le second plus gros pays (%s).",
-                         "NB : certains produits peuvent être vendus dans plusieurs pays"),
-                         collapse = "<br>"),
-        nrow(bubble_plot),
-        bubble_plot$country[1],
-        bubble_plot$tot[1]/bubble_plot$tot[2],
-        bubble_plot$country[2])
-frameWidget(hchart(
-  bubble_plot,
-  type="packedbubble",
-  hcaes(name = country, value = tot),
-  name = ""
-) %>% 
-  hc_tooltip(
-    useHTML = TRUE,
-    pointFormat = "<b>{point.name} :</b> {point.value}",
-    headerFormat=""
-  ) %>% 
-  hc_plotOptions(
-    packedbubble = list(
-      maxSize = "150%",
-      # layoutAlgorithm = list(
-      #   gravitationalConstant =  0.05,
-      #   seriesInteraction = TRUE,
-      #   dragBetweenSeries = TRUE,
-      #   parentNodeLimit = TRUE
-      # ),
-      dataLabels = list(
-        enabled = TRUE,
-        format = "{point.name}",
-        style = list(
-          color = "black",
-          textOutline = "none",
-          fontWeight = "normal"
-        )
-      )
-    ),
-    series = list(showInLegend = FALSE)
-  )%>% 
-  hc_title(
-    text = titre,
-    style = list(fontFamily = "Gloria Hallelujah")
-  )%>%
-  hc_caption(
-    text = caption_txt,
-    style = list(fontSize = "10px")
-  ))
-```

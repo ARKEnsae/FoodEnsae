@@ -1,5 +1,5 @@
 ---
-title: "Nutriscore par pays"
+title: "Nutri-score par pays"
 weight: 3
 ---
 
@@ -18,58 +18,7 @@ options(highcharter.lang = hcoptslang_nouv)
 ```
 
 
-Certains pays (comme l'Espagne et l'Italie) vendent en proportion plus de produits avec un bon nutriscore (note A ou B) qu'en France ! 
-
-```{r bar, echo=FALSE}
-titre <- "Nutriscore principaux pays"
-caption_txt <- paste(c(
-  paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
-                collapse = " ; "),"."),
-"On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts."),
-collapse = "<br>")
-
-
-p <- hchart(
-  top_n, 
-  type="bar",
-  hcaes(x = country, y = n_prop, group = nutriscore_grade,
-        index = nutriscore_grade),
-  color = colors_grade,
-  reversed=TRUE
-)
-
-p$x$hc_opts$series[[1]]$index = 4
-p$x$hc_opts$series[[2]]$index = 3
-p$x$hc_opts$series[[3]]$index = 2
-p$x$hc_opts$series[[4]]$index = 1
-p$x$hc_opts$series[[5]]$index = 0
-
-p%>%
-  hc_chart(
-    style = list(fontFamily = "Gloria Hallelujah")
-  ) %>%
-  hc_title(
-    text = titre,
-    style = list(fontFamily = "Gloria Hallelujah")
-  ) %>%
-  hc_yAxis(
-    title = list(text="Pourcentage du total"),
-    labels = list(format = "{value} %"),
-    max = 100
-  )%>%
-  hc_xAxis(
-    title = list(text="")) %>%
-  hc_plotOptions(series=list(stacking="normal"))%>%
-  hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
-  hc_caption(
-    text = caption_txt,
-    style = list(fontSize = "10px")
-  ) %>% hc_legend(reversed=T) %>% 
-  frameWidget(elementId = "barCountry")
-```
-
-
-Mais attention, ces disparités peuvent aussi s'expliquer par le fait que dans la base il y a bien plus de produits vendus en France qu'ailleurs !!
+La base de données d'**Openfoodfacts**, d'initiative Française, contient **une majorité de produits vendus en France**. Pour les autres pays du monde, la base est donc loin d'être exhaustive. 
 
 ```{r,echo=FALSE}
 titre <- "Nombre de produits vendus par pays"
@@ -123,3 +72,55 @@ hchart(
   ) %>% 
   frameWidget(elementId = "bubbleCountry")
 ```
+
+Parmi les aliments référencés dans les 10 pays les plus représentés dans la base d'Openfoodfacts, la **France** se situe en **8ème position** dans ses ventes d'aliments à la qualité nutritionnelle élevée : **36,4 % de produits classés A ou B**, loin derrière l'**Espagne** (**51,8 %**) et l'**Italie** (**45,5 %**). 
+
+```{r bar, echo=FALSE}
+titre <- "Nutriscore principaux pays"
+caption_txt <- paste(c(
+  paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
+                collapse = " ; "),"."),
+"On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts."),
+collapse = "<br>")
+
+
+p <- hchart(
+  top_n, 
+  type="bar",
+  hcaes(x = country, y = n_prop, group = nutriscore_grade,
+        index = nutriscore_grade),
+  color = colors_grade,
+  reversed=TRUE
+)
+
+p$x$hc_opts$series[[1]]$index = 4
+p$x$hc_opts$series[[2]]$index = 3
+p$x$hc_opts$series[[3]]$index = 2
+p$x$hc_opts$series[[4]]$index = 1
+p$x$hc_opts$series[[5]]$index = 0
+
+p%>%
+  hc_chart(
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>%
+  hc_title(
+    text = titre,
+    style = list(fontFamily = "Gloria Hallelujah")
+  ) %>%
+  hc_yAxis(
+    title = list(text="Pourcentage du total"),
+    labels = list(format = "{value} %"),
+    max = 100
+  )%>%
+  hc_xAxis(
+    title = list(text="")) %>%
+  hc_plotOptions(series=list(stacking="normal"))%>%
+  hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
+  hc_caption(
+    text = caption_txt,
+    style = list(fontSize = "10px")
+  ) %>% hc_legend(reversed=T) %>% 
+  frameWidget(elementId = "barCountry")
+```
+
+

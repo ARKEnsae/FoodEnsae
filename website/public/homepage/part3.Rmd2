@@ -1,20 +1,10 @@
 ---
 title: "Partie 2"
-weight: 2
+weight: 3
 ---
 
 Explorons un peu les principales marques et les nutriscores de leurs produits !
 
-Pour rappel, le Nutri-Score est un logo qui montre la qualité nutritionnelle des produits alimentaires de A à E. Avec le NutriScore, les produits peuvent être comparés facilement et rapidement. C'est un score créé par la France donc il est forcément intéressant, utilisons le !
-![nutriscore](images/nutriscore-a.png)
-
-La note Nutri-Score est déterminée par la quantité de nutriments sains et malsains:
-
-- Points négatifs : énergie, graisses saturées, sucres, sodium (des niveaux élevés sont considérés comme malsains)
-
-- Points positifs : la proportion de fruits, légumes et noix, d'huiles d'olive, de colza et de noix, de fibres et de protéines (des teneurs élevées sont considérées comme bonnes pour la santé).
-
-Cliquer [ici](https://world.openfoodfacts.org/nutriscore) pour plus d'informations !
 
 ```{r, include=FALSE}
 library(highcharter)
