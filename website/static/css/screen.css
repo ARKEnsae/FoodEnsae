@@ -497,10 +497,10 @@ ul li {
   position: relative;
   display: table;
   width: 100%;
-  height: 100px; /* NEW*/
+  height: 300px; /* NEW*/
   margin-bottom: 0rem;
   text-align: center;
-  color: #000; /*NEW* #fff*/
+  color: #fff; /*NEW* #fff*/
   background: #b80135 no-repeat center center;
   background-size: cover;
 }
@@ -529,17 +529,17 @@ ul li {
 /* The details of your blog. Defined in ghost/settings/ */
 .blog-title {
   margin: 10px 0 10px 0;
-  font-size: 5rem;
+  font-size: 4rem;
   letter-spacing: -1px;
-  color:#000; /*NEW*/
-  background:#fff; /*NEW*/
-  background-clip: padding-box;
+  color:#fff; 
+  /*background:#fff;*/ /*NEW*/
+  /*background-clip: padding-box;*/
   animation: slide-from-right 1s cubic-bezier(0.87, 0, 0.13, 1) forwards; /*NEW*/
   animation-delay: 100ms; /*NEW*/
   border-radius: 20px; /* Making border radius */
-  width: auto; /* Making auto-sizable width */
-  height: auto; /* Making auto-sizable height */
-  padding: 5px 10px 5px 10px; /* Making space around letters */
+  /*width: auto;  Making auto-sizable width */
+  /*height: auto; Making auto-sizable height */
+  /*padding: 5px 10px 5px 10px; /* Making space around letters */
     
 }
 
@@ -550,8 +550,8 @@ ul li {
   font-weight: 400;
   font-family: "Roboto Slab", serif;
   letter-spacing: 0;
-  color:#ff000; /*NEW*/
-  text-shadow: 1px -1px #ffffff, -1px -1px #ffffff, -1px 1px #ffffff, 1px 1px #ffffff;
+  color:white; /*NEW*/
+  /*text-shadow: 1px -1px #ffffff, -1px -1px #ffffff, -1px 1px #ffffff, 1px 1px #ffffff;*/
 }
 
 .post-holder {
@@ -1003,8 +1003,6 @@ a.fn-item.active {
   .blog-title {
     font-size: 4rem;
     letter-spacing: -1px;
-    color:#000; /*NEW*/
-    background:#fff; /*NEW*/
   }
 
   .blog-description {

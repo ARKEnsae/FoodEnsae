@@ -9,7 +9,7 @@ defaultContentLanguage = "fr"
 theme = "hugo-scroll"
 
 # The "title" of your website
-title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
+title = "ARKEnsae - Manger mieux pour vivre mieux"
 
 [params]
     # A "copyright"-line to be added at the bottom of the page.
@@ -17,7 +17,7 @@ title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
     copyright = "© ARKEnsae Kim & Alain 2021"
 
     # The "description" of your website. This is used in the meta data of your generated html.
-    description = "Bien s'alimenter pour être en bonne santé"
+    description = "Manger mieux pour vivre mieux"
 
     # The path to your "favicon". This should be a square (at least 32px x 32px) png-file.
     favicon = "images/favicon.png"
@@ -31,7 +31,7 @@ title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
     # Another "title" :-). This one is used as the site_name on the Hugo's internal
     # opengraph structured data template.
     # See https://ogp.me/ and https://gohugo.io/templates/internal#open-graph.
-    title = "ARKEnsae - Bien s'alimenter pour être en bonne santé"
+    title = "ARKEnsae - Manger mieux pour vivre mieux"
 
     # This theme will, by default, inject a design-by-line at the bottom of the page.
     # You can turn it off, but we would really appreciate if you don’t :-)
