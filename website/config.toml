@@ -11,6 +11,9 @@ theme = "hugo-scroll"
 # The "title" of your website
 title = "ARKEnsae - Manger mieux pour vivre mieux"
 
+# Enable Google Analytics by entering your tracking code
+googleAnalytics = "UA-190914709-1"
+
 [params]
     # A "copyright"-line to be added at the bottom of the page.
     # Hint: Markdown is supported in here as well. So you may e.g. add a link to your legal imprint-page.
