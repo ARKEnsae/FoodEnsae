@@ -59,7 +59,7 @@ donnees_nutri <- donnees_nutri_nova %>%
   mutate(borne_max=400000)
 
 p1 <- r2d3(data = donnees_nutri, 
-     container = "div",
+     container = "cont",
      script = "data/lollichart.js",
      height=300)
 ```
@@ -72,7 +72,7 @@ Une étude française menée par l'Inserm, l'Inra, le CNAM et la Sorbonne Paris-
 
 ##### 1. NOVA pour la transformation des aliments
 
-La **classification NOVA**^[Le coloris des catégories NOVA a été modifiée pour la lisibilité des graphique de l'étude.] renseigne sur le **degré de transformation** des produits alimentaires.
+La **classification NOVA**^[Le coloris des catégories NOVA a été modifié pour la lisibilité des graphique de l'étude.] renseigne sur le **degré de transformation** des produits alimentaires.
 
 ![](images/nova2.png)
 
@@ -96,8 +96,8 @@ donnees_nova <- donnees_nutri_nova %>%
   mutate(borne_max=400000)
 
 p2 <- r2d3(data = donnees_nova, 
-     container = "div",
-     script = "data/lollichart.js", 
+     container = "cont",
+     script = "data/lollichart.js",
      height=300)
 ```
 

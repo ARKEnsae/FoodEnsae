@@ -111,7 +111,7 @@
 html {
   height: 100%;
   max-height: 100%;
-  font-size: 62.5%;
+  font-size: 62.5%; 
   overflow-x: hidden;
 }
 
@@ -120,7 +120,7 @@ body {
   max-height: 100%;
   /*font-family: 'Droid Serif', serif;*/
   font-family: "Roboto Slab", serif;
-  font-size: 1.7rem; /*NEW 2 */
+  font-size: 1.7rem; /*NEW 2rem max(1.7rem, 30px)*/
   line-height: 1.6em /*NEW 1.6*/;
   color: #3a4145;
 }
@@ -303,7 +303,7 @@ blockquote p {
 }
 .quo {
   /*float: left;*/
-  margin-right: 10px;
+  margin-right: 10px;{}
   margin-left: 10px;
   font-size: 20px;
 }
@@ -1072,7 +1072,7 @@ a.fn-item.active {
     width: auto;
     margin-left: 16px;
     margin-right: 16px;
-    font-size: 0.5em; /*NEW*/
+    /*font-size: 0.5em;*/ /*NEW*/
     line-height: 1.6em;
   }
 

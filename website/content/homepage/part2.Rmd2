@@ -59,7 +59,7 @@ donnees_nutri <- donnees_nutri_nova %>%
   mutate(borne_max=400000)
 
 p1 <- r2d3(data = donnees_nutri, 
-     container = "div",
+     container = "cont",
      script = "data/lollichart.js",
      height=300)
 ```
@@ -96,8 +96,8 @@ donnees_nova <- donnees_nutri_nova %>%
   mutate(borne_max=400000)
 
 p2 <- r2d3(data = donnees_nova, 
-     container = "div",
-     script = "data/lollichart.js", 
+     container = "cont",
+     script = "data/lollichart.js",
      height=300)
 ```
 

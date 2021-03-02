@@ -1,22 +1,27 @@
+//var width = d3.select('cont').style('width');
 
 const df = data;
 
 
 // set the dimensions and margins of the graph
 var margin = {top: 10, right: 30, bottom: 60, left: 100},
-    width = 460 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
+    width2 = 460 - margin.left - margin.right,
+    height2 = 300 - margin.top - margin.bottom;
 
 // Margins etc
 
-var svg = div
 //var svg = d3.select("#my_dataviz")
+var svg = cont
   .append("svg")
-   .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height2 + margin.top + margin.bottom)
+//  .attr("viewBox", [0, 0, 100,100])
+   //.attr( 'preserveAspectRatio',"xMinYMin meet")
+   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
+
+
 
 // Parse the Data
 //d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum_header.csv", function(data) {
@@ -30,20 +35,26 @@ var svg = div
 const borne = d3.max(df.map(function(d) { return d.borne_max; }));
 //const borne = df.map(function(d) { return (d.borne_max)[0]; });
 
-// Add X axis
+const largeur_graphe = d3.min([width-margin.left - margin.right,width2]);
+
+  
+// Add X axis //enter().append("cont")
 var x = d3.scaleLinear()
   .domain([0, borne])
-  .range([ 0, width]);
+ .range([ 0, largeur_graphe]);
+ 
+  
 svg.append("g")
-  .attr("transform", "translate(0," + height + ")")
+  .attr("transform", "translate(0," + height2 + ")")
   .call(d3.axisBottom(x))
   .selectAll("text")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
+  
 
 // Y axis
 var y = d3.scaleBand()
-  .range([ 0, height ])
+  .range([ 0, height2 ])
   .domain(df.map(function(d) { return d.Country; }))
   //.domain(["A","B","C","D","E"])
   .padding(1);
@@ -53,7 +64,7 @@ var y = d3.scaleBand()
   //.attr('strock-width',0)
 svg.append("g")
   //.call(d3.axisLeft(y))
-  
+
 
 
 // X axis title
@@ -63,8 +74,8 @@ svg.selectAll("xtitle")
   .append("text")
     .text(function(d) { return d.titre; })
     .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + margin.top + 45)
+    .attr("x", largeur_graphe)
+    .attr("y", height2 + margin.top + 45)
     .attr("font-family" , "sans-serif")
     .attr("font-size" , "12px")
     
@@ -88,7 +99,7 @@ function transition() {
     .attr("y1", function(d) { return y(d.Country); })
     .attr("y2", function(d) { return y(d.Country); })
     .attr("stroke", function(d) { return d.color; })
-
+ 
   var timeCircle = svg.selectAll("mycircle")
     .data(df)
     .enter()
@@ -97,7 +108,8 @@ function transition() {
       .attr("cy", function(d) { return y(d.Country); })
       .attr("r", "15")
       .style("fill", function(d) { return d.color; })
-      
+
+    
     // InnerCircles -> start at X=0
    var timeInnerCircle = svg.selectAll("myinnercircle")
     .data(df)
@@ -107,6 +119,8 @@ function transition() {
     .attr("cy", function(d) { return y(d.Country); })
     .attr("r", "10")
     .style("fill", "white")
+   
+
 
       var timeLabel = svg.selectAll("mylabel")
       .data(df)
@@ -120,8 +134,7 @@ function transition() {
     .attr("font-weight" , 1000)
     .attr("fill" , function(d){return d.color})
     .attr("text-anchor", "middle")
-    
- 
+      
   
     repeat();
     
@@ -142,7 +155,10 @@ function transition() {
       
       // Change the X coordinates of line and circle
       timeCircle
-      .transition()
+     .on("mouseover", mouseover)
+     .on("mousemove", mousemove)
+     .on("mouseleave", mouseleave)
+    .transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.Value); })
       .transition()
@@ -182,3 +198,49 @@ function transition() {
 
 transition();
 
+//https://datatricks.co.uk/animated-d3-js-bar-chart-in-r
+//https://www.d3-graph-gallery.com/graph/histogram_tooltip.html
+// tooltips
+
+//Create a tooltip
+var Tooltip = d3.select('#htmlwidget_container')
+    .append('div')
+    .attr("class", "tooltip")
+    .style('position', 'absolute')
+    .style('background-color', 'rgba(255,255,255,0.8)')
+    .style('border-radius', '5px')
+    .style('padding', '5px')
+    .style('opacity', 0)
+    .style("font-family", "Tahoma, Geneva, sans-serif")
+    .style("font-size", "12pt");
+ 
+//Mouseover effects for tooltip
+var mouseover = function(d) {
+    Tooltip
+        .style('opacity', 1)
+        .style('box-shadow', '5px 5px 5px rgba(0,0,0,0.2)');
+    d3.select(this)
+        .attr('fill', 'rgba(100,0,0,1)');
+};
+var mousemove = function(d) {
+    Tooltip
+        .html('Hello')
+        .style("left", (d3.mouse(this)[0]+0) + "px")
+        .style("top", (d3.mouse(this)[1]+0) + "px")
+        .style("right", (d3.mouse(this)[0]+0) + "px")
+        .style("bottom", (d3.mouse(this)[0]+0) + "px");
+
+    };
+var mouseleave = function(d) {
+    Tooltip
+        .style("opacity", 0);
+   d3.select(this)
+  .style('transition', '0.4s all cubic-bezier(0.5,0.8,0,1.7)')
+  .attr("r", function (d) { return 18; });
+};
+
+
+//svg.selectAll('circle')
+ //   .on("mouseover", mouseover)
+  //  .on("mousemove", mousemove)
+   // .on("mouseleave", mouseleave);
