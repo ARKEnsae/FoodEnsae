@@ -4,9 +4,9 @@ const df = data;
 
 
 // set the dimensions and margins of the graph
-var margin = {top: 10, right: 30, bottom: 60, left: 100},
+var margin = {top: 10, right: 30, bottom: 100, left: 100},
     width2 = 460 - margin.left - margin.right,
-    height2 = 300 - margin.top - margin.bottom;
+    height2 = 320 - margin.top - margin.bottom;
 
 // Margins etc
 
@@ -32,15 +32,15 @@ var svg = cont
 //});
 
 //https://www.d3-graph-gallery.com/graph/basic_datamanipulation.html
-const borne = d3.max(df.map(function(d) { return d.borne_max; }));
-//const borne = df.map(function(d) { return (d.borne_max)[0]; });
+//const borne = d3.max(df.map(function(d) { return d.borne_max; })); works
+//const borne = df.map(function(d) { return (d.borne_max)[0]; }); do not work
 
 const largeur_graphe = d3.min([width-margin.left - margin.right,width2]);
 
   
 // Add X axis //enter().append("cont")
 var x = d3.scaleLinear()
-  .domain([0, borne])
+  .domain([0, options.borne_max])
  .range([ 0, largeur_graphe]);
  
   
@@ -72,14 +72,36 @@ svg.selectAll("xtitle")
   .data(df)
   .enter()
   .append("text")
-    .text(function(d) { return d.titre; })
+    //.text(function(d) { return d.titre; })
+    .text(options.titre)
     .attr("text-anchor", "end")
     .attr("x", largeur_graphe)
     .attr("y", height2 + margin.top + 45)
     .attr("font-family" , "sans-serif")
     .attr("font-size" , "12px")
     
+// X axis notes
+svg.selectAll("xtitle")
+  .data(df)
+  .enter()
+  .append("text")
+    .text(options.note1)
+    .attr("x", 0)
+    .attr("y", height2 + margin.top + 65)
+    .attr("font-family" , "sans-serif")
+    .attr("font-style" , "italic")
+    .attr("font-size" , "11px")
     
+svg.selectAll("xtitle")
+  .data(df)
+  .enter()
+  .append("text")
+    .text(options.note2)
+    .attr("x", 0)
+    .attr("y", height2 + margin.top + 80)
+    .attr("font-family" , "sans-serif")
+    .attr("font-style" , "italic")
+    .attr("font-size" , "11px")
  
 
 
@@ -108,6 +130,7 @@ function transition() {
       .attr("cy", function(d) { return y(d.Country); })
       .attr("r", "15")
       .style("fill", function(d) { return d.color; })
+   
 
     
     // InnerCircles -> start at X=0
@@ -155,8 +178,11 @@ function transition() {
       
       // Change the X coordinates of line and circle
       timeCircle
-     .on("mouseover", mouseover)
-     .on("mousemove", mousemove)
+ //     .on("mouseover", function() { mouseover2(); mouseover(); })
+ //    .on("mousemove2", function() { mousemove2(); mousemove(); })
+ // .on("mouseleave", function() { mouseleave2(); mouseleave(); })
+        .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
      .on("mouseleave", mouseleave)
     .transition()
       .duration(1000)
@@ -169,6 +195,9 @@ function transition() {
       .on("end", repeat);  // when the transition finishes start again
 
       timeInnerCircle
+       .on("mouseover", mouseover)
+    .on("mousemove", mousemove)
+     .on("mouseleave", mouseleave)
       .transition()
       .duration(1000)
       .attr("cx", function(d) { return x(d.Value); })
@@ -207,40 +236,81 @@ var Tooltip = d3.select('#htmlwidget_container')
     .append('div')
     .attr("class", "tooltip")
     .style('position', 'absolute')
-    .style('background-color', 'rgba(255,255,255,0.8)')
+    .style('color', 'white')
+    .style('background-color', 'black')
     .style('border-radius', '5px')
     .style('padding', '5px')
     .style('opacity', 0)
-    .style("font-family", "Tahoma, Geneva, sans-serif")
-    .style("font-size", "12pt");
+    //.style("font-family", "Tahoma, Geneva, sans-serif")
+    .style("font-size", "10pt");
  
 //Mouseover effects for tooltip
-var mouseover = function(d) {
+var mouseover = function(event,d) {
     Tooltip
+        .html('<b>' + d.Value + '</b> produits (<b>' + d.pourc + '</b> %)')
         .style('opacity', 1)
-        .style('box-shadow', '5px 5px 5px rgba(0,0,0,0.2)');
-    d3.select(this)
-        .attr('fill', 'rgba(100,0,0,1)');
-};
-var mousemove = function(d) {
-    Tooltip
-        .html('Hello')
-        .style("left", (d3.mouse(this)[0]+0) + "px")
-        .style("top", (d3.mouse(this)[1]+0) + "px")
-        .style("right", (d3.mouse(this)[0]+0) + "px")
-        .style("bottom", (d3.mouse(this)[0]+0) + "px");
+        .style('box-shadow', '5px 5px 5px rgba(0,0,0,0.2)')
+        .style("left", (d3.pointer(event)[0]+120) + "px")
+        .style("top", (d3.pointer(event)[1]+0) + "px");
 
-    };
+};
+
+// vieille version de d3
+//var mousemove = function(d) {
+//    Tooltip
+//        .html('Hello')
+//        .style("left", (d3.mouse(this)[0]+0) + "px")
+//        .style("top", (d3.mouse(this)[1]+0) + "px")
+//    };
+    
+var mousemove = function(event,d) {
+
+  
+};
+
 var mouseleave = function(d) {
     Tooltip
         .style("opacity", 0);
-   d3.select(this)
+};
+
+//Mouseover effects for tooltip
+var mouseover2 = function(d) {
+  
+      Tooltip
+        .style('opacity', 1)
+        .style('box-shadow', '5px 5px 5px rgba(0,0,0,0.2)');
+
+    d3.select(this)
+  .style('transition', '0.4s all cubic-bezier(0.5,0.8,0,1.7)')
+  .attr("r", function (d) { return 15; });
+};
+
+var mousemove2 = function(event) {
+  
+      Tooltip
+        .html('Hello')
+        .style("left", (d3.pointer(event)[0]+120) + "px")
+        .style("top", (d3.pointer(event)[1]+0) + "px");
+
+    d3.select(this)
   .style('transition', '0.4s all cubic-bezier(0.5,0.8,0,1.7)')
   .attr("r", function (d) { return 18; });
 };
 
+var mouseleave2 = function(d) {
+  
+   Tooltip
+        .style("opacity", 0);
+        
+  d3.select(this)
+ .style('transition', '0.4s all cubic-bezier(0.5,0.8,0,1.7)')
+ .attr("r", function (d) { return 15; });
+};
+
+
+
 
 //svg.selectAll('circle')
- //   .on("mouseover", mouseover)
-  //  .on("mousemove", mousemove)
-   // .on("mouseleave", mouseleave);
+//    .on("mouseover", mouseover)
+//    .on("mousemove", mousemove)
+//    .on("mouseleave", mouseleave);
