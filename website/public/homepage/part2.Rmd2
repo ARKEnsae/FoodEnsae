@@ -54,14 +54,19 @@ donnees_nutri <- donnees_nutri_nova %>%
   filter(nutriscore_grade!="") %>% 
   mutate(nutriscore_grade = toupper(nutriscore_grade)) %>% 
   setNames(c("Country","Value")) %>% 
-  mutate(color = colors_nutri) %>% 
-  mutate(titre="Nombre de produits selon le Nutriscore") %>% 
-  mutate(borne_max=400000)
+  mutate(pourc = round(100*Value/sum(Value),1)) %>% 
+  mutate(color = colors_nutri)
 
 p1 <- r2d3(data = donnees_nutri, 
-     container = "div",
-     script = "data/lollichart.js",
-     height=300)
+           height=340,
+           container = "cont",
+           script = "data/lollichart.js",
+           options = list(borne_max=400000,
+                          titre = "Nombre de produits selon le nutri-score",
+                          note1 = paste0("Note : Sur les 1 635 635 produits de la base de données, seuls figurent"),
+                          note2 = paste0("ici les 630 663 pour lesquels un nutri-score est indiqué.")
+           ))
+
 ```
 
 ```{r, echo=FALSE, fig.show='animate'}
@@ -91,14 +96,19 @@ donnees_nova <- donnees_nutri_nova %>%
   summarise(n=sum(n)) %>% 
   filter(nova_group!="") %>% 
   setNames(c("Country","Value")) %>% 
-  mutate(color = color_nova) %>% 
-  mutate(titre="Nombre de produits selon le groupe Nova") %>% 
-  mutate(borne_max=400000)
+  mutate(pourc = round(100*Value/sum(Value),1)) %>% 
+  mutate(color = color_nova) 
 
 p2 <- r2d3(data = donnees_nova, 
-     container = "div",
-     script = "data/lollichart.js", 
-     height=300)
+           height=340,
+     container = "cont",
+     script = "data/lollichart.js",
+     options = list(borne_max=400000,
+                    titre = "Nombre de produits selon le groupe Nova",
+                    note1 = paste0("Note : Sur les 1 635 635 produits de la base de données, seuls figurent"),
+                    note2 = paste0("ici les 588 403 pour lesquels un groupe Nova est indiqué.")
+     ))
+                    
 ```
 
 ```{r, echo=FALSE, fig.show='animate'}
