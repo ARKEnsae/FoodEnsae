@@ -1312,5 +1312,6 @@ a.fn-item.active {
 }*/
 
 iframe {
-  height: 1000px;
+  height: 200px;
+  background-color: #ffffff;
 }
