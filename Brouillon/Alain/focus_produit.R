@@ -14,32 +14,24 @@ data$generic_name
 data <- data[grep(paste0("France", collapse = "|"),
      data$countries_fr),]
 
-head(data$categories)
-head(data$categories_tags)
-head(data$labels_fr)
-head(unique(data$emb_codes))
-head(unique(data$abbreviated_product_name))
-head(unique(data$product_name))
-head(grep("^Salade",data$product_name,value=TRUE),20)
-head(unique(data$cr))
-data$categories_fr[head(grep("^Salade",data$product_name))]
-head(data$main_category_fr)
-data_plot <- data[,c("code","nutrition-score-fr_100g", "product_name","image_url", "image_small_url",
+data_plot <- data[,c("code", "product_name","image_small_url",
                      "nutriscore_grade", "nova_group","fat_100g","sugars_100g")]
+data_plot <- data_plot[data_plot$sugars_100g<30,]
+data_plot$nutriscore_grade <- toupper(data_plot$nutriscore_grade)
+data_plot$nova_group[is.na(data_plot$nova_group)] = "Non-Renseigné"
+data_plot$nutriscore_grade[data_plot$nutriscore_grade ==""] = "Non-Renseigné"
+saveRDS(data_plot,"content/homepage/data/focus_group_data.RDS")
 
 colnames(data)
 unique(data_plot$nova_group)
 colors_nutri = c(A = "#387E48", B = "#91B849", C = "#F7CB46", D = "#E08531", 
                  E = "#D54C29","Non-Renseigné"= "gray")
+# saveRDS(colors_nutri,"content/homepage/data/colors.RDS")
+colors_grade <- readRDS("content/homepage/data/colors.RDS")
 color_nova = c(G1 = "#FCBBA1",G2="#FB6A4A",G3="#CB181D",G4="#67000D")
 names(color_nova) <- substr(names(color_nova),2,2)
 color_nova <- c(color_nova, "Non-Renseigné"= "gray")
 
-data_plot <- data_plot[data_plot$sugars_100g<30,]
-
-data_plot$nutriscore_grade <- toupper(data_plot$nutriscore_grade)
-data_plot$nova_group[is.na(data_plot$nova_group)] = "Non-Renseigné"
-data_plot$nutriscore_grade[data_plot$nutriscore_grade ==""] = "Non-Renseigné"
 color_var = colors_nutri
 titre <- "Salades vendues en Frances par nutriscore et taux de matières grasses et de sucres"
 sous_titre <- "Qu'on arrête de nous prendre pour des salades !"
