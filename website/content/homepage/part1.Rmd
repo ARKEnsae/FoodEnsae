@@ -68,23 +68,23 @@ p4 <- drawGauge(87)
 <!-- Conteneur des "diapos" -->
 <div class="elements">
 <!-- Première diapo -->
-<div class="element active">
+<div class="element"> <!--active-->
 
 ```{r, echo=FALSE}
  p1 %>% 
    frameWidget(elementId = "p1")
 ```
 
+<div class="label">
   des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
+</div>
 
 </div>
 <div class="element">
- <div class="caption">
 ```{r, echo=FALSE}
 p2 %>% 
   frameWidget(elementId = "p2")
 ```
-</div>
 
 des Français identifent bien que le Nutri‑Score permet de qualifer la qualité nutritionnelle des produits.
 </div>
@@ -106,20 +106,18 @@ p4 %>%
 des Français pensent  que  l’apposition  du Nutri‑Score sur les produits devrait être obligatoire. 
 
 </div>
-</div>
 <!-- Flèches de navigation -->
-<i id="nav-gauche" class="las la-chevron-left"></i>
-<i id="nav-droite" class="las la-chevron-right"></i>
+<i id="nav-gauche" class="las la-chevron-left" onclick="plusSlides2(-1)"></i>
+<i id="nav-droite" class="las la-chevron-right" onclick="plusSlides2(1)"></i>
+
+<!--  <span class="dot" onclick="currentSlide(1)"></span> -->
+<!--   <span class="dot" onclick="currentSlide(2)"></span> -->
+<!--   <span class="dot" onclick="currentSlide(3)"></span> -->
+
 </div>
-
-
-
-
-
-
-
 
 
 **Et vous**, savez-vous ce qu'est le **nutri-score** ? 
 
 Nous allons le découvrir ensemble en **graphiques**.
+
