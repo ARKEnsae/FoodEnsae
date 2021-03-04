@@ -68,16 +68,13 @@ p4 <- drawGauge(87)
 <!-- Conteneur des "diapos" -->
 <div class="elements">
 <!-- Première diapo -->
-<div class="element"> <!--active-->
-
+<div class="element">
 ```{r, echo=FALSE}
  p1 %>% 
    frameWidget(elementId = "p1", height=200)
 ```
 
-<div class="label">
-  des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
-</div>
+des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
 
 </div>
 <div class="element">
@@ -111,7 +108,7 @@ des Français pensent  que  l’apposition  du Nutri‑Score sur les produits de
 <i id="nav-droite" class="las la-chevron-right" onclick="plusSlides2(1)"></i>
 
 </div>
-
+</div>
 
 **Et vous**, savez-vous ce qu'est le **nutri-score** ? 
 
