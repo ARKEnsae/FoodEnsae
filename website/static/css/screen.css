@@ -1299,10 +1299,6 @@ a.fn-item.active {
     position: relative;
 }
 
-.element > img{
-    width: 100%;
-}
-
 .caption{
     position: absolute;
     top: 50%;
@@ -1311,4 +1307,10 @@ a.fn-item.active {
     padding: 30px;
 }
 
- 
+/*iframe:focus {
+  height: 1000px;
+}*/
+
+iframe {
+  height: 1000px;
+}
