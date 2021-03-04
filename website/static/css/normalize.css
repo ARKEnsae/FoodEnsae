@@ -405,84 +405,49 @@
      border-spacing: 0;
  }
  
- /* Highchart test */
- 
- /*
- .highchart{
-   fill: #FF0000;
-   background-color: #FF0000;
- }*/
- 
+
  
  /*Slider*/
  
-  /* Slideshow container */
-.slideshow-container {
-  position: relative;
-  background: #f1f1f1f1;
+.diapo{
+    position: relative;
+    overflow: hidden;
 }
 
-/* Slides */
-.mySlides {
-  display: none;
-  padding: 80px;
-  text-align: center;
+#nav-droite, #nav-gauche{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: white;
+    font-size: 3em;
 }
 
-/* Next & previous buttons */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
-  margin-top: -30px;
-  padding: 16px;
-  color: #888;
-  font-weight: bold;
-  font-size: 20px;
-  border-radius: 0 3px 3px 0;
-  user-select: none;
+#nav-droite{
+    right: 60px;
+}
+#nav-gauche{
+    left: 60px;
+}
+.elements{
+    display: flex;
+    transition: 1s linear;
 }
 
-/* Position the "next button" to the right */
-.next {
-  position: absolute;
-  right: 0;
-  border-radius: 3px 0 0 3px;
+.element{
+    flex: 1 0 100%;
+    position: relative;
 }
 
-/* On hover, add a black background color with a little bit see-through */
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
-  color: white;
+.element > img{
+    width: 100%;
 }
 
-/* The dot/bullet/indicator container */
-.dot-container {
-  text-align: center;
-  padding: 20px;
-  background: #ddd;
+.caption{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+/*    transform: translate(-50%, -50%); */
+    text-align: center;
+/*    background-color: rgba(255,255,255,0.4); */
+ /*   padding: 30px;*/
 }
-
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
-
-/* Add a background color to the active dot/circle */
-.active, .dot:hover {
-  background-color: #717171;
-}
-
-/* Add an italic font style to all quotes */
-q {font-style: italic;}
-
-/* Add a blue color to the author */
-.author {color: cornflowerblue;} 

@@ -22,16 +22,20 @@ library(widgetframe)
 drawGauge <- function(chiffre){
   
   col.stops<-list_parse2(data.frame(q = c(0.15,0.8,1), c = c('#DF5353','#DDDF0D','#55BF3B'),stringsAsFactors = FALSE))
-
   
-    chart <- highchart() %>%
-    hc_chart(type = "solidgauge", backgroundColor="transparent") %>%
-    hc_pane(startAngle = -90,
+  
+  chart <- highchart() %>%
+    hc_chart(type = "solidgauge", plotBackgroundColor = '#f2efe8',backgroundColor = '#f2efe8')%>%
+    hc_pane(center = JS("['50%','85%']"),
+            size = "140%",
+            startAngle = -90,
             endAngle = 90,background= list(
               outerRadius = '100%',
               innerRadius = '60%',
               shape="arc"
-            )) %>%  
+              #,backgroundColor= '#000000'
+            )) %>% 
+   # hc_plotOptions(center = JS("['50%','115%']")) %>% 
     hc_yAxis(
       stops=col.stops,
       lineWidth=0,
@@ -41,11 +45,11 @@ drawGauge <- function(chiffre){
       max = 100,
       labels=list(y=26,style = list(fontSize = "20px"), format='{value} %' )
     ) %>%
-    hc_add_series(data = chiffre,dataLabels=list(y=-50,borderWidth=0, useHTML=TRUE,style = list(fontSize = "40px"),format='{y} %'), enableMouseTracking = FALSE ) %>% 
-      hc_size(
-        height = 260
-      )
-
+    hc_add_series(data = chiffre,dataLabels=list(y=-50,borderWidth=0, useHTML=TRUE,style = list(fontSize = "2rem"),format='{y} %'), enableMouseTracking = FALSE ) %>% 
+    hc_size(
+      height = 200
+    )
+  
   return(chart)
   
 }
@@ -57,40 +61,40 @@ p3 <- drawGauge(8)
 p4 <- drawGauge(87)
 
 ```
- <!-- Slideshow container -->
-<div class="slideshow-container">
 
-  <!-- Full-width slides/quotes -->
-<div class="mySlides">
+
+<!-- Conteneur principal de tout le diaporama -->
+<div class="diapo">
+<!-- Conteneur des "diapos" -->
+<div class="elements">
+<!-- Première diapo -->
+<div class="element active">
 
 ```{r, echo=FALSE}
-p1 %>% 
-  frameWidget()
+ p1 %>% 
+   frameWidget(elementId = "p1")
 ```
- des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an). 
+
+  des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
 
 </div>
-<div class="mySlides">
-
+<div class="element">
 ```{r, echo=FALSE}
 p2 %>% 
-  frameWidget()
+  frameWidget(elementId = "p2")
 ```
 
 des Français identifent bien que le Nutri‑Score permet de qualifer la qualité nutritionnelle des produits.
-
 </div>
-<div class="mySlides">
-
+<div class="element">
 ```{r, echo=FALSE}
 p3 %>% 
-  frameWidget()
+  frameWidget(elementId = "p3")
 ```
 
 des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an). 
-
 </div>
-<div class="mySlides">
+<div class="element">
 
 ```{r, echo=FALSE}
 p4 %>% 
@@ -100,19 +104,19 @@ p4 %>%
 des Français pensent  que  l’apposition  du Nutri‑Score sur les produits devrait être obligatoire. 
 
 </div>
-
-
-  <!-- Next/prev buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+<!-- Flèches de navigation -->
+<i id="nav-gauche" class="las la-chevron-left"></i>
+<i id="nav-droite" class="las la-chevron-right"></i>
 </div>
 
-<!-- Dots/bullets/indicators -->
-<div class="dot-container">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
-</div> 
+
+
+
+
+
+
+
 
 **Et vous**, savez-vous ce qu'est le **nutri-score** ? 
 
