@@ -3,4 +3,114 @@ title: " "
 weight: 1
 ---
 
-TEST !
+
+
+<!--<main class="container">-->
+  <section class="effect effect-c">
+    <h1 class="effect__heading">“Que ton aliment soit ta seule médecine.” </h1>
+    <h2 class="effect__subheading">Hippocrate</h2>
+  </section>
+<!--</main>-->
+
+```{r, include=FALSE}
+library(dplyr)
+library(htmlwidgets)
+library(highcharter)
+library(widgetframe)
+
+
+drawGauge <- function(chiffre){
+  
+  col.stops<-list_parse2(data.frame(q = c(0.15,0.8,1), c = c('#DF5353','#DDDF0D','#55BF3B'),stringsAsFactors = FALSE))
+  
+  
+  chart <- highchart() %>%
+    hc_chart(type = "solidgauge", plotBackgroundColor = '#f2efe8',backgroundColor = '#f2efe8')%>%
+    hc_pane(center = JS("['50%','85%']"),
+            size = "140%",
+            startAngle = -90,
+            endAngle = 90,background= list(
+              outerRadius = '100%',
+              innerRadius = '60%',
+              shape="arc"
+              #,backgroundColor= '#000000'
+            )) %>% 
+   # hc_plotOptions(center = JS("['50%','115%']")) %>% 
+    hc_yAxis(
+      stops=col.stops,
+      lineWidth=0,
+      minorTickWidth=0,
+      tickAmount=2,
+      min = 0,
+      max = 100,
+      labels=list(y=26,style = list(fontSize = "20px"), format='{value} %' )
+    ) %>%
+    hc_add_series(data = chiffre,dataLabels=list(y=-50,borderWidth=0, useHTML=TRUE,style = list(fontSize = "2rem"),format='{y} %'), enableMouseTracking = FALSE ) %>% 
+    hc_size(
+      height = 200
+    )
+  
+  return(chart)
+  
+}
+
+
+p1 <- drawGauge(81)
+p2 <- drawGauge(86)
+p3 <- drawGauge(8)
+p4 <- drawGauge(87)
+
+```
+
+
+<!-- Conteneur principal de tout le diaporama -->
+<div class="diapo">
+<!-- Conteneur des "diapos" -->
+<div class="elements">
+<!-- Première diapo -->
+<div class="element">
+```{r, echo=FALSE}
+ p1 %>% 
+   frameWidget(elementId = "p1", height=200)
+```
+
+des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
+
+</div>
+<div class="element">
+```{r, echo=FALSE}
+p2 %>% 
+  frameWidget(elementId = "p2", height=200)
+```
+
+des Français identifent bien que le Nutri‑Score permet de qualifer la qualité nutritionnelle des produits.
+</div>
+<div class="element">
+```{r, echo=FALSE}
+p3 %>% 
+  frameWidget(elementId = "p3", height=200)
+```
+
+des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an). 
+</div>
+<div class="element">
+
+```{r, echo=FALSE}
+p4 %>% 
+  frameWidget(elementId = "p4", height=200)
+```
+
+des Français pensent  que  l’apposition  du Nutri‑Score sur les produits devrait être obligatoire. 
+
+</div>
+<!-- Flèches de navigation -->
+<i id="nav-gauche" class="las la-chevron-left" onclick="plusSlides2(-1)"></i>
+<i id="nav-droite" class="las la-chevron-right" onclick="plusSlides2(1)"></i>
+
+</div>
+</div>
+
+**Et vous**, savez-vous ce qu'est le **nutri-score** ? 
+
+Nous allons le découvrir ensemble en **graphiques**.
+
