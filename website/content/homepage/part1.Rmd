@@ -72,7 +72,7 @@ p4 <- drawGauge(87)
 
 ```{r, echo=FALSE}
  p1 %>% 
-   frameWidget(elementId = "p1")
+   frameWidget(elementId = "p1", height=200)
 ```
 
 <div class="label">
@@ -83,7 +83,7 @@ p4 <- drawGauge(87)
 <div class="element">
 ```{r, echo=FALSE}
 p2 %>% 
-  frameWidget(elementId = "p2")
+  frameWidget(elementId = "p2", height=200)
 ```
 
 des Français identifent bien que le Nutri‑Score permet de qualifer la qualité nutritionnelle des produits.
@@ -91,7 +91,7 @@ des Français identifent bien que le Nutri‑Score permet de qualifer la qualit�
 <div class="element">
 ```{r, echo=FALSE}
 p3 %>% 
-  frameWidget(elementId = "p3")
+  frameWidget(elementId = "p3", height=200)
 ```
 
 des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an). 
@@ -100,7 +100,7 @@ des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un 
 
 ```{r, echo=FALSE}
 p4 %>% 
-  frameWidget(elementId = "p4")
+  frameWidget(elementId = "p4", height=200)
 ```
 
 des Français pensent  que  l’apposition  du Nutri‑Score sur les produits devrait être obligatoire. 
@@ -109,10 +109,6 @@ des Français pensent  que  l’apposition  du Nutri‑Score sur les produits de
 <!-- Flèches de navigation -->
 <i id="nav-gauche" class="las la-chevron-left" onclick="plusSlides2(-1)"></i>
 <i id="nav-droite" class="las la-chevron-right" onclick="plusSlides2(1)"></i>
-
-<!--  <span class="dot" onclick="currentSlide(1)"></span> -->
-<!--   <span class="dot" onclick="currentSlide(2)"></span> -->
-<!--   <span class="dot" onclick="currentSlide(3)"></span> -->
 
 </div>
 
