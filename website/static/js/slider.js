@@ -25,7 +25,7 @@ function showSlides2(n) {
 } 
 
 
-//Automatiser le diaporama (not working)
+//Automatiser le diaporama
 
 function startTimer(){
     timer = setInterval(function () {

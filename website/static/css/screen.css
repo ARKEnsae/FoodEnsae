@@ -1311,8 +1311,8 @@ a.fn-item.active {
     /*left: 50%;*/
     text-align: center;
     font-size:2rem;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
 /*iframe:focus {
