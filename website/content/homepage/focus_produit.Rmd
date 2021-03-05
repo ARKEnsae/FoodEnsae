@@ -1,0 +1,89 @@
+---
+title: "Et les salades dans tout ça ?"
+weight: 5
+---
+
+
+```{r, include=FALSE}
+library(highcharter)
+library(widgetframe)
+library(dplyr)
+color_var <- readRDS("data/colors.RDS")
+data <- readRDS("data/focus_group_data.RDS")
+my_own_theme <- readRDS("data/hc_theme.RDS")
+
+hcoptslang_nouv <- getOption("highcharter.lang")
+hcoptslang_nouv$decimalPoint <- ","
+options(highcharter.lang = hcoptslang_nouv)
+JStl <- "function(){
+  if (this.point.image_small_url==''){
+    var img = ''
+    //'<img src =\"https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png\" width=\"82\"\"/>'
+  } else{https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png
+    var img = '<br><img src =\"'+this.point.image_small_url+'\" height=\"82\"/>'
+  }
+  img = '<br>'+img
+  var nova_score = this.point.nova_group
+  if (nova_score == '1'){
+    nova_score = nova_score+ ' (Aliments non transformés)'
+  }else if (nova_score == '2'){
+    nova_score = nova_score+ ' (Ingrédients culinaires transformés)'
+  }else if (nova_score == '3'){
+    nova_score = nova_score+ ' (Aliments transformés)'
+  }else if (nova_score == '4'){
+    nova_score = nova_score+ ' (Ultra-transformés)'
+  }else {
+    nova_score = 'NR'
+  }
+  var nutri_score ='<br>Nutri-score : ' 
+  if(this.point.nutriscore_grade == ''){
+    nutri_score = nutri_score + 'NR'
+  }else{
+    nutri_score = nutri_score + this.point.nutriscore_grade
+  }
+  nova_score = '<br>NOVA : '+nova_score
+  var nom_prod = '<b>' + this.point.product_name+ '</b>'
+  nom_prod = nom_prod + '<br>(code : '+this.point.code+')'
+  return (nom_prod+ nutri_score + nova_score  + img)
+}"
+```
+
+
+Concentrons nous sur les salades vendues en France.
+
+```{r focusProduit,echo=FALSE}
+titre <- "Salades vendues en Frances par nutriscore et taux de matières grasses et de sucres"
+sous_titre <- "Qu'on arrête de nous prendre pour des salades !"
+caption_txt <- paste("Cherchez plus d'informations sur les salades à partir du code-bar en utilisant le lien",
+                       "https://fr.openfoodfacts.org/produit/<b>code_bar</b>.",
+                        "<br>Par exemple pour la Sinappinen (salade de concombres) :",
+                       "<a href=\"https://fr.openfoodfacts.org/produit/6424908462502\">https://fr.openfoodfacts.org/produit/6424908462502</a>.<br>")
+
+p <- hchart(data, "scatter",
+       hcaes(x = `sugars_100g`, y = fat_100g,
+             group = nutriscore_grade))
+for(i in seq_along(p$x$hc_opts$series)){
+  p$x$hc_opts$series[[i]]$color = as.character(color_var[p$x$hc_opts$series[[i]]$name])
+  p$x$hc_opts$series[[i]]$index = which(p$x$hc_opts$series[[i]]$name==names(color_var))
+}
+p %>% 
+  hc_tooltip(formatter = JS(JStl),
+             useHTML = TRUE)%>% 
+  hc_title(
+    text = titre
+  )%>% 
+  hc_subtitle(
+    text = sous_titre
+  )%>% 
+  hc_yAxis(
+    title = list(text="Matières grasse (g pour 100g)"))%>% 
+  hc_xAxis(
+    title = list(text="Sucres (g pour 100g)")) %>% 
+  hc_caption(
+    text = caption_txt,
+    useHTML = TRUE
+  ) %>%
+  hc_add_theme(my_own_theme) %>% 
+  frameWidget(elementId = "focusProduit")
+```
+

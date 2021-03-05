@@ -8,9 +8,10 @@ weight: 3
 library(highcharter)
 library(widgetframe)
 library(dplyr)
-colors_grade <- readRDS("data/colors.RDS")
+colors_grade <- readRDS("data/colors.RDS")[1:5]
 top_n <- readRDS("data/country_prop_plot.RDS")
 bubble_plot <- readRDS("data/bubble_plot.RDS")
+my_own_theme <- readRDS("data/hc_theme.RDS")
 
 hcoptslang_nouv <- getOption("highcharter.lang")
 hcoptslang_nouv$decimalPoint <- ","
@@ -63,16 +64,15 @@ hchart(
     series = list(showInLegend = FALSE)
   )%>% 
   hc_title(
-    text = titre,
-    style = list(fontFamily = "Gloria Hallelujah")
+    text = titre
   )%>%
   hc_caption(
-    text = caption_txt,
-    style = list(fontSize = "10px")
+    text = caption_txt
   ) %>% 
   hc_size(
     height = 300
-    ) %>% 
+    ) %>%
+  hc_add_theme(my_own_theme) %>% 
   frameWidget(elementId = "bubbleCountry")
 ```
 
@@ -102,13 +102,9 @@ p$x$hc_opts$series[[3]]$index = 2
 p$x$hc_opts$series[[4]]$index = 1
 p$x$hc_opts$series[[5]]$index = 0
 
-p%>%
-  hc_chart(
-    style = list(fontFamily = "Gloria Hallelujah")
-  ) %>%
+p %>%
   hc_title(
-    text = titre,
-    style = list(fontFamily = "Gloria Hallelujah")
+    text = titre
   ) %>%
   hc_yAxis(
     title = list(text="Pourcentage du total"),
@@ -120,9 +116,9 @@ p%>%
   hc_plotOptions(series=list(stacking="normal"))%>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
-    text = caption_txt,
-    style = list(fontSize = "10px")
-  ) %>% hc_legend(reversed=T) %>% 
+    text = caption_txt
+  ) %>% hc_legend(reversed=T) %>%
+  hc_add_theme(my_own_theme) %>% 
   frameWidget(elementId = "barCountry")
 ```
 
