@@ -68,43 +68,45 @@ p4 <- drawGauge(87)
 <!-- Conteneur des "diapos" -->
 <div class="elements">
 <!-- Première diapo -->
-<div class="element"> <!--active-->
-
+<div class="element"> 
 ```{r, echo=FALSE}
  p1 %>% 
-   frameWidget(elementId = "p1", height=200)
+   frameWidget(elementId = "p1", height=200, options = frameOptions(id="iframepetit1"))
 ```
-
-<div class="label">
-  des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an).
+<p class="caption"><b>des Français</b></p>
+<p class="caption"></br>ont <b>entendu parler ou vu le logo</b> du nutri-score</br>(+23 points en un an).</p>
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
 </div>
 
-</div>
 <div class="element">
 ```{r, echo=FALSE}
 p2 %>% 
-  frameWidget(elementId = "p2", height=200)
+  frameWidget(elementId = "p2", height=200, options = frameOptions(id="iframepetit2"))
 ```
-
-des Français identifent bien que le Nutri‑Score permet de qualifer la qualité nutritionnelle des produits.
+<p class="caption"><b>des Français</b></p>
+<p class="caption"></br><b>identifient bien</b> que le Nutri‑Score permet de qualifier la <b>qualité nutritionnelle</b> des produits.</p>
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
 </div>
+
 <div class="element">
 ```{r, echo=FALSE}
 p3 %>% 
-  frameWidget(elementId = "p3", height=200)
+  frameWidget(elementId = "p3", height=200, options = frameOptions(id="iframepetit3"))
 ```
-
-des Français ont entendu parler ou vu le logo du nutri-score (+23 points en un an). 
+<p class="caption"><b>des Français</b></p>
+<p class="caption"><b>citent spontanément</b> le nutri-score comme un critère qu'ils utilisent pour évaluer la qualité nutritionnelle des produits (+7 points en un an).</p> 
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
 </div>
 <div class="element">
 
 ```{r, echo=FALSE}
 p4 %>% 
-  frameWidget(elementId = "p4", height=200)
+  frameWidget(elementId = "p4", height=200, options = frameOptions(id="iframepetit4"))
 ```
 
-des Français pensent  que  l’apposition  du Nutri‑Score sur les produits devrait être obligatoire. 
-
+<p class="caption"><b>des Français</b></p>
+<p class="caption"></br>pensent que l’apposition  du Nutri‑Score sur les produits <b>devrait être obligatoire</b>.</p>
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
 </div>
 <!-- Flèches de navigation -->
 <i id="nav-gauche" class="las la-chevron-left" onclick="plusSlides2(-1)"></i>
@@ -112,8 +114,10 @@ des Français pensent  que  l’apposition  du Nutri‑Score sur les produits de
 
 </div>
 
+<center>
+<p style="font-size:4rem;"><b>Et vous ?</b></p>
+<p>Savez-vous ce qu'est le <b>nutri-score</b> ?</p>
+<p>Nous allons le découvrir ensemble en <b>graphiques</b> !</p>
+</center>
 
-**Et vous**, savez-vous ce qu'est le **nutri-score** ? 
-
-Nous allons le découvrir ensemble en **graphiques**.
 

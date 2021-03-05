@@ -1271,15 +1271,17 @@ a.fn-item.active {
  /*Slider*/
  
 .diapo{
-    position: relative;
-    overflow: hidden;
+    /*position: relative;*/
+    /*overflow: hidden;*/
+    background: '#f2efe8';
+
 }
 
 #nav-droite, #nav-gauche{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    color: white;
+    color: black;
     font-size: 3em;
 }
 
@@ -1292,25 +1294,36 @@ a.fn-item.active {
 .elements{
     display: flex;
     transition: 1s linear;
+    background: '#f2efe8';
+
 }
 
 .element{
     flex: 1 0 100%;
     position: relative;
+    background: '#f2efe8';
+
 }
 
 .caption{
-    position: absolute;
-    top: 50%;
-    left: 50%;
+    /*position: absolute;*/
+    /*top: 50%;*/
+    /*left: 50%;*/
     text-align: center;
-    padding: 30px;
+    font-size:2rem;
+    padding-left: 100px;
+    padding-right: 100px;
 }
 
 /*iframe:focus {
   height: 1000px;
 }*/
 
-iframe {
-  height: 1000px;
+#p1,#p2,#p3,#p4 {
+  height: 200px;
+  background-color: '#f2efe8';
+}
+#iframepetit1,#iframepetit2,#iframepetit3,#iframepetit4 {
+  height: 200px;
+  background-color: '#f2efe8';
 }

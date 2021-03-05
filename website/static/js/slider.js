@@ -23,3 +23,23 @@ function showSlides2(n) {
   slides[slideIndex2-1].style.display = "block";
   //slides[slideIndex2-1].className += " active"; //NEW
 } 
+
+
+//Automatiser le diaporama (not working)
+
+function startTimer(){
+    timer = setInterval(function () {
+        plusSlides2(1);
+    }, 10000);
+}
+function stopTimer(){
+    clearInterval(timer);
+}
+
+timer = setInterval(function () {
+    plusSlides2(1);
+}, 10000);
+diapo.addEventListener("mouseover", stopTimer);
+diapo.addEventListener("mouseout", startTimer);
+
+
