@@ -3,21 +3,60 @@
 <head>
 <meta charset="utf-8"/>
 <style>body{background-color:white;}</style>
-<script src="sankeyNetwork_libs/htmlwidgets/htmlwidgets.js"></script>
-<script src="sankeyNetwork_libs/d3/d3.min.js"></script>
-<script src="sankeyNetwork_libs/sankey/sankey.js"></script>
-<script src="sankeyNetwork_libs/sankeyNetwork-binding/sankeyNetwork.js"></script>
-<script src="sankeyNetwork_libs/pymjs/pym.v1.min.js"></script>
-  <title>sankeyNetwork</title>
+<script src="highchart_libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="highchart_libs/jquery/jquery.min.js"></script>
+<script src="highchart_libs/proj4js/proj4.js"></script>
+<link href="highchart_libs/highcharts/css/motion.css" rel="stylesheet" />
+<script src="highchart_libs/highcharts/highcharts.js"></script>
+<script src="highchart_libs/highcharts/highcharts-3d.js"></script>
+<script src="highchart_libs/highcharts/highcharts-more.js"></script>
+<script src="highchart_libs/highcharts/modules/stock.js"></script>
+<script src="highchart_libs/highcharts/modules/map.js"></script>
+<script src="highchart_libs/highcharts/modules/annotations.js"></script>
+<script src="highchart_libs/highcharts/modules/data.js"></script>
+<script src="highchart_libs/highcharts/modules/drilldown.js"></script>
+<script src="highchart_libs/highcharts/modules/item-series.js"></script>
+<script src="highchart_libs/highcharts/modules/offline-exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/overlapping-datalabels.js"></script>
+<script src="highchart_libs/highcharts/modules/exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/export-data.js"></script>
+<script src="highchart_libs/highcharts/modules/funnel.js"></script>
+<script src="highchart_libs/highcharts/modules/heatmap.js"></script>
+<script src="highchart_libs/highcharts/modules/treemap.js"></script>
+<script src="highchart_libs/highcharts/modules/sankey.js"></script>
+<script src="highchart_libs/highcharts/modules/dependency-wheel.js"></script>
+<script src="highchart_libs/highcharts/modules/organization.js"></script>
+<script src="highchart_libs/highcharts/modules/solid-gauge.js"></script>
+<script src="highchart_libs/highcharts/modules/streamgraph.js"></script>
+<script src="highchart_libs/highcharts/modules/sunburst.js"></script>
+<script src="highchart_libs/highcharts/modules/vector.js"></script>
+<script src="highchart_libs/highcharts/modules/wordcloud.js"></script>
+<script src="highchart_libs/highcharts/modules/xrange.js"></script>
+<script src="highchart_libs/highcharts/modules/tilemap.js"></script>
+<script src="highchart_libs/highcharts/modules/venn.js"></script>
+<script src="highchart_libs/highcharts/modules/gantt.js"></script>
+<script src="highchart_libs/highcharts/modules/timeline.js"></script>
+<script src="highchart_libs/highcharts/modules/parallel-coordinates.js"></script>
+<script src="highchart_libs/highcharts/modules/bullet.js"></script>
+<script src="highchart_libs/highcharts/modules/coloraxis.js"></script>
+<script src="highchart_libs/highcharts/modules/dumbbell.js"></script>
+<script src="highchart_libs/highcharts/modules/lollipop.js"></script>
+<script src="highchart_libs/highcharts/modules/series-label.js"></script>
+<script src="highchart_libs/highcharts/plugins/motion.js"></script>
+<script src="highchart_libs/highcharts/custom/reset.js"></script>
+<script src="highchart_libs/highcharts/modules/boost.js"></script>
+<script src="highchart_libs/highchart-binding/highchart.js"></script>
+<script src="highchart_libs/pymjs/pym.v1.min.js"></script>
+  <title>highchart</title>
 </head>
 <body>
 <div id="htmlwidget_container">
-  <div id="htmlwidget-97e1f8fc06ff8d55585c" style="width:100%;height:500px;" class="sankeyNetwork html-widget"></div>
+  <div id="htmlwidget-5116d8ce62566ba0b401" style="width:100%;height:500px;" class="highchart html-widget"></div>
   <script>HTMLWidgets.pymChild = new pym.Child();HTMLWidgets.addPostRenderHandler(function(){
                                 setTimeout(function(){HTMLWidgets.pymChild.sendHeight();},100);
                             });</script>
 </div>
-<script type="application/json" data-for="htmlwidget-97e1f8fc06ff8d55585c">{"x":{"links":{"source":[5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8,5,6,7,8],"target":[0,0,0,0,1,1,1,1,2,2,2,2,3,3,3,3,4,4,4,4],"value":[30545,276,20100,22407,7340,135,14414,33931,6651,1923,23747,59100,2645,1820,33316,96773,1564,1415,12803,68235],"group":["g1","g1","g1","g1","g2","g2","g2","g2","g3","g3","g3","g3","g4","g4","g4","g4","g5","g5","g5","g5"]},"nodes":{"name":["A","B","C","D","E","1","2","3","4"],"group":["A","B","C","D","E","1","2","3","4"]},"options":{"NodeID":"name","NodeGroup":"group","LinkGroup":"group","colourScale":"d3.scaleOrdinal() .domain([\"A\",\"B\",\"C\",\"D\",\"E\", \"1\", \"2\", \"3\",\"4\",\"g1\", \"g2\", \"g3\",\"g4\",\"g5\"]) .range([\"#387E48\", \"#91B849\",\"#F7CB46\",\"#E08531\", \"#D34C29\", \"#FCBBA1\",\"#FB6A4A\",\"#CB181D\",\"#67000D\",\"#387E48\", \"#91B849\",\"#F7CB46\",\"#E08531\", \"#D34C29\"])","fontSize":20,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"produits","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":0,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
-<script type="application/htmlwidget-sizing" data-for="htmlwidget-97e1f8fc06ff8d55585c">{"viewer":{"width":"100%","height":350,"padding":0,"fill":false},"browser":{"width":"100%","height":500,"padding":0,"fill":false}}</script>
+<script type="application/json" data-for="htmlwidget-5116d8ce62566ba0b401">{"x":{"hc_opts":{"chart":{"reflow":true,"type":"sankey","width":500},"title":{"text":null},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"}},"series":[{"data":[{"from":1,"to":"A","weight":30545,"color":"#387E48"},{"from":2,"to":"A","weight":276,"color":"#387E48"},{"from":3,"to":"A","weight":20100,"color":"#387E48"},{"from":4,"to":"A","weight":22407,"color":"#387E48"},{"from":1,"to":"B","weight":7340,"color":"#91B849"},{"from":2,"to":"B","weight":135,"color":"#91B849"},{"from":3,"to":"B","weight":14414,"color":"#91B849"},{"from":4,"to":"B","weight":33931,"color":"#91B849"},{"from":1,"to":"C","weight":6651,"color":"#F7CB46"},{"from":2,"to":"C","weight":1923,"color":"#F7CB46"},{"from":3,"to":"C","weight":23747,"color":"#F7CB46"},{"from":4,"to":"C","weight":59100,"color":"#F7CB46"},{"from":1,"to":"D","weight":2645,"color":"#E08531"},{"from":2,"to":"D","weight":1820,"color":"#E08531"},{"from":3,"to":"D","weight":33316,"color":"#E08531"},{"from":4,"to":"D","weight":96773,"color":"#E08531"},{"from":1,"to":"E","weight":1564,"color":"#D54C29"},{"from":2,"to":"E","weight":1415,"color":"#D54C29"},{"from":3,"to":"E","weight":12803,"color":"#D54C29"},{"from":4,"to":"E","weight":68235,"color":"#D54C29"}],"nodes":[{"id":1,"color":"#FCBBA1"},{"id":2,"color":"#FB6A4A"},{"id":3,"color":"#CB181D"},{"id":4,"color":"#67000D"},{"id":"A","color":"#387E48"},{"id":"B","color":"#91B849"},{"id":"C","color":"#F7CB46"},{"id":"D","color":"#E08531"},{"id":"E","color":"#D54C29"}]}]},"theme":{"chart":{"backgroundColor":"transparent"},"colors":["#7cb5ec","#434348","#90ed7d","#f7a35c","#8085e9","#f15c80","#e4d354","#2b908f","#f45b5b","#91e8e1"]},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<script type="application/htmlwidget-sizing" data-for="htmlwidget-5116d8ce62566ba0b401">{"viewer":{"width":"100%","height":350,"padding":0,"fill":false},"browser":{"width":"100%","height":500,"padding":0,"fill":false}}</script>
 </body>
 </html>

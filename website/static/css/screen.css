@@ -1315,10 +1315,7 @@ a.fn-item.active {
     padding-right: 15%;
 }
 
-/*iframe:focus {
-  height: 1000px;
-}*/
-
+/* Mise en forme des iframes du haut */
 #p1,#p2,#p3,#p4 {
   height: 200px;
   background-color: '#f2efe8';
@@ -1326,3 +1323,31 @@ a.fn-item.active {
 #iframepetit1,#iframepetit2,#iframepetit3,#iframepetit4 {
   height: 200px;
   background-color: '#f2efe8';
+}
+/* encadré */
+
+
+.encadre {
+    padding: 0rem 2rem;
+    display: inline-block;
+    border: 3px solid #333333;
+    font-size: 2rem;
+    border-radius: 2% 6% 5% 4% / 1% 1% 2% 4%;
+    /*text-transform: uppercase;*/
+    /*letter-spacing: 0.3ch;*/
+    background-color: 'transparent';
+    position: relative;
+    
+    &::before {
+        content: '';
+        border: 2px solid #353535;
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0) scale(1.015) rotate(0.5deg);
+        border-radius: 1% 1% 2% 4% / 2% 6% 5% 4%;
+    }
+}

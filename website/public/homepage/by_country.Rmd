@@ -1,5 +1,5 @@
 ---
-title: "Nutri-score par pays"
+title: "Qualité des produits par pays"
 weight: 3
 ---
 
@@ -21,7 +21,7 @@ options(highcharter.lang = hcoptslang_nouv)
 
 La base de données d'**Openfoodfacts**, d'initiative Française, contient **une majorité de produits vendus en France**. Pour les autres pays du monde, la base est donc loin d'être exhaustive. 
 
-```{r,echo=FALSE}
+```{r bubbleCountry,echo=FALSE}
 titre <- "Nombre de produits vendus par pays"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
                          "Le plus gros pays vendeur (%s) vend %s plus de produits que le second plus gros pays (%s).",
@@ -31,9 +31,12 @@ caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 
         bubble_plot$country[1],
         formatC(bubble_plot$tot[1]/bubble_plot$tot[2],digits = 3, decimal.mark=","),
         bubble_plot$country[2])
+
+
 hchart(
   bubble_plot,
   type="packedbubble",
+  color='pink',
   hcaes(name = country, value = tot),
   name = ""
 ) %>% 
@@ -70,15 +73,21 @@ hchart(
     text = caption_txt
   ) %>% 
   hc_size(
-    height = 300
+    height = 450
     ) %>%
   hc_add_theme(my_own_theme) %>% 
+  hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8"))) %>% 
   frameWidget(elementId = "bubbleCountry")
 ```
 
+
+<div class="encadre">
+En France, la <b>qualité nutritionnelle</b> des produits est moins élevée qu'en Espagne ou en Italie. 
+</div>
+
 Parmi les aliments référencés dans les 10 pays les plus représentés dans la base d'Openfoodfacts, la **France** se situe en **8ème position** dans ses ventes d'aliments à la qualité nutritionnelle élevée : **36,4 % de produits classés A ou B**, loin derrière l'**Espagne** (**51,8 %**) et l'**Italie** (**45,5 %**). 
 
-```{r bar, echo=FALSE}
+```{r barCountry, echo=FALSE}
 titre <- "Nutriscore principaux pays"
 caption_txt <- paste(c(
   paste0(paste0(unique(sprintf("%s : %i produits",top_n$country,top_n$tot)),
@@ -90,7 +99,7 @@ collapse = "<br>")
 p <- hchart(
   top_n, 
   type="bar",
-  hcaes(x = country, y = n_prop, group = nutriscore_grade,
+ hcaes(x = country, y = n_prop, group = nutriscore_grade,
         index = nutriscore_grade),
   color = colors_grade,
   reversed=TRUE
@@ -119,7 +128,15 @@ p %>%
     text = caption_txt
   ) %>% hc_legend(reversed=T) %>%
   hc_add_theme(my_own_theme) %>% 
+  hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8"))) %>% 
   frameWidget(elementId = "barCountry")
 ```
 
 
+<div class="encadre">
+En France, les produits ultratransformés... 
+</div>
+
+</br>
+
+**TODO**

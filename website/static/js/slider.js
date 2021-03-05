@@ -30,7 +30,7 @@ function showSlides2(n) {
 function startTimer(){
     timer = setInterval(function () {
         plusSlides2(1);
-    }, 10000);
+    }, 6000);
 }
 function stopTimer(){
     clearInterval(timer);
@@ -38,8 +38,7 @@ function stopTimer(){
 
 timer = setInterval(function () {
     plusSlides2(1);
-}, 10000);
+}, 6000);
 diapo.addEventListener("mouseover", stopTimer);
 diapo.addEventListener("mouseout", startTimer);
-
 
