@@ -1,5 +1,5 @@
 ---
-title: "A propos de nous"
+title: "À propos de nous"
 weight: 20
 header_menu: true
 ---

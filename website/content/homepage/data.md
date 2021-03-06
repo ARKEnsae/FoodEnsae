@@ -1,5 +1,5 @@
 ---
-title: "A propos des données"
+title: "À propos des données"
 weight: 19
 header_menu: true
 ---
