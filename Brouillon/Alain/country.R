@@ -107,12 +107,12 @@ histo_nutri <- sub_data_nutri[!is.na(sub_data_nutri$nutriscore_grade),] %>%
   mutate(n_prop = n/tot*100) %>% arrange(-n)%>% 
   arrange(-tot) %>% 
   filter(., country %in% head(distinct(., country),10)$country)
-histo_nutri$n_prop_ab <- histo_nutri$n_prop
-histo_nutri$n_prop_ab[!histo_nutri$nutriscore_grade%in%c("A","B")] <- 0
+histo_nutri$n_prop_ed <- histo_nutri$n_prop
+histo_nutri$n_prop_ed[!histo_nutri$nutriscore_grade%in%c("E","D")] <- 0
 histo_nutri= histo_nutri %>% group_by(country) %>% 
-  mutate(n_prop_ab=sum(n_prop_ab)) %>% 
+  mutate(n_prop_ed=sum(n_prop_ed)) %>% 
   ungroup() %>% 
-  arrange(desc(n_prop_ab))
+  arrange(desc(n_prop_ed))
 saveRDS(histo_nutri, "website/content/homepage/data/country_prop_plot.RDS")
 
 titre <- "Nutri-score principaux pays"
@@ -121,23 +121,14 @@ caption_txt <- paste(c(
                 collapse = " ; "),"."),
   "On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-score est disponible."),
   collapse = "<br>")
-color_nova = c(G1 = "#FCBBA1",G2="#FB6A4A",G3="#CB181D",G4="#67000D")
-p <- hchart(
+
+hchart(
   histo_nutri, 
   type="bar",
   hcaes(x = country, y = n_prop, group = nutriscore_grade,
         index = nutriscore_grade),
-  color = colors_grade,
-  reversed=TRUE
-)
-
-p$x$hc_opts$series[[1]]$index = 4
-p$x$hc_opts$series[[2]]$index = 3
-p$x$hc_opts$series[[3]]$index = 2
-p$x$hc_opts$series[[4]]$index = 1
-p$x$hc_opts$series[[5]]$index = 0
-
-p %>%
+  color = colors_grade
+) %>%
   hc_title(
     text = titre
   ) %>%
@@ -152,7 +143,7 @@ p %>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
     text = caption_txt
-  ) %>% hc_legend(reversed=T) %>%
+  ) %>%
   #hc_add_theme(my_own_theme) %>% 
   hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8")))
 
@@ -168,38 +159,28 @@ histo_nova <- sub_data_nova[!is.na(sub_data_nova$nova_group),] %>%
   mutate(n_prop = n/tot*100) %>% arrange(-n)%>% 
   arrange(-tot) %>% 
   filter(., country %in% head(distinct(., country),10)$country)
-histo_nova$n_prop_ab <- histo_nova$n_prop
-histo_nova$n_prop_ab[!histo_nova$nova_group%in%c("1","2")] <- 0
+histo_nova$n_prop_4 <- histo_nova$n_prop
+histo_nova$n_prop_4[!histo_nova$nova_group%in%c("4")] <- 0
 histo_nova= histo_nova %>% group_by(country) %>% 
-  mutate(n_prop_ab=sum(n_prop_ab)) %>% 
+  mutate(n_prop_4=sum(n_prop_4)) %>% 
   ungroup() %>% 
-  arrange(desc(n_prop_ab))
+  arrange(desc(n_prop_4))
 saveRDS(histo_nova, "website/content/homepage/data/country_prop_plot_nova.RDS")
 
-titre <- "Nova groupe principaux pays"
+titre <- "Nova principaux pays"
 caption_txt <- paste(c(
   paste0(paste0(unique(sprintf("%s : %s produits",histo_nova$country,formatC(histo_nova$tot,big.mark = " ", small.mark = " "))),
                 collapse = " ; "),"."),
-  "On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-score est disponible."),
+  "On se restreint aux 10 principaux pays en terme de nombre de produits recensés dans la base d'OpenFoodFacts pour lesquels le NOVA est disponible."),
   collapse = "<br>")
 
-p <- hchart(
+hchart(
   histo_nova, 
   type="bar",
   hcaes(x = country, y = n_prop, group = nova_group,
         index = nova_group),
-  color = color_nova,
-  reversed=TRUE
-)
-# 
-p$x$hc_opts$series[[4]]
-p$x$hc_opts$series[[1]]$index = 4
-p$x$hc_opts$series[[2]]$index = 3
-p$x$hc_opts$series[[3]]$index = 2
-p$x$hc_opts$series[[4]]$index = 1
-p$x$hc_opts$series[[5]]$index = 0
-
-p %>%
+  color = color_nova
+) %>%
   hc_title(
     text = titre
   ) %>%
@@ -214,50 +195,45 @@ p %>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
     text = caption_txt
-  ) %>% hc_legend(reversed=T) %>%
+  )  %>%
   #hc_add_theme(my_own_theme) %>% 
   hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8")))
 
 
 
-unique(histo_nutri$nutriscore_grade)
-sub_data %>% 
-  count(country) %>% 
-  arrange(-n) %>% group_by(country) %>% 
-  mutate(tot=sum(n)) %>% ungroup()
-
-bubble_plot <- sub_data %>% 
+bubble_plot <- sub_data_nutri %>% 
   count(country) %>% select(country,n) %>% unique() %>% 
   filter(n>1500) %>% arrange(-n) %>% mutate(group = "Tous les produits")
-bubble_plot_nutri <-  sub_data[!is.na(sub_data$nutriscore_grade),] %>% 
+bubble_plot_nutri <-  sub_data_nutri[!is.na(sub_data_nutri$nutriscore_grade),] %>% 
   filter(nutriscore_grade != "", country %in% bubble_plot$country)  %>% 
-  count(country) %>% select(country,n) %>% unique() %>% arrange(-n) %>% mutate(group = "Nutri-score connu")
+  count(country) %>% select(country,n) %>% unique() %>% arrange(-n) %>% 
+  mutate(group = "Nutri-score connu")
+bubble_plot_nova <-  sub_data_nova[!is.na(sub_data_nova$nova_group),] %>% 
+  filter(nova_group != "", country %in% bubble_plot$country)  %>% 
+  count(country) %>% select(country,n) %>% unique() %>% arrange(-n) %>% 
+  mutate(group = "NOVA connu")
 
+bubble_plot_all <- rbind(bubble_plot,
+                         bubble_plot_nutri,
+                         bubble_plot_nova)
+saveRDS(bubble_plot, "website/content/homepage/data/bubble_plot.RDS")
+saveRDS(bubble_plot_all, "website/content/homepage/data/bubble_plot_all.RDS")
 
-bubble_plot_2 <- sub_data[!is.na(sub_data$nutriscore_grade),] %>% 
-  filter(nutriscore_grade != "") %>% 
-  count(country,nutriscore_grade) %>% 
-  group_by(country) %>% 
-  mutate(tot=sum(n))%>% ungroup() %>% 
-  mutate(n_prop = n/tot*100) %>% 
-  filter(country %in% bubble_plot$country) %>% arrange(-n) %>% 
-  mutate(group = "Nova-score connu") 
 
 hchart(
-  rbind(bubble_plot_nutri,bubble_plot),
+  bubble_plot_all,
   type="packedbubble",
   hcaes(name = country, value = n,group = group)
 ) %>% 
   hc_tooltip(
     useHTML = TRUE,
-    pointFormat = "<b>{point.name} :</b> {point.value}",
-    headerFormat=""
+    pointFormat = "<b>{point.name} :</b> {point.value}"
   ) %>% 
   hc_plotOptions(
     packedbubble = list(
       maxSize = "150%",
       layoutAlgorithm = list(
-        gravitationalConstant =  0.05,
+        gravitationalConstant =  0.1,
         splitSeries =  TRUE, # TRUE to group points
         seriesInteraction = TRUE,
         dragBetweenSeries = TRUE,
@@ -284,8 +260,7 @@ hchart(
     style = list(fontSize = "10px")
   )
 
-saveRDS(bubble_plot, "website/content/homepage/data/bubble_plot.RDS")
-saveRDS(bubble_plot_nutri, "website/content/homepage/data/bubble_plot_nutri.RDS")
+
 
 titre <- "Nombre de produits par vendus par pays"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
@@ -294,12 +269,12 @@ caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 
                          collapse = "<br>"),
         nrow(bubble_plot),
         bubble_plot$country[1],
-        bubble_plot$tot[1]/bubble_plot$tot[2],
+        bubble_plot$n[1]/bubble_plot$n[2],
         bubble_plot$country[2])
 hchart(
   bubble_plot,
   type="packedbubble",
-  hcaes(name = country, value = tot),
+  hcaes(name = country, value = n),
   name = ""
 ) %>% 
   hc_tooltip(
