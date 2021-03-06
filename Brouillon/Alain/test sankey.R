@@ -10,41 +10,92 @@ names(color_nova) <- substr(names(color_nova),2,2)
 #https://observablehq.com/@d3/marimekko-chart
 donnees_nutri_nova <- readRDS("content/homepage/data/donnees_nutri_nova.RDS")
 
+hcoptslang_nouv <- getOption("highcharter.lang")
+hcoptslang_nouv$decimalPoint <- ","
+options(highcharter.lang = hcoptslang_nouv)
+
 donnees_sankey <- donnees_nutri_nova %>%
-  filter(nova_group!="" & nutriscore_grade!="") %>% 
-  mutate(nutriscore_grade = toupper(nutriscore_grade)) %>% 
-  setNames(c("target","source","value")) 
-donnees_sankey <- data.frame(donnees_sankey)
+  filter(nova_group!="" & nutriscore_grade!="") %>%
+  mutate(nutriscore_grade = toupper(nutriscore_grade)) %>%
+  group_by(nutriscore_grade) %>% 
+  mutate(nutriscore_grade_freq = 100* n / sum(n),
+         nutri_tot = sum(n)) %>% 
+  ungroup() %>% 
+  group_by(nova_group) %>% 
+  mutate(nova_group_freq = 100* n / sum(n),
+         nova_tot = sum(n)) %>% 
+  ungroup() %>% 
+  mutate(nutri_prop_tot = nutri_tot/sum(n)*100,
+         nova_prop_tot = nova_tot/sum(n)*100)%>% data.frame()
+
+mf_prop <- function(x){
+  paste0("<b>",formatC(x,
+                decimal.mark = ",",
+                digits = 1, format = "f"),
+        " %</b>")
+}
+mf_tot <- function(x){
+  paste0("<b>",formatC(x,big.mark = " ", small.mark = " "),
+        "</b>")
+}
 data_hc <- lapply(1:nrow(donnees_sankey), function(i){
-  list(from = donnees_sankey[i,2], to = donnees_sankey[i,1],
-       weight = donnees_sankey[i,3],
-       color = as.character(colors_nutri[donnees_sankey[i,1]]))
+  comment0 = sprintf("%s produits sont <b>Nova %s</b> et <b>Nutri-score %s</b>",
+                     mf_tot(donnees_sankey[i,"n"]),
+                     donnees_sankey[i,"nova_group"],
+                     donnees_sankey[i,"nutriscore_grade"])
+  comment1 = sprintf("%s des Nova %s sont Nutri-score %s",
+                     mf_prop(donnees_sankey[i,"nova_group_freq"]),
+                     donnees_sankey[i,"nova_group"],
+                     donnees_sankey[i,"nutriscore_grade"])
+  comment2 = sprintf("%s des Nutri-score %s sont Nova %s",
+                     mf_prop(donnees_sankey[i,"nutriscore_grade_freq"]),
+                     donnees_sankey[i,"nutriscore_grade"],
+                     donnees_sankey[i,"nova_group"])
+  list(from = donnees_sankey[i,"nova_group"],
+       to = donnees_sankey[i,"nutriscore_grade"],
+       weight = donnees_sankey[i,"n"],
+       color = as.character(colors_nutri[donnees_sankey[i,1]]),
+       comment = paste(comment0, comment1, comment2, sep="<br>")
+       )
 })
 colors <- c(color_nova, colors_nutri)
 
 nodes_color = c(lapply(seq_along(color_nova), function(i){
+  ligne <- which(donnees_sankey$nova_group==names(color_nova)[i])[1]
   list(id = i,
-       color = as.character(color_nova[i]))
+       color = as.character(color_nova[i]),
+       comment = sprintf("%s produits sont Nova %s (%s)",
+                        mf_tot(donnees_sankey[ligne,
+                                               "nova_tot"]),
+                        donnees_sankey[ligne, "nova_group"],
+                        mf_prop(donnees_sankey[ligne,
+                                       "nova_prop_tot"])))
 }),
 lapply(seq_along(colors_nutri), function(i){
+  ligne <- which(donnees_sankey$nutriscore_grade==names(colors_nutri)[i])[1]
   list(id = as.character(names(colors_nutri)[i]),
-       color = as.character(colors_nutri[i]))
+       color = as.character(colors_nutri[i]),
+       comment = sprintf("%s produits sont Nutri-score %s (%s)",
+                         mf_tot(donnees_sankey[ligne,
+                                               "nutri_tot"]),
+                         donnees_sankey[ligne, "nutriscore_grade"],
+                         mf_prop(donnees_sankey[ligne,
+                                                "nutri_prop_tot"])))
 }))
 
-
-highchart() %>%
+p <- highchart() %>%
   hc_chart(type = 'sankey') %>%
   hc_add_series(
     data = data_hc,
     nodes = nodes_color
-  ) %>%
-  hc_tooltip(useHTML = TRUE,
-             formatter = JS('function() {
-        var img = \'<img src = "https://static.pexels.com/photos/6606/flowers-garden-orange-tulips.jpg" height="82" width="122"/>\'
-        return img
-      }'))
+  ) 
+p%>% 
+  hc_plotOptions(headerFormat="")%>% 
+  hc_tooltip(headerFormat = "",
+             pointFormat = "{point.comment}",
+             nodeFormat = "{point.comment}",
+             useHTML = TRUE)
 
-JS
 
 index <- c(unique(donnees_sankey$target),unique(donnees_sankey$source))
 names(index)<-0:(length(index)-1)
