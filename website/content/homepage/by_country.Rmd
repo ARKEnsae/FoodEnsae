@@ -14,7 +14,7 @@ color_nova = c("1" = "#FCBBA1","2"="#FB6A4A","3"="#CB181D","4"="#67000D")
 histo_nutri <- readRDS("data/country_prop_plot.RDS")
 histo_nova <- readRDS("data/country_prop_plot_nova.RDS")
 
-bubble_plot <- readRDS("data/bubble_plot.RDS")
+bubble_plot_all <- readRDS("data/bubble_plot_all.RDS")
 my_own_theme <- readRDS("data/hc_theme.RDS")
 
 hcoptslang_nouv <- getOption("highcharter.lang")
@@ -26,38 +26,32 @@ options(highcharter.lang = hcoptslang_nouv)
 La base de données d'**Openfoodfacts**, d'initiative Française, contient **une majorité de produits vendus en France**. Pour les autres pays du monde, la base est donc loin d'être exhaustive. 
 
 ```{r bubbleCountry,echo=FALSE}
-titre <- "Nombre de produits vendus par pays"
-caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 100 produits vendus (%i pays).",
-                         "Le plus gros pays vendeur (%s) vend %s plus de produits que le second plus gros pays (%s).",
-                         "NB : certains produits peuvent être vendus dans plusieurs pays"),
-                         collapse = "<br>"),
-        nrow(bubble_plot),
-        bubble_plot$country[1],
-        formatC(bubble_plot$n[1]/bubble_plot$n[2],digits = 3, decimal.mark=","),
-        bubble_plot$country[2])
+titre <- "Nombre de produits par vendus par pays et en fonction de la disponibilité du Nutri-Score et du score Nova"
+caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 1 500 produits vendus recensés dans la base d'OpenFoodFaces (%i pays).",
+                               "NB : certains produits peuvent être vendus dans plusieurs pays"),
+                             collapse = "<br>"),
+                       nrow(bubble_plot_all)/3)
+hide <- c("NOVA connu", "Nutri-score connu")
 
-
-hchart(
-  bubble_plot,
+p <- hchart(
+  bubble_plot_all,
   type="packedbubble",
-  #color='pink',
-  hcaes(name = country, value = n),
-  name = ""
+  hcaes(name = country, value = n,group = group)
 ) %>% 
   hc_tooltip(
     useHTML = TRUE,
-    pointFormat = "<b>{point.name} :</b> {point.value}",
-    headerFormat=""
+    pointFormat = "<b>{point.name} :</b> {point.value}"
   ) %>% 
   hc_plotOptions(
     packedbubble = list(
-      maxSize = "400%",
-      # layoutAlgorithm = list(
-      #   gravitationalConstant =  0.05,
-      #   seriesInteraction = TRUE,
-      #   dragBetweenSeries = TRUE,
-      #   parentNodeLimit = TRUE
-      # ),
+      maxSize = "150%",
+      layoutAlgorithm = list(
+        gravitationalConstant =  0.1,
+        splitSeries =  TRUE, # TRUE to group points
+        seriesInteraction = TRUE,
+        dragBetweenSeries = TRUE,
+        parentNodeLimit = TRUE
+      ),
       dataLabels = list(
         enabled = TRUE,
         format = "{point.name}",
@@ -68,17 +62,18 @@ hchart(
         )
       )
     ),
-    series = list(showInLegend = FALSE)
+    series = list(showInLegend = c(TRUE,FALSE,FALSE))
   )%>% 
   hc_title(
     text = titre
   )%>%
   hc_caption(
     text = caption_txt
-  ) %>% 
-  hc_size(
-    height = 450
-    ) %>%
+  )
+for (i in seq_along(p$x$hc_opts$series)){
+  p$x$hc_opts$series[[i]]$visible <- ! (p$x$hc_opts$series[[i]]$name %in% hide)
+}
+p %>%
   hc_add_theme(my_own_theme) %>% 
   hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8"))) %>% 
   frameWidget(elementId = "bubbleCountry")

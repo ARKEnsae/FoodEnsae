@@ -106,9 +106,9 @@ p2 <- r2d3(data = donnees_nova,
      container = "cont",
      script = "data/lollichart.js",
      options = list(borne_max=400000,
-                    titre = "Nombre de produits selon le groupe Nova",
+                    titre = "Nombre de produits selon le groupe NOVA",
                     note1 = paste0("Note : Sur les 1 635 635 produits de la base de données, seuls figurent"),
-                    note2 = paste0("ici les 588 403 pour lesquels un groupe Nova est indiqué.")
+                    note2 = paste0("ici les 588 403 pour lesquels un groupe NOVA est indiqué.")
      ))
                     
 ```
@@ -125,7 +125,7 @@ Des recherches récentes de l'Inserm, de l'Inra et de l'Université Paris 13 (ER
 De <b>nombreux produits</b> des supermarchés représentent un <b>danger potentiel pour notre santé</b> sur le long terme. 
 
 <b>Près d'un tiers</b> des produits recensés par Openfoodfacts sont de <b>nutri-score D</b> et les <b>deux tiers</b> 
-sont de catégorie <b>Nova 4</b>, c'est-à-dire ultra-transformés.
+sont de catégorie <b>NOVA 4</b>, c'est-à-dire ultra-transformés.
 </div>
 
 </br>
@@ -137,29 +137,69 @@ donnees_sankey <- donnees_nutri_nova %>%
   filter(nova_group!="" & nutriscore_grade!="") %>%
   mutate(nutriscore_grade = toupper(nutriscore_grade)) %>%
   group_by(nutriscore_grade) %>% 
-  mutate(nutriscore_grade_freq = 100* n / sum(n)) %>% 
+  mutate(nutriscore_grade_freq = 100* n / sum(n),
+         nutri_tot = sum(n)) %>% 
   ungroup() %>% 
   group_by(nova_group) %>% 
-  mutate(nova_group_freq = 100* n / sum(n)) %>% 
-  ungroup() %>% data.frame()
+  mutate(nova_group_freq = 100* n / sum(n),
+         nova_tot = sum(n)) %>% 
+  ungroup() %>% 
+  mutate(nutri_prop_tot = nutri_tot/sum(n)*100,
+         nova_prop_tot = nova_tot/sum(n)*100)%>% data.frame()
 
-
+mf_prop <- function(x){
+  paste0("<b>",formatC(x,
+                decimal.mark = ",",
+                digits = 1, format = "f"),
+        " %</b>")
+}
+mf_tot <- function(x){
+  paste0("<b>",formatC(x,big.mark = " ", small.mark = " "),
+        "</b>")
+}
 data_hc <- lapply(1:nrow(donnees_sankey), function(i){
-  list(from = donnees_sankey[i,2], to = donnees_sankey[i,1],
-       weight = donnees_sankey[i,3],
-       color = as.character(colors_nutri[donnees_sankey[i,1]]))
+  comment0 = sprintf("%s produits sont <b>NOVA %s</b> et <b>Nutri-score %s</b>",
+                     mf_tot(donnees_sankey[i,"n"]),
+                     donnees_sankey[i,"nova_group"],
+                     donnees_sankey[i,"nutriscore_grade"])
+  comment1 = sprintf("%s des NOVA %s sont Nutri-score %s",
+                     mf_prop(donnees_sankey[i,"nova_group_freq"]),
+                     donnees_sankey[i,"nova_group"],
+                     donnees_sankey[i,"nutriscore_grade"])
+  comment2 = sprintf("%s des Nutri-score %s sont NOVA %s",
+                     mf_prop(donnees_sankey[i,"nutriscore_grade_freq"]),
+                     donnees_sankey[i,"nutriscore_grade"],
+                     donnees_sankey[i,"nova_group"])
+  list(from = donnees_sankey[i,"nova_group"],
+       to = donnees_sankey[i,"nutriscore_grade"],
+       weight = donnees_sankey[i,"n"],
+       color = as.character(colors_nutri[donnees_sankey[i,1]]),
+       comment = paste(comment0, comment1, comment2, sep="<br>")
+       )
 })
 colors <- c(color_nova, colors_nutri)
 
-
-# Pour modifier les couleurs
 nodes_color = c(lapply(seq_along(color_nova), function(i){
+  ligne <- which(donnees_sankey$nova_group==names(color_nova)[i])[1]
   list(id = i,
-       color = as.character(color_nova[i]))
+       color = as.character(color_nova[i]),
+       comment = sprintf("%s produits sont NOVA %s (%s)",
+                        mf_tot(donnees_sankey[ligne,
+                                               "nova_tot"]),
+                        donnees_sankey[ligne, "nova_group"],
+                        mf_prop(donnees_sankey[ligne,
+                                       "nova_prop_tot"])))
 }),
 lapply(seq_along(colors_nutri), function(i){
+  ligne <- which(donnees_sankey$nutriscore_grade==names(colors_nutri)[i])[1]
   list(id = as.character(names(colors_nutri)[i]),
-       color = as.character(colors_nutri[i]))
+       color = as.character(colors_nutri[i]),
+       comment = sprintf("%s produits sont Nutri-score %s (%s)",
+                         mf_tot(donnees_sankey[ligne,
+                                               "nutri_tot"]),
+                         donnees_sankey[ligne, "nutriscore_grade"],
+                         mf_prop(donnees_sankey[ligne,
+                                                "nutri_prop_tot"])))
 }))
 
 p3 <- highchart() %>%
@@ -167,7 +207,13 @@ p3 <- highchart() %>%
   hc_add_series(
     data = data_hc,
     nodes = nodes_color
-  ) %>% hc_size(
+  ) %>% 
+  hc_plotOptions(headerFormat="")%>% 
+  hc_tooltip(headerFormat = "",
+             pointFormat = "{point.comment}",
+             nodeFormat = "{point.comment}",
+             useHTML = TRUE) %>% 
+  hc_size(
     width = 500
   ) 
 ```
@@ -190,6 +236,6 @@ Cela a valu au nutri-score d’être soupçonné par certains de favoriser certa
 
 
 <div class="encadre">
-Il existe une <b>corrélation positive</b> entre la classification Nova et le nutri-score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
+Il existe une <b>corrélation positive</b> entre la classification NOVA et le nutri-score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
 </div>
 
