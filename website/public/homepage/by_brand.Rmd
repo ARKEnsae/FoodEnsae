@@ -91,20 +91,3 @@ hchart(
 ```
 
 
-```{r barBrand,echo=FALSE}
-hchart(
-  brand_grade_t15, 
-  "bar",
-  hcaes(x = brands, y = n, group = nutriscore_grade),
-  color = c(colors_grade)
-)  %>% 
-  hc_title(
-    text = "Nombre de produits par nutriscore des principales marques"
-  ) %>% 
-  hc_yAxis(
-    title = list(text="Nombre de produits"))%>% 
-  hc_xAxis(
-    title = list(text="")) %>% 
-  frameWidget(elementId = "barBrand")
-```
-

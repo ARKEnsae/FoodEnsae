@@ -218,9 +218,14 @@ bubble_plot_all <- rbind(bubble_plot,
                          bubble_plot_nova)
 saveRDS(bubble_plot, "website/content/homepage/data/bubble_plot.RDS")
 saveRDS(bubble_plot_all, "website/content/homepage/data/bubble_plot_all.RDS")
+bubble_plot_all <- readRDS("content/homepage/data/bubble_plot_all.RDS")
 
-
-hchart(
+titre <- "Nombre de produits par vendus par pays et en fonction de la disponibilité du Nutri-Score et du score Nova"
+caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 1 500 produits vendus recensés dans la base d'OpenFoodFaces (%i pays).",
+                               "NB : certains produits peuvent être vendus dans plusieurs pays"),
+                             collapse = "<br>"),
+                       nrow(bubble_plot_all)/3)
+p <- hchart(
   bubble_plot_all,
   type="packedbubble",
   hcaes(name = country, value = n,group = group)
@@ -249,16 +254,19 @@ hchart(
         )
       )
     ),
-    series = list(showInLegend = TRUE)
+    series = list(showInLegend = c(TRUE,FALSE,FALSE))
   )%>% 
   hc_title(
-    text = titre,
-    style = list(fontFamily = "Gloria Hallelujah")
+    text = titre
   )%>%
   hc_caption(
-    text = caption_txt,
-    style = list(fontSize = "10px")
+    text = caption_txt
   )
+hide <- c("NOVA connu", "Nutri-score connu")
+for (i in seq_along(p$x$hc_opts$series)){
+  p$x$hc_opts$series[[i]]$visible <- ! (p$x$hc_opts$series[[i]]$name %in% hide)
+}
+p
 
 
 
