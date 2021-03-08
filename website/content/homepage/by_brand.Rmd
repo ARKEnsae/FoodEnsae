@@ -23,12 +23,8 @@ max_prop <- sapply(unique(brand_grade_t15$id),function(b){
   brand_grade_t15 %>% filter(id == b) %>% 
     arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
 })
-max_prop <- sapply(unique(brand_grade_t15$id),function(b){
-  brand_grade_t15 %>% filter(id == b) %>% 
-    arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
-})
 data_plot <- data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade),c(n))
-data_plot2 <- lapply(data_plot,function(x){
+data_plot <- lapply(data_plot,function(x){
   if(x$level==1){
     x$pct = ""
     return(x)
@@ -69,7 +65,7 @@ lvl_opts <-  list(
   )
 )
 hchart(
-  data_plot2,
+  data_plot,
   type = "treemap",
   # levelIsConstant = FALSE,
   # allowDrillToNode = TRUE,

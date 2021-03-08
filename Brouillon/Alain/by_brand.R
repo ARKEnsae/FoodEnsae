@@ -6,11 +6,12 @@ colors_grade <- c(A = "#387E48", B = "#91B849", C = "#F7CB46", D = "#E08531",
 my_own_theme <- structure(list(chart = list(backgroundColor = NULL), caption = list(
   style = list(fontSize = "10px"))), class = "hc_theme")
 
-donnees <- data.table::fread("../data/fr.openfoodfacts.org.products.csv", encoding = "UTF-8")
-data = donnees[!is.na(donnees$nutriscore_grade)& !is.na(donnees$brands),]
-data = data[(data$brands!="")&(data$nutriscore_grade!=""),]
-data = data[,c("brands","nutriscore_grade","countries_fr","nova_group")]
-write.table(data,file = "../data/data_brand.csv",fileEncoding="UTF-8", sep="\t",row.names=FALSE)
+# donnees <- data.table::fread("../data/fr.openfoodfacts.org.products.csv", encoding = "UTF-8")
+# data = donnees[!is.na(donnees$nutriscore_grade)& !is.na(donnees$brands),]
+# data = data[(data$brands!="")&(data$nutriscore_grade!=""),]
+# data = data[,c("brands","nutriscore_grade","countries_fr","nova_group")]
+# write.table(data,file = "../data/data_brand.csv",fileEncoding="UTF-8", sep="\t",row.names=FALSE)
+data <- data.table::fread("../data/data_brand.csv", encoding = "UTF-8")
 data[grep(paste0("France", collapse = "|"),
      data$countries_fr),]
 brand_grade <- data[grep(paste0("France", collapse = "|"),
@@ -22,9 +23,11 @@ brand_grade <- data[grep(paste0("France", collapse = "|"),
                        id = tolower(gsub(" ","_", brands)),
                        nutriscore_grade = toupper(nutriscore_grade))
 ent_retenues <- brand_grade %>% arrange(-tot) %>% distinct(brands,tot) %>% head(15)
-ent_retenues
 brand_grade_t15 <- brand_grade %>% 
-  filter(brands %in% ent_retenues)
+  filter(brands %in% ent_retenues$brands)
+
+saveRDS(brand_grade_t15, file = "content/homepage/data/top15_brands.RDS")
+
 max_prop <- sapply(unique(brand_grade_t15$id),function(b){
   brand_grade_t15 %>% filter(id == b) %>% 
     arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
@@ -84,6 +87,7 @@ p <- hchart(
     text = "Nutriscore des produits des principales marques"
   ) %>% 
   hc_tooltip(pointFormat = "<b>{point.name}</b> : {point.value}{point.pct}<br/>") 
+p
 p$x$hc_opts$series[[1]][-1]
 # p$x$hc_opts$series = lapply(p$x$hc_opts$series[[1]]$data, function(x){
 #   c(list(data = list(x)),
