@@ -44,13 +44,37 @@ brand_grade_t15$nutriscore_grade <- toupper(brand_grade_t15$nutriscore_grade)
 
 
 ```{r treemapBrand, echo=FALSE}
-data_plot <- data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade),n)
+brand_grade_t15 = brand_grade_t15 %>% group_by(brands) %>% 
+  mutate(prop = sum(n)) %>% 
+  ungroup() %>% mutate(prop = n/prop*100,
+                       id = tolower(gsub(" ","_", brands)),
+                       nutriscore_grade = toupper(nutriscore_grade))
+
+titre <- "Répartition des Nutri-Scores par pays"
+caption_txt <- "Finir"
+
+max_prop <- sapply(unique(brand_grade_t15$id),function(b){
+  brand_grade_t15 %>% filter(id == b) %>% 
+    arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
+})
+data_plot <- data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade),c(n))
 data_plot2 <- lapply(data_plot,function(x){
   if(x$level==1){
     x$showInLegend = FALSE
+    x$pct = ""
     return(x)
   }else{
     x$color = as.character(colors_grade[x$name])
+    x$pct = brand_grade_t15 %>% 
+      filter(id == x$parent, nutriscore_grade == x$name) %>% select(prop) %>% 
+      as.numeric %>% 
+      formatC(decimal.mark = ",",
+              digits = 1, format = "f") %>% 
+      sprintf(" (%s %%)",.)
+    if(x$name == max_prop[x$parent]){
+      x$borderWidth=3
+      x$dataLabels$enabled = TRUE
+    }
     return(x)
   }
 })
@@ -87,7 +111,12 @@ hchart(
 )  %>% 
   hc_title(
     text = "Nutriscore des produits des principales marques"
-  )%>% frameWidget(elementId = "treemapBrand")
+  ) %>% hc_caption(
+    text = caption_txt
+  ) %>%
+  hc_add_theme(my_own_theme) %>% 
+  hc_tooltip(pointFormat = "<b>{point.name}</b> : {point.value}{point.pct}<br/>") %>% 
+  frameWidget(elementId = "treemapBrand")
 ```
 
 
