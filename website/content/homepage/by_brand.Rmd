@@ -12,47 +12,17 @@ library(dplyr)
 colors_grade <- readRDS("data/colors.RDS")[1:5]
 my_own_theme <- readRDS("data/hc_theme.RDS")
 
-brand_grade_t15 <- 
-structure(list(brands = c("Carrefour", "Auchan", "U", "Carrefour", 
-                         "Auchan", "U", "U", "Auchan", "Carrefour", "Carrefour", "Casino", 
-                         "Auchan", "Casino", "U", "Auchan", "Casino", "Carrefour", "U", 
-                         "Meijer", "Picard", "Lindt", "Meijer", "Great Value", "Leader Price", 
-                         "Kroger", "Casino", "Casino", "Spartan", "Picard", "Leader Price", 
-                         "Haribo", "Hacendado", "Kroger", "Picard", "Great Value", "Hacendado", 
-                         "Ahold", "Bonduelle", "Leader Price", "Meijer", "Spartan", "Leader Price", 
-                         "Picard", "Hacendado", "Kroger", "Ahold", "Leader Price", "Ahold", 
-                         "Hacendado", "Great Value", "Meijer", "Spartan", "Kroger", "Ahold", 
-                         "Ahold", "Hacendado", "Meijer", "Spartan", "Great Value", "Great Value", 
-                         "Kroger", "Spartan", "Picard", "Bonduelle", "Lindt", "Bonduelle", 
-                         "Haribo", "Haribo", "Haribo", "Lindt", "Bonduelle", "Lindt"), 
-              nutriscore_grade = c("d", "d", "d", "c", "c", "a", "c", "a", 
-                                   "a", "e", "d", "b", "a", "b", "e", "c", "b", "e", "d", "a", 
-                                   "e", "a", "d", "d", "d", "b", "e", "d", "d", "c", "d", "c", 
-                                   "a", "c", "a", "d", "d", "a", "a", "c", "a", "e", "b", "a", 
-                                   "c", "c", "b", "a", "b", "c", "e", "c", "e", "b", "e", "e", 
-                                   "b", "e", "b", "e", "b", "b", "e", "b", "d", "c", "e", "b", 
-                                   "c", "c", "d", "b"), n = c(1015L, 967L, 959L, 894L, 791L, 
-                                                              768L, 743L, 729L, 668L, 604L, 594L, 549L, 531L, 521L, 520L, 
-                                                              515L, 507L, 502L, 475L, 440L, 429L, 423L, 407L, 407L, 383L, 
-                                                              376L, 337L, 332L, 331L, 327L, 322L, 306L, 306L, 299L, 296L, 
-                                                              295L, 289L, 284L, 280L, 277L, 262L, 259L, 258L, 241L, 228L, 
-                                                              219L, 218L, 217L, 212L, 199L, 186L, 168L, 156L, 148L, 147L, 
-                                                              142L, 141L, 140L, 137L, 119L, 111L, 93L, 84L, 53L, 24L, 13L, 
-                                                              12L, 4L, 3L, 2L, 1L, 1L)), row.names = c(NA, -72L), class = c("data.frame"))
-brand_grade_t15$nutriscore_grade <- toupper(brand_grade_t15$nutriscore_grade)
+brand_grade_t15 <- readRDS("data/top15_brands.RDS")
 ```
 
 
 ```{r treemapBrand, echo=FALSE}
-brand_grade_t15 = brand_grade_t15 %>% group_by(brands) %>% 
-  mutate(prop = sum(n)) %>% 
-  ungroup() %>% mutate(prop = n/prop*100,
-                       id = tolower(gsub(" ","_", brands)),
-                       nutriscore_grade = toupper(nutriscore_grade))
-
-titre <- "Répartition des Nutri-Scores par pays"
-caption_txt <- "Finir"
-
+titre <- "Répartition des Nutri-Scores par marque"
+caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFactspour lesquels le Nutri-Score est disponible."
+max_prop <- sapply(unique(brand_grade_t15$id),function(b){
+  brand_grade_t15 %>% filter(id == b) %>% 
+    arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
+})
 max_prop <- sapply(unique(brand_grade_t15$id),function(b){
   brand_grade_t15 %>% filter(id == b) %>% 
     arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
@@ -60,7 +30,6 @@ max_prop <- sapply(unique(brand_grade_t15$id),function(b){
 data_plot <- data_to_hierarchical(brand_grade_t15, c(brands,nutriscore_grade),c(n))
 data_plot2 <- lapply(data_plot,function(x){
   if(x$level==1){
-    x$showInLegend = FALSE
     x$pct = ""
     return(x)
   }else{
@@ -81,7 +50,7 @@ data_plot2 <- lapply(data_plot,function(x){
 lvl_opts <-  list(
   list(
     level = 1,
-    borderWidth = 4,
+    borderWidth = 5,
     borderColor = "black",
     dataLabels = list(
       enabled = TRUE,
@@ -92,8 +61,8 @@ lvl_opts <-  list(
   ),
   list(
     level = 2,
-    borderWidth = 0,
-    borderColor = "white",
+    # borderWidth = 0,
+    borderColor = "gray",
     # colorVariation = list(key = "brightness", to = 0.250),
     dataLabels = list(enabled = FALSE), # pour ne pas afficher legend sur graph
     style = list(fontSize = "8px", textOutline = FALSE, color = "white")
@@ -110,7 +79,7 @@ hchart(
   legendType= 'point'
 )  %>% 
   hc_title(
-    text = "Nutriscore des produits des principales marques"
+    text = titre
   ) %>% hc_caption(
     text = caption_txt
   ) %>%
