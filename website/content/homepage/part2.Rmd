@@ -133,7 +133,8 @@ sont de catégorie <b>NOVA 4</b>, c'est-à-dire ultra-transformés.
 
 ##### Nutri-Score et NOVA sont complémentaires
 
-```{r, echo=FALSE}
+```{r sankey, echo=FALSE}
+names(color_nova) <- substr(names(color_nova),2,2)
 donnees_sankey <- donnees_nutri_nova %>%
   filter(nova_group!="" & nutriscore_grade!="") %>%
   mutate(nutriscore_grade = toupper(nutriscore_grade)) %>%

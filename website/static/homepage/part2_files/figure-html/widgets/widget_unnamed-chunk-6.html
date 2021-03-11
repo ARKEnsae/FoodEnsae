@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="highchart_libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="highchart_libs/jquery/jquery.min.js"></script>
+<script src="highchart_libs/proj4js/proj4.js"></script>
+<link href="highchart_libs/highcharts/css/motion.css" rel="stylesheet" />
+<script src="highchart_libs/highcharts/highcharts.js"></script>
+<script src="highchart_libs/highcharts/highcharts-3d.js"></script>
+<script src="highchart_libs/highcharts/highcharts-more.js"></script>
+<script src="highchart_libs/highcharts/modules/stock.js"></script>
+<script src="highchart_libs/highcharts/modules/map.js"></script>
+<script src="highchart_libs/highcharts/modules/annotations.js"></script>
+<script src="highchart_libs/highcharts/modules/data.js"></script>
+<script src="highchart_libs/highcharts/modules/drilldown.js"></script>
+<script src="highchart_libs/highcharts/modules/item-series.js"></script>
+<script src="highchart_libs/highcharts/modules/offline-exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/overlapping-datalabels.js"></script>
+<script src="highchart_libs/highcharts/modules/exporting.js"></script>
+<script src="highchart_libs/highcharts/modules/export-data.js"></script>
+<script src="highchart_libs/highcharts/modules/funnel.js"></script>
+<script src="highchart_libs/highcharts/modules/heatmap.js"></script>
+<script src="highchart_libs/highcharts/modules/treemap.js"></script>
+<script src="highchart_libs/highcharts/modules/sankey.js"></script>
+<script src="highchart_libs/highcharts/modules/dependency-wheel.js"></script>
+<script src="highchart_libs/highcharts/modules/organization.js"></script>
+<script src="highchart_libs/highcharts/modules/solid-gauge.js"></script>
+<script src="highchart_libs/highcharts/modules/streamgraph.js"></script>
+<script src="highchart_libs/highcharts/modules/sunburst.js"></script>
+<script src="highchart_libs/highcharts/modules/vector.js"></script>
+<script src="highchart_libs/highcharts/modules/wordcloud.js"></script>
+<script src="highchart_libs/highcharts/modules/xrange.js"></script>
+<script src="highchart_libs/highcharts/modules/tilemap.js"></script>
+<script src="highchart_libs/highcharts/modules/venn.js"></script>
+<script src="highchart_libs/highcharts/modules/gantt.js"></script>
+<script src="highchart_libs/highcharts/modules/timeline.js"></script>
+<script src="highchart_libs/highcharts/modules/parallel-coordinates.js"></script>
+<script src="highchart_libs/highcharts/modules/bullet.js"></script>
+<script src="highchart_libs/highcharts/modules/coloraxis.js"></script>
+<script src="highchart_libs/highcharts/modules/dumbbell.js"></script>
+<script src="highchart_libs/highcharts/modules/lollipop.js"></script>
+<script src="highchart_libs/highcharts/modules/series-label.js"></script>
+<script src="highchart_libs/highcharts/plugins/motion.js"></script>
+<script src="highchart_libs/highcharts/custom/reset.js"></script>
+<script src="highchart_libs/highcharts/modules/boost.js"></script>
+<script src="highchart_libs/highchart-binding/highchart.js"></script>
+<script src="highchart_libs/pymjs/pym.v1.min.js"></script>
+  <title>highchart</title>
+</head>
+<body>
+<div id="htmlwidget_container">
+  <div id="htmlwidget-21c19170f08bfee56130" style="width:100%;height:500px;" class="highchart html-widget"></div>
+  <script>HTMLWidgets.pymChild = new pym.Child();HTMLWidgets.addPostRenderHandler(function(){
+                                setTimeout(function(){HTMLWidgets.pymChild.sendHeight();},100);
+                            });</script>
+</div>
+<script type="application/json" data-for="htmlwidget-21c19170f08bfee56130">{"x":{"hc_opts":{"chart":{"reflow":true,"type":"sankey"},"title":{"text":"Comparaison des classifications NOVA et Nutri-Score"},"yAxis":{"title":{"text":null}},"credits":{"enabled":false},"exporting":{"enabled":false},"boost":{"enabled":false},"plotOptions":{"series":{"label":{"enabled":false},"turboThreshold":0},"treemap":{"layoutAlgorithm":"squarified"},"headerFormat":""},"series":[{"data":[{"from":1,"to":"A","weight":30545,"color":"#387E48","comment":"<b>30 545<\/b> produits sont <b>NOVA 1<\/b> et <b>Nutri-score A<\/b><br><b>62,7 %<\/b> des NOVA 1 sont Nutri-Score A<br><b>41,7 %<\/b> des Nutri-Score A sont NOVA 1"},{"from":2,"to":"A","weight":276,"color":"#387E48","comment":"<b>276<\/b> produits sont <b>NOVA 2<\/b> et <b>Nutri-score A<\/b><br><b>5,0 %<\/b> des NOVA 2 sont Nutri-Score A<br><b>0,4 %<\/b> des Nutri-Score A sont NOVA 2"},{"from":3,"to":"A","weight":20100,"color":"#387E48","comment":"<b>20 100<\/b> produits sont <b>NOVA 3<\/b> et <b>Nutri-score A<\/b><br><b>19,3 %<\/b> des NOVA 3 sont Nutri-Score A<br><b>27,4 %<\/b> des Nutri-Score A sont NOVA 3"},{"from":4,"to":"A","weight":22407,"color":"#387E48","comment":"<b>22 407<\/b> produits sont <b>NOVA 4<\/b> et <b>Nutri-score A<\/b><br><b>8,0 %<\/b> des NOVA 4 sont Nutri-Score A<br><b>30,6 %<\/b> des Nutri-Score A sont NOVA 4"},{"from":1,"to":"B","weight":7340,"color":"#91B849","comment":"<b>7 340<\/b> produits sont <b>NOVA 1<\/b> et <b>Nutri-score B<\/b><br><b>15,1 %<\/b> des NOVA 1 sont Nutri-Score B<br><b>13,1 %<\/b> des Nutri-Score B sont NOVA 1"},{"from":2,"to":"B","weight":135,"color":"#91B849","comment":"<b>135<\/b> produits sont <b>NOVA 2<\/b> et <b>Nutri-score B<\/b><br><b>2,4 %<\/b> des NOVA 2 sont Nutri-Score B<br><b>0,2 %<\/b> des Nutri-Score B sont NOVA 2"},{"from":3,"to":"B","weight":14414,"color":"#91B849","comment":"<b>14 414<\/b> produits sont <b>NOVA 3<\/b> et <b>Nutri-score B<\/b><br><b>13,8 %<\/b> des NOVA 3 sont Nutri-Score B<br><b>25,8 %<\/b> des Nutri-Score B sont NOVA 3"},{"from":4,"to":"B","weight":33931,"color":"#91B849","comment":"<b>33 931<\/b> produits sont <b>NOVA 4<\/b> et <b>Nutri-score B<\/b><br><b>12,1 %<\/b> des NOVA 4 sont Nutri-Score B<br><b>60,8 %<\/b> des Nutri-Score B sont NOVA 4"},{"from":1,"to":"C","weight":6651,"color":"#F7CB46","comment":"<b>6 651<\/b> produits sont <b>NOVA 1<\/b> et <b>Nutri-score C<\/b><br><b>13,6 %<\/b> des NOVA 1 sont Nutri-Score C<br><b>7,3 %<\/b> des Nutri-Score C sont NOVA 1"},{"from":2,"to":"C","weight":1923,"color":"#F7CB46","comment":"<b>1 923<\/b> produits sont <b>NOVA 2<\/b> et <b>Nutri-score C<\/b><br><b>34,5 %<\/b> des NOVA 2 sont Nutri-Score C<br><b>2,1 %<\/b> des Nutri-Score C sont NOVA 2"},{"from":3,"to":"C","weight":23747,"color":"#F7CB46","comment":"<b>23 747<\/b> produits sont <b>NOVA 3<\/b> et <b>Nutri-score C<\/b><br><b>22,8 %<\/b> des NOVA 3 sont Nutri-Score C<br><b>26,0 %<\/b> des Nutri-Score C sont NOVA 3"},{"from":4,"to":"C","weight":59100,"color":"#F7CB46","comment":"<b>59 100<\/b> produits sont <b>NOVA 4<\/b> et <b>Nutri-score C<\/b><br><b>21,1 %<\/b> des NOVA 4 sont Nutri-Score C<br><b>64,6 %<\/b> des Nutri-Score C sont NOVA 4"},{"from":1,"to":"D","weight":2645,"color":"#E08531","comment":"<b>2 645<\/b> produits sont <b>NOVA 1<\/b> et <b>Nutri-score D<\/b><br><b>5,4 %<\/b> des NOVA 1 sont Nutri-Score D<br><b>2,0 %<\/b> des Nutri-Score D sont NOVA 1"},{"from":2,"to":"D","weight":1820,"color":"#E08531","comment":"<b>1 820<\/b> produits sont <b>NOVA 2<\/b> et <b>Nutri-score D<\/b><br><b>32,7 %<\/b> des NOVA 2 sont Nutri-Score D<br><b>1,4 %<\/b> des Nutri-Score D sont NOVA 2"},{"from":3,"to":"D","weight":33316,"color":"#E08531","comment":"<b>33 316<\/b> produits sont <b>NOVA 3<\/b> et <b>Nutri-score D<\/b><br><b>31,9 %<\/b> des NOVA 3 sont Nutri-Score D<br><b>24,8 %<\/b> des Nutri-Score D sont NOVA 3"},{"from":4,"to":"D","weight":96773,"color":"#E08531","comment":"<b>96 773<\/b> produits sont <b>NOVA 4<\/b> et <b>Nutri-score D<\/b><br><b>34,5 %<\/b> des NOVA 4 sont Nutri-Score D<br><b>71,9 %<\/b> des Nutri-Score D sont NOVA 4"},{"from":1,"to":"E","weight":1564,"color":"#D54C29","comment":"<b>1 564<\/b> produits sont <b>NOVA 1<\/b> et <b>Nutri-score E<\/b><br><b>3,2 %<\/b> des NOVA 1 sont Nutri-Score E<br><b>1,9 %<\/b> des Nutri-Score E sont NOVA 1"},{"from":2,"to":"E","weight":1415,"color":"#D54C29","comment":"<b>1 415<\/b> produits sont <b>NOVA 2<\/b> et <b>Nutri-score E<\/b><br><b>25,4 %<\/b> des NOVA 2 sont Nutri-Score E<br><b>1,7 %<\/b> des Nutri-Score E sont NOVA 2"},{"from":3,"to":"E","weight":12803,"color":"#D54C29","comment":"<b>12 803<\/b> produits sont <b>NOVA 3<\/b> et <b>Nutri-score E<\/b><br><b>12,3 %<\/b> des NOVA 3 sont Nutri-Score E<br><b>15,2 %<\/b> des Nutri-Score E sont NOVA 3"},{"from":4,"to":"E","weight":68235,"color":"#D54C29","comment":"<b>68 235<\/b> produits sont <b>NOVA 4<\/b> et <b>Nutri-score E<\/b><br><b>24,3 %<\/b> des NOVA 4 sont Nutri-Score E<br><b>81,2 %<\/b> des Nutri-Score E sont NOVA 4"}],"nodes":[{"id":1,"color":"#FCBBA1","comment":"<b>48 745<\/b> produits sont NOVA 1 (<b>11,1 %<\/b>)"},{"id":2,"color":"#FB6A4A","comment":"<b>5 569<\/b> produits sont NOVA 2 (<b>1,3 %<\/b>)"},{"id":3,"color":"#CB181D","comment":"<b>104 380<\/b> produits sont NOVA 3 (<b>23,8 %<\/b>)"},{"id":4,"color":"#67000D","comment":"<b>280 446<\/b> produits sont NOVA 4 (<b>63,9 %<\/b>)"},{"id":"A","color":"#387E48","comment":"<b>73 328<\/b> produits sont Nutri-Score A (<b>16,7 %<\/b>)"},{"id":"B","color":"#91B849","comment":"<b>55 820<\/b> produits sont Nutri-Score B (<b>12,7 %<\/b>)"},{"id":"C","color":"#F7CB46","comment":"<b>91 421<\/b> produits sont Nutri-Score C (<b>20,8 %<\/b>)"},{"id":"D","color":"#E08531","comment":"<b>134 554<\/b> produits sont Nutri-Score D (<b>30,6 %<\/b>)"},{"id":"E","color":"#D54C29","comment":"<b>84 017<\/b> produits sont Nutri-Score E (<b>19,1 %<\/b>)"}]}],"tooltip":{"headerFormat":"","pointFormat":"{point.comment}","nodeFormat":"{point.comment}","useHTML":true},"caption":{"text":"Note : Sur les 1 635 635 produits de la base de données, seuls figurent<\/br> ici les 439 140 pour lesquels un groupe NOVA et un Nutri-Score sont indiqués."}},"theme":{"chart":{"backgroundColor":null},"caption":{"style":{"fontSize":"10px"}}},"conf_opts":{"global":{"Date":null,"VMLRadialGradientURL":"http =//code.highcharts.com/list(version)/gfx/vml-radial-gradient.png","canvasToolsURL":"http =//code.highcharts.com/list(version)/modules/canvas-tools.js","getTimezoneOffset":null,"timezoneOffset":0,"useUTC":true},"lang":{"contextButtonTitle":"Chart context menu","decimalPoint":".","downloadJPEG":"Download JPEG image","downloadPDF":"Download PDF document","downloadPNG":"Download PNG image","downloadSVG":"Download SVG vector image","drillUpText":"Back to {series.name}","invalidDate":null,"loading":"Loading...","months":["January","February","March","April","May","June","July","August","September","October","November","December"],"noData":"No data to display","numericSymbols":["k","M","G","T","P","E"],"printChart":"Print chart","resetZoom":"Reset zoom","resetZoomTitle":"Reset zoom level 1:1","shortMonths":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"thousandsSep":" ","weekdays":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]}},"type":"chart","fonts":[],"debug":false},"evals":[],"jsHooks":[]}</script>
+<script type="application/htmlwidget-sizing" data-for="htmlwidget-21c19170f08bfee56130">{"viewer":{"width":"100%","height":350,"padding":0,"fill":false},"browser":{"width":"100%","height":500,"padding":0,"fill":false}}</script>
+</body>
+</html>
