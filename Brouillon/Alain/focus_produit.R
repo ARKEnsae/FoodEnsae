@@ -15,7 +15,7 @@ data <- data[grep(paste0("France", collapse = "|"),
      data$countries_fr),]
 
 data_plot <- data[,c("code", "product_name","image_small_url",
-                     "nutriscore_grade", "nova_group","fat_100g","sugars_100g")]
+                     "nutriscore_grade", "nova_group","fat_100g","sugars_100g","proteins_100g")]
 data_plot <- data_plot[data_plot$sugars_100g<30,]
 data_plot$nutriscore_grade <- toupper(data_plot$nutriscore_grade)
 data_plot$nova_group[is.na(data_plot$nova_group)] = "Non-Renseigné"

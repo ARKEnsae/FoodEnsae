@@ -1,9 +1,18 @@
 ---
-title: "Nutri-score par marque"
+title: "Qualité des produits par marque"
 weight: 4
 ---
 
-Explorons les principales **marques** et les **nutri-scores** de leurs produits.
+Explorons désormais la qualité des produits des  principales **marques françaises**.
+
+<div class="encadre">
+En <b>France</b>, la catégorie <b>Nutri-Score D</b> est la plus représentée dans la plupart des <b>grandes marques</b>. 
+</div>
+
+A l'image de la répartition globale des aliments par Nutri-Score, la plupart des grandes marques vendent de nombreux produits de **Nutri-Score D** (26,7 % des produits Auchan, 28,4 % des produits Carrefour...). 
+
+Ce n'est pas le cas pour quelques marques. Chez **Le Gaulois** et **Fleury Michon,** les aliments de **catégorie C** sont majoritaires. Et chez l'enseigne de surgelés **Picard** près de **3 produits sur 10** sont de catégorie A, ce qui est très élevé par rapport aux autres marques. 
+
 
 ```{r, include=FALSE}
 library(highcharter)
@@ -18,7 +27,7 @@ brand_grade_t15 <- readRDS("data/top15_brands.RDS")
 
 ```{r treemapBrand, echo=FALSE}
 titre <- "Répartition des Nutri-Scores par marque"
-caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFactspour lesquels le Nutri-Score est disponible."
+caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-Score est disponible."
 max_prop <- sapply(unique(brand_grade_t15$id),function(b){
   brand_grade_t15 %>% filter(id == b) %>% 
     arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
@@ -85,3 +94,4 @@ hchart(
 ```
 
 
+<mark>TODO : la même chose par NOVA </mark>
