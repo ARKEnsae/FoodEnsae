@@ -19,15 +19,26 @@ library(highcharter)
 library(widgetframe)
 library(dplyr)
 colors_grade <- readRDS("data/colors.RDS")[1:5]
+color_nova = c("1" = "#FCBBA1","2"="#FB6A4A","3"="#CB181D","4"="#67000D")
+
 my_own_theme <- readRDS("data/hc_theme.RDS")
 
 brand_grade_t15 <- readRDS("data/top15_brands.RDS")
+brand_grade_t15_nova <- readRDS("data/top15_brands_nova.RDS")
 ```
 
 
 ```{r treemapBrand, echo=FALSE}
 titre <- "Répartition des Nutri-Scores par marque"
 caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-Score est disponible."
+
+js = 'function(){
+  var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
+  if (this.level == 2){
+    res = "<b>Nutri-score </b>" + res
+  }
+  return (res)
+}'
 max_prop <- sapply(unique(brand_grade_t15$id),function(b){
   brand_grade_t15 %>% filter(id == b) %>% 
     arrange(-n) %>% .[1,"nutriscore_grade"] %>% as.character()
@@ -46,7 +57,7 @@ data_plot <- lapply(data_plot,function(x){
               digits = 1, format = "f") %>% 
       sprintf(" (%s %%)",.)
     if(x$name == max_prop[x$parent]){
-      x$borderWidth=3
+      x$borderWidth=4
       x$dataLabels$enabled = TRUE
     }
     return(x)
@@ -89,9 +100,84 @@ hchart(
     text = caption_txt
   ) %>%
   hc_add_theme(my_own_theme) %>% 
-  hc_tooltip(pointFormat = "<b>{point.name}</b> : {point.value}{point.pct}<br/>") %>% 
+  hc_tooltip(pointFormatter = JS(js)) %>% 
   frameWidget(elementId = "treemapBrand")
 ```
 
+<br/><br/>
 
-<mark>TODO : la même chose par NOVA </mark>
+```{r treemapBrandNova, echo=FALSE}
+titre <- "Répartition des groupes NOVA par marque"
+caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le groupe NOVA est disponible."
+
+js = 'function(){
+  var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
+  if (this.level == 2){
+    res = "<b>Nova </b>" + res
+  }
+  return (res)
+}'
+max_prop <- sapply(unique(brand_grade_t15_nova$id),function(b){
+  brand_grade_t15_nova %>% filter(id == b) %>% 
+    arrange(-n) %>% .[1,"nova_group"] %>% as.character()
+})
+data_plot <- data_to_hierarchical(brand_grade_t15_nova, c(brands,nova_group),c(n))
+data_plot <- lapply(data_plot,function(x){
+  if(x$level==1){
+    x$pct = ""
+    return(x)
+  }else{
+    x$color = as.character(color_nova[x$name])
+    x$pct = brand_grade_t15_nova %>% 
+      filter(id == x$parent, nova_group == x$name) %>% select(prop) %>% 
+      as.numeric %>% 
+      formatC(decimal.mark = ",",
+              digits = 1, format = "f") %>% 
+      sprintf(" (%s %%)",.)
+    if(x$name == max_prop[x$parent]){
+      x$borderWidth=4
+      x$dataLabels$enabled = TRUE
+    }
+    return(x)
+  }
+})
+lvl_opts <-  list(
+  list(
+    level = 1,
+    borderWidth = 5,
+    borderColor = "black",
+    dataLabels = list(
+      enabled = TRUE,
+      align = "left",
+      verticalAlign = "top",
+      style = list(fontSize = "12px", textOutline = FALSE, color = "white")
+    )
+  ),
+  list(
+    level = 2,
+    # borderWidth = 0,
+    borderColor = "gray",
+    # colorVariation = list(key = "brightness", to = 0.250),
+    dataLabels = list(enabled = FALSE), # pour ne pas afficher legend sur graph
+    style = list(fontSize = "8px", textOutline = FALSE, color = "white")
+  )
+)
+hchart(
+  data_plot,
+  type = "treemap",
+  # levelIsConstant = FALSE,
+  # allowDrillToNode = TRUE,
+  levels = lvl_opts,
+  tooltip = list(valueDecimals = FALSE),
+  showInLegend = FALSE,
+  legendType= 'point'
+)  %>% 
+  hc_title(
+    text = titre
+  ) %>% hc_caption(
+    text = caption_txt
+  ) %>%
+  hc_add_theme(my_own_theme) %>% 
+  hc_tooltip(pointFormatter = JS(js)) %>% 
+  frameWidget(elementId = "treemapBrandNova")
+```

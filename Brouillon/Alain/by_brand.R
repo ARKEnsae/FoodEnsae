@@ -11,6 +11,7 @@ my_own_theme <- structure(list(chart = list(backgroundColor = NULL), caption = l
 # data = data[(data$brands!="")&(data$nutriscore_grade!=""),]
 # data = data[,c("brands","nutriscore_grade","countries_fr","nova_group")]
 # write.table(data,file = "../data/data_brand.csv",fileEncoding="UTF-8", sep="\t",row.names=FALSE)
+
 data <- data.table::fread("../data/data_brand.csv", encoding = "UTF-8")
 data[grep(paste0("France", collapse = "|"),
      data$countries_fr),]
@@ -87,6 +88,110 @@ p <- hchart(
     text = "Nutriscore des produits des principales marques"
   ) %>% 
   hc_tooltip(pointFormat = "<b>{point.name}</b> : {point.value}{point.pct}<br/>") 
+p
+
+#####################
+donnees <- data.table::fread("../data/fr.openfoodfacts.org.products.csv", encoding = "UTF-8")
+data = donnees[!is.na(donnees$nova_group)& !is.na(donnees$brands),]
+data = data[(data$brands!="")&(data$nova_group!=""),]
+data = data[,c("brands","nutriscore_grade","countries_fr","nova_group")]
+write.table(data,file = "../data/data_brand_nova.csv",fileEncoding="UTF-8", sep="\t",row.names=FALSE)
+
+data <- data.table::fread("../data/data_brand_nova.csv", encoding = "UTF-8")
+
+brand_grade <- data[grep(paste0("France", collapse = "|"),
+                         data$countries_fr),] %>% 
+  count(brands,`nova_group`) %>% 
+  arrange(-n) %>% group_by(brands) %>% 
+  mutate(tot = sum(n)) %>% 
+  ungroup() %>% mutate(prop = n/tot*100,
+                       id = tolower(gsub(" ","_", brands)),
+                       nova_group = toupper(nova_group))
+ent_retenues <- brand_grade %>% arrange(-tot) %>% distinct(brands,tot) %>% head(15)
+brand_grade_t15_nova <- brand_grade %>% 
+  filter(brands %in% ent_retenues$brands)
+
+saveRDS(brand_grade_t15_nova, file = "content/homepage/data/top15_brands_nova.RDS")
+
+
+my_own_theme <- readRDS("content/homepage/data/hc_theme.RDS")
+color_nova = c("1" = "#FCBBA1","2"="#FB6A4A","3"="#CB181D","4"="#67000D")
+
+titre <- "Répartition des groupes NOVA par marque"
+caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le groupe NOVA est disponible."
+max_prop <- sapply(unique(brand_grade_t15_nova$id),function(b){
+  brand_grade_t15_nova %>% filter(id == b) %>% 
+    arrange(-n) %>% .[1,"nova_group"] %>% as.character()
+})
+data_plot <- data_to_hierarchical(brand_grade_t15_nova, c(brands,nova_group),c(n))
+data_plot <- lapply(data_plot,function(x){
+  if(x$level==1){
+    x$pct = ""
+    return(x)
+  }else{
+    x$color = as.character(color_nova[x$name])
+    x$pct = brand_grade_t15_nova %>% 
+      filter(id == x$parent, nova_group == x$name) %>% select(prop) %>% 
+      as.numeric %>% 
+      formatC(decimal.mark = ",",
+              digits = 1, format = "f") %>% 
+      sprintf(" (%s %%)",.)
+    if(x$name == max_prop[x$parent]){
+      x$borderWidth=3
+      x$dataLabels$enabled = TRUE
+    }
+    return(x)
+  }
+})
+lvl_opts <-  list(
+  list(
+    level = 1,
+    borderWidth = 5,
+    borderColor = "black",
+    dataLabels = list(
+      enabled = TRUE,
+      align = "left",
+      verticalAlign = "top",
+      style = list(fontSize = "12px", textOutline = FALSE, color = "white")
+    )
+  ),
+  list(
+    level = 2,
+    # borderWidth = 0,
+    borderColor = "gray",
+    # colorVariation = list(key = "brightness", to = 0.250),
+    dataLabels = list(enabled = FALSE), # pour ne pas afficher legend sur graph
+    style = list(fontSize = "8px", textOutline = FALSE, color = "white")
+  )
+)
+hchart(
+  data_plot,
+  type = "treemap",
+  # levelIsConstant = FALSE,
+  # allowDrillToNode = TRUE,
+  levels = lvl_opts,
+  tooltip = list(valueDecimals = FALSE),
+  showInLegend = FALSE,
+  legendType= 'point'
+)  %>% 
+  hc_title(
+    text = titre
+  ) %>% hc_caption(
+    text = caption_txt
+  ) %>%
+  hc_add_theme(my_own_theme) %>% 
+  hc_tooltip(pointFormatter = JS(test)) %>% 
+  frameWidget(elementId = "treemapBrandNova")
+pointFormatter
+test = 'function(){
+  var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
+  if (this.level == 2){
+    res = "<b>Nova </b>" + res
+  }
+  return (res)
+}'
+
+####################@
 p
 p$x$hc_opts$series[[1]][-1]
 # p$x$hc_opts$series = lapply(p$x$hc_opts$series[[1]]$data, function(x){
