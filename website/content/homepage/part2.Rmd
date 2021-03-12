@@ -233,7 +233,7 @@ p3 <- highchart() %>%
 <b>77,8&nbsp;%</b> des aliments non transformés (NOVA 1) sont classés en Nutri-Score A ou B.
 
 
-A l'inverse, <b>79,9&nbsp;%</b> des aliments ultra-transformés (NOVA 4) sont classés en Nutri-Score C, D ou E.
+À l'inverse, <b>79,9&nbsp;%</b> des aliments ultra-transformés (NOVA 4) sont classés en Nutri-Score C, D ou E.
 
 <div style="text-align:center;">
 ```{r, echo=FALSE, fig.show='animate'}
@@ -241,7 +241,7 @@ p3  %>% frameWidget()
 ```
 </div>
 
-Toutefois, il existe aussi des aliments ultra-transformés classés en nutri-score A ou B (<b>20,1&nbsp;%</b>).
+Toutefois, il existe aussi des aliments ultra-transformés classés en Nutri‑Score A ou B (<b>20,1&nbsp;%</b>).
 
 Cela a valu au Nutri-Score d’être soupçonné par certains de favoriser certaines industries alimentaires. Pourtant, ces différences entre indicateurs ne sont pas surprenantes puisqu'ils **couvrent des dimensions différentes** (degré de transformation versus qualité nutritionnelle des aliments). 
 
