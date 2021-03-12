@@ -34,7 +34,7 @@ La base de données d'**Openfoodfacts**, d'initiative Française, contient **une
 ```{r bubbleCountry,echo=FALSE}
 titre <- "Nombre de produits vendus par pays et en fonction de la disponibilité du Nutri-Score et du score Nova"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 1 500 produits vendus recensés dans la base d'OpenFoodFaces (%i pays).",
-                               "NB : certains produits peuvent être vendus dans plusieurs pays"),
+                               "NB : certains produits peuvent être vendus dans plusieurs pays."),
                              collapse = "<br>"),
                        nrow(bubble_plot_all)/3)
 hide <- c("NOVA connu", "Nutri-score connu")
@@ -128,7 +128,11 @@ hchart(
   )%>%
   hc_xAxis(
     title = list(text="")) %>%
-  hc_plotOptions(series=list(stacking="normal"))%>%
+  hc_plotOptions(series=list(stacking="normal",
+                             events = list(
+                     legendItemClick = JS("function(event) {return false;}")
+                   ))) %>% 
+  hc_legend(labelFormat="Nutri-Score {name}")%>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
     text = caption_txt
@@ -176,7 +180,11 @@ hchart(
   )%>%
   hc_xAxis(
     title = list(text="")) %>%
-  hc_plotOptions(series=list(stacking="normal"))%>%
+  hc_plotOptions(series=list(stacking="normal",
+                              events = list(
+                     legendItemClick = JS("function(event) {return false;}")
+                   ))) %>% 
+  hc_legend(labelFormat="NOVA {name}")%>%
   hc_tooltip(pointFormat = '{series.name} : <b>{point.y:.1f} %</b><br/>')  %>%
   hc_caption(
     text = caption_txt
