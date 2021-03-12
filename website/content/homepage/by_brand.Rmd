@@ -9,7 +9,7 @@ Explorons désormais la qualité des produits des  principales **marques frança
 En <b>France</b>, la catégorie <b>Nutri-Score D</b> est la plus représentée dans la plupart des <b>grandes marques</b>. 
 </div>
 
-A l'image de la répartition globale des aliments par Nutri-Score, la plupart des grandes marques vendent de nombreux produits de **Nutri-Score D** (26,7 % des produits Auchan, 28,4 % des produits Carrefour...). 
+À l'image de la répartition globale des aliments par Nutri-Score, la plupart des grandes marques vendent de nombreux produits de **Nutri-Score D** (26,7 % des produits Auchan, 28,4 % des produits Carrefour...). 
 
 Ce n'est pas le cas pour quelques marques. Chez **Le Gaulois** et **Fleury Michon,** les aliments de **catégorie C** sont majoritaires. Et chez l'enseigne de surgelés **Picard** près de **3 produits sur 10** sont de catégorie A, ce qui est très élevé par rapport aux autres marques. 
 
@@ -36,7 +36,7 @@ caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de
 js = 'function(){
   var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
   if (this.level == 2){
-    res = "<b>Nutri-score </b>" + res
+    res = "<b>Nutri-score </b>" + res + this.pct
   }
   return (res)
 }'
@@ -111,9 +111,9 @@ hchart(
 En <b>France</b>, les aliments <b>ultra-transformés</b> sont les plus représentés dans la plupart des <b>grandes marques</b>. 
 </div>
 
-La plupart des grandes marques vendent également de nombreux produits de groupe **NOVA 4** (<mark>XX,X</mark> % des produits Auchan, <mark>XX,X</mark> % des produits Carrefour...). 
+La plupart des grandes marques vendent également de nombreux produits de groupe **NOVA 4** (65,6 % des produits Auchan, 68,6 % des produits Carrefour...). 
 
-Ce n'est pas le cas pour la marque **La Vie Claire**, spécialisée dans les produits bios, pour laquelle les aliments de groupe **NOVA 3**  sont majoritaires (<mark>XX,X</mark> % des produits contre <mark>XX,X</mark> % de NOVA 4).
+Ce n'est pas le cas pour la marque **La Vie Claire**, spécialisée dans les produits bios, pour laquelle les aliments de groupe **NOVA 3**  sont plus nombreux (39,0 % des produits contre 32,1 % de NOVA 4).
 
 
 ```{r treemapBrandNova, echo=FALSE}
@@ -123,7 +123,7 @@ caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de
 js = 'function(){
   var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
   if (this.level == 2){
-    res = "<b>Nova </b>" + res
+    res = "<b>NOVA </b>" + res + this.pct
   }
   return (res)
 }'
