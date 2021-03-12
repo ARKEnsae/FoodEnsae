@@ -1,5 +1,5 @@
 ---
-title: "Nutri-score et NOVA"
+title: "Nutri-Score et NOVA"
 weight: 2
 ---
 
@@ -31,13 +31,14 @@ color_nova = c(G1 = "#FCBBA1",G2="#FB6A4A",G3="#CB181D",G4="#67000D")
 #https://cran.r-project.org/web/packages/vegalite/vignettes/intro_to_vegalite.html
 #https://observablehq.com/@d3/marimekko-chart
 donnees_nutri_nova <- readRDS("data/donnees_nutri_nova.RDS")
+my_own_theme <- readRDS("data/hc_theme.RDS")
 ```
 
 Quand vous **remplissez votre caddie**, il existe deux moyens rapides d'évaluer **la qualité des produits** que vous choisissez.  
 
-##### 1. Nutri-score pour la qualité nutritionnelle
+##### 1. Nutri-Score pour la qualité nutritionnelle
 
-Le **nutri-score** permet de comparer **la qualité nutritionnelle** de produits alimentaires équivalents. Son calcul a été mis au point par des équipes de recherche internationales et est soutenu par les pouvoirs publics. 
+Le **Nutri-Score** permet de comparer **la qualité nutritionnelle** de produits alimentaires équivalents. Son calcul a été mis au point par des équipes de recherche internationales et est soutenu par les pouvoirs publics. 
 
 ![](images/nutriscore-a.png)
 
@@ -63,9 +64,9 @@ p1 <- r2d3(data = donnees_nutri,
            container = "cont",
            script = "data/lollichart.js",
            options = list(borne_max=400000,
-                          titre = "Nombre de produits selon le nutri-score",
+                          titre = "Nombre de produits selon le Nutri-Score",
                           note1 = paste0("Note : Sur les 1 635 635 produits de la base de données, seuls figurent"),
-                          note2 = paste0("ici les 630 663 pour lesquels un nutri-score est indiqué.")
+                          note2 = paste0("ici les 630 663 pour lesquels un Nutri-Score est indiqué.")
            ))
 
 ```
@@ -75,7 +76,7 @@ p1 %>% frameWidget()
 ```
 
 
-Une étude française menée par l'Inserm, l'Inra, le CNAM et la Sorbonne Paris-Nord, publié en septembre 2020^[https://presse.inserm.fr/la-consommation-daliments-moins-bien-classes-au-moyen-du-nutri-score-associee-a-une-mortalite-accrue/40805/], a mis en évidence que la consommation d’aliments moins bien notés est associée à une mortalité accrue (mortalité totale et celle liée au **cancer et aux maladies des appareils circulatoires, respiratoires et digestifs**). 
+Une étude française menée par l'Inserm, l'Inra, le CNAM et la Sorbonne Paris-Nord, publié en septembre 2020^[https://presse.inserm.fr/la-consommation-daliments-moins-bien-classes-au-moyen-du-nutri-score-associee-a-une-mortalite-accrue/40805/], a mis en évidence que la consommation d’aliments moins bien notés est associée à une mortalité accrue (que ce soit pour la mortalité totale comme pour celles liées  **au cancer et aux maladies des appareils circulatoires, respiratoires et digestifs**). 
 
 ##### 1. NOVA pour la transformation des aliments
 
@@ -124,15 +125,16 @@ Des recherches récentes de l'Inserm, de l'Inra et de l'Université Paris 13 (ER
 <div class="encadre">
 De <b>nombreux produits</b> des supermarchés représentent un <b>danger potentiel pour notre santé</b> sur le long terme. 
 
-<b>Près d'un tiers</b> des produits recensés par Openfoodfacts sont de <b>nutri-score D</b> et les <b>deux tiers</b> 
+Or, <b>près d'un tiers</b> des produits recensés par Openfoodfacts sont de <b>Nutri-Score D</b> et les <b>deux tiers</b> 
 sont de catégorie <b>NOVA 4</b>, c'est-à-dire ultra-transformés.
 </div>
 
 </br>
 
-##### Nutri-score et NOVA sont complémentaires
+##### Nutri-Score et NOVA sont complémentaires
 
-```{r, echo=FALSE}
+```{r sankey, echo=FALSE}
+names(color_nova) <- substr(names(color_nova),2,2)
 donnees_sankey <- donnees_nutri_nova %>%
   filter(nova_group!="" & nutriscore_grade!="") %>%
   mutate(nutriscore_grade = toupper(nutriscore_grade)) %>%
@@ -146,6 +148,8 @@ donnees_sankey <- donnees_nutri_nova %>%
   ungroup() %>% 
   mutate(nutri_prop_tot = nutri_tot/sum(n)*100,
          nova_prop_tot = nova_tot/sum(n)*100)%>% data.frame()
+
+caption_txt <- sprintf("Note : Sur les 1 635 635 produits de la base de données, seuls figurent</br> ici les 439 140 pour lesquels un groupe NOVA et un Nutri-Score sont indiqués.")
 
 mf_prop <- function(x){
   paste0("<b>",formatC(x,
@@ -162,11 +166,11 @@ data_hc <- lapply(1:nrow(donnees_sankey), function(i){
                      mf_tot(donnees_sankey[i,"n"]),
                      donnees_sankey[i,"nova_group"],
                      donnees_sankey[i,"nutriscore_grade"])
-  comment1 = sprintf("%s des NOVA %s sont Nutri-score %s",
+  comment1 = sprintf("%s des NOVA %s sont Nutri-Score %s",
                      mf_prop(donnees_sankey[i,"nova_group_freq"]),
                      donnees_sankey[i,"nova_group"],
                      donnees_sankey[i,"nutriscore_grade"])
-  comment2 = sprintf("%s des Nutri-score %s sont NOVA %s",
+  comment2 = sprintf("%s des Nutri-Score %s sont NOVA %s",
                      mf_prop(donnees_sankey[i,"nutriscore_grade_freq"]),
                      donnees_sankey[i,"nutriscore_grade"],
                      donnees_sankey[i,"nova_group"])
@@ -194,7 +198,7 @@ lapply(seq_along(colors_nutri), function(i){
   ligne <- which(donnees_sankey$nutriscore_grade==names(colors_nutri)[i])[1]
   list(id = as.character(names(colors_nutri)[i]),
        color = as.character(colors_nutri[i]),
-       comment = sprintf("%s produits sont Nutri-score %s (%s)",
+       comment = sprintf("%s produits sont Nutri-Score %s (%s)",
                          mf_tot(donnees_sankey[ligne,
                                                "nutri_tot"]),
                          donnees_sankey[ligne, "nutriscore_grade"],
@@ -213,16 +217,23 @@ p3 <- highchart() %>%
              pointFormat = "{point.comment}",
              nodeFormat = "{point.comment}",
              useHTML = TRUE) %>% 
-  hc_size(
-    width = 500
-  ) 
+  hc_title(
+    text = "Comparaison des classifications NOVA et Nutri-Score"
+  ) %>%
+  hc_caption(
+    text = caption_txt
+  ) %>%
+  hc_add_theme(my_own_theme) #%>% 
+  #hc_size(
+  #  width = 500
+  #) 
 ```
 
 
-<b>77,7&nbsp;%</b> des aliments non transformés (NOVA 1) sont classés en nutri-score A ou B.
+<b>77,8&nbsp;%</b> des aliments non transformés (NOVA 1) sont classés en Nutri-Score A ou B.
 
 
-A l'inverse, <b>79,9&nbsp;%</b> des aliments ultra-transformés (NOVA 4) sont classés en Nutri-score C, D ou E.
+À l'inverse, <b>79,9&nbsp;%</b> des aliments ultra-transformés (NOVA 4) sont classés en Nutri-Score C, D ou E.
 
 <div style="text-align:center;">
 ```{r, echo=FALSE, fig.show='animate'}
@@ -230,12 +241,12 @@ p3  %>% frameWidget()
 ```
 </div>
 
-Toutefois, il existe aussi des aliments ultra-transformés classés en nutri-score A ou B (<b>20,1&nbsp;%</b>).
+Toutefois, il existe aussi des aliments ultra-transformés classés en Nutri‑Score A ou B (<b>20,1&nbsp;%</b>).
 
-Cela a valu au nutri-score d’être soupçonné par certains de favoriser certaines industries alimentaires. Cela se justifie par le fait que **ces deux indicateurs couvrent des dimensions différentes** (degré de transformation versus qualité nutritionnelle des aliments). 
+Cela a valu au Nutri-Score d’être soupçonné par certains de favoriser certaines industries alimentaires. Pourtant, ces différences entre indicateurs ne sont pas surprenantes puisqu'ils **couvrent des dimensions différentes** (degré de transformation versus qualité nutritionnelle des aliments). 
 
 
 <div class="encadre">
-Il existe une <b>corrélation positive</b> entre la classification NOVA et le nutri-score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
+Il existe une <b>corrélation positive</b> entre la classification NOVA et le Nutri-Score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
 </div>
 

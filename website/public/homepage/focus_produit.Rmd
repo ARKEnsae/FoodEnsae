@@ -1,7 +1,234 @@
 ---
-title: "Et les salades dans tout ça ?"
+title: "Tableau nutritionnel"
 weight: 5
 ---
+
+Le Nutri-Score est très utile pour avoir un premier aperçu de la qualité nutritionnelle d’un produit. Toutefois, comme nous l’avons vu, il n’est pas encore indiqué sur l’intégralité des emballages. 
+
+Il est donc également utile de savoir lire **la liste des ingrédients** et le **tableau nutritionnel**, d’autres outils indispensables pour évaluer la **qualité de votre caddie**. 
+
+Par exemple, une règle simple à retenir pour s’assurer de manger des aliments **peu gras** et **peu sucrés** est d’avoir respectivement des **quantités de matières grasses et de sucres inférieures à celle en protéines**.
+
+<i>Selon ce critère, la salade piémontaise suivante serait à considérer comme très grasse <mark>16 g</mark> &gt; <mark>0,4 g</mark>) et sucrée ( <mark>0,6 g</mark> &gt; <mark>0,4 g</mark>).</i>
+
+<table id="nutrition_data_table" class="data_table">
+<caption>Exemple du tableau nutritionnel d'une <a href="https://fr.openfoodfacts.org/produit/0201400016732/" target="_blank">salade piémontaise</a></caption>
+<thead class="nutriment_header">
+ 
+<tr>
+<th scope="col">Informations nutritionnelles</th>
+
+<th class="nutriment_value " scope="col">Tel que vendu<br>pour 100 g / 100 ml</th>
+
+</tr>
+</thead>
+
+<tbody>
+<!--  Generating table body -->
+
+
+
+<tr id="nutriment_energy-kcal_tr" class="nutriment_main">
+<td class="nutriment_label">
+Énergie (kcal)
+</td>
+
+
+
+<td class="nutriment_value ">
+198 kcal
+</td>
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_energy_tr" class="nutriment_main">
+<td class="nutriment_label">
+Énergie
+</td>
+
+
+
+<td class="nutriment_value ">
+828 kj<br>(198 kcal)
+</td>
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_fat_tr" class="nutriment_main">
+<td class="nutriment_label">
+Matières grasses / Lipides
+</td>
+
+
+
+<td class="nutriment_value ">
+<mark>16 g</mark>
+</td>
+
+
+</tr>
+
+
+
+<tr id="nutriment_saturated-fat_tr" class="nutriment_sub">
+<td class="nutriment_label">
+dont Acides gras saturés
+</td>
+
+
+
+<td class="nutriment_value ">
+2,5 g
+</td>
+
+
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_carbohydrates_tr" class="nutriment_main">
+<td class="nutriment_label">
+Glucides
+</td>
+
+
+
+<td class="nutriment_value ">
+6,6 g
+</td>
+
+</tr>
+
+
+
+<tr id="nutriment_sugars_tr" class="nutriment_sub">
+<td class="nutriment_label">
+dont Sucres
+</td>
+
+
+
+<td class="nutriment_value ">
+<mark>0,6 g</mark>
+</td>
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_proteins_tr" class="nutriment_main">
+<td class="nutriment_label">
+Protéines
+</td>
+
+
+
+<td class="nutriment_value ">
+<mark>0,4 g</mark>
+</td>
+
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_salt_tr" class="nutriment_main">
+<td class="nutriment_label">
+Sel
+</td>
+
+
+
+<td class="nutriment_value ">
+0,46 g
+</td>
+
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_sodium_tr" class="nutriment_sub">
+<td class="nutriment_label">
+Sodium
+</td>
+
+
+
+<td class="nutriment_value ">
+0,184 g
+</td>
+
+
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_nutrition-score-fr_tr" class="nutriment_main">
+<td class="nutriment_label">
+<a href="/nutriscore" title="$product_ref->{nutrition_score_debug}">Score nutritionnel - France</a>
+</td>
+
+
+
+<td class="nutriment_value ">
+6 
+</td>
+
+
+
+
+</tr>
+
+
+
+<tr id="nutriment_nutriscore_tr" class="nutriment_sub">
+<td class="nutriment_label">
+Nutri-Score
+</td>
+
+
+
+<td class="nutriment_value ">
+C
+</td>
+
+
+
+
+</tr>
+
+
+</tbody>
+
+</table>
+
+
+
+
+
+
+En guise de conclusion (et d'exercice !), nous vous laissons explorer dans le **graphique interactif** qui suit la **diversité de la qualité nutritionnelle** de différentes **salades composées** que vous pourrez trouver dans votre supermarché. 
 
 
 ```{r, include=FALSE}
@@ -11,6 +238,10 @@ library(dplyr)
 color_var <- readRDS("data/colors.RDS")
 data <- readRDS("data/focus_group_data.RDS")
 my_own_theme <- readRDS("data/hc_theme.RDS")
+data$ratio_fat_proteins <- data$fat_100g/data$proteins_100g
+data$ratio_sugars_proteins <- data$sugars_100g/data$proteins_100g
+data$log_ratio_fat_proteins <- log(data$fat_100g/data$proteins_100g)
+data$log_ratio_sugars_proteins <- log(data$sugars_100g/data$proteins_100g)
 
 hcoptslang_nouv <- getOption("highcharter.lang")
 hcoptslang_nouv$decimalPoint <- ","
@@ -35,7 +266,7 @@ JStl <- "function(){
   }else {
     nova_score = 'NR'
   }
-  var nutri_score ='<br>Nutri-score : ' 
+  var nutri_score ='<br>Nutri-Score : ' 
   if(this.point.nutriscore_grade == ''){
     nutri_score = nutri_score + 'NR'
   }else{
@@ -49,21 +280,23 @@ JStl <- "function(){
 ```
 
 
-Concentrons nous sur les salades vendues en France.
-
 ```{r focusProduit,echo=FALSE}
-titre <- "Salades vendues en Frances par nutriscore et taux de matières grasses et de sucres"
-sous_titre <- "Qu'on arrête de nous prendre pour des salades !"
-caption_txt <- paste("Cherchez plus d'informations sur les salades à partir du code-bar en utilisant le lien",
-                       "https://fr.openfoodfacts.org/produit/<b>code_bar</b>.",
-                        "<br>Par exemple pour la Sinappinen (salade de concombres) :",
-                       "<a href=\"https://fr.openfoodfacts.org/produit/6424908462502\">https://fr.openfoodfacts.org/produit/6424908462502</a>.<br>")
+titre <- "Indices de sucre et de matières grasses des salades composées vendues en France"
+#sous_titre <- "Qu'on arrête de nous prendre pour des salades !"
+caption_txt <- paste("Cherchez plus d'informations sur les salades à partir du code-barres en utilisant le lien",
+                     "https://fr.openfoodfacts.org/produit/<b>code_barre</b>.",
+                     "<br>Par exemple pour la Sinappinen (salade de concombres) :",
+                     "<a href=\"https://fr.openfoodfacts.org/produit/6424908462502\">https://fr.openfoodfacts.org/produit/6424908462502</a>.<br>",
+                     "Par souci de lisibilité du graphique, les deux indices correspondent aux logarithmes des rapports sucre/protéines et matières grasses/protéines. Un indice supérieur à 0 est ainsi équivalent à un ratio supérieur à 1.")
 
 p <- hchart(data, "scatter",
-       hcaes(x = `sugars_100g`, y = fat_100g,
-             group = nutriscore_grade))
+            #hcaes(x = `sugars_100g`, y = fat_100g,
+            #hcaes(x = `ratio_sugars_proteins`, y = `ratio_fat_proteins`,
+            hcaes(x = `log_ratio_sugars_proteins`, y = `log_ratio_fat_proteins`,
+                        group = nutriscore_grade))
 for(i in seq_along(p$x$hc_opts$series)){
   p$x$hc_opts$series[[i]]$color = as.character(color_var[p$x$hc_opts$series[[i]]$name])
+  p$x$hc_opts$series[[i]]$marker$symbol = "diamond"
   p$x$hc_opts$series[[i]]$index = which(p$x$hc_opts$series[[i]]$name==names(color_var))
 }
 p %>% 
@@ -72,18 +305,70 @@ p %>%
   hc_title(
     text = titre
   )%>% 
-  hc_subtitle(
-    text = sous_titre
-  )%>% 
+  # hc_subtitle(
+  #   text = sous_titre
+  # )%>% 
   hc_yAxis(
-    title = list(text="Matières grasse (g pour 100g)"))%>% 
+    #type = 'logarithmic',
+    title = list(text="Indice de matières grasses"),
+    plotBands = list(
+      list(
+        label = list(text = "",
+                     rotation=0, style=list(fontStyle="italic")),
+        color = "rgba(237,28,36,.2)",
+        from = 0,
+        to = 1000
+      )
+    ),
+    plotLines = list(
+      list(
+        label = list(text = "Aliment gras",
+                     rotation=0, style=list(fontStyle="italic")),
+        color = "black",
+        dashStyle= "dot",
+        width = 2,
+        value = 0,
+        zIndex=5
+      )
+    )
+    )%>% 
   hc_xAxis(
-    title = list(text="Sucres (g pour 100g)")) %>% 
+    title = list(text="Indice de sucre"),
+    plotBands = list(
+      list(
+        label = list(text = "", x=1,
+                     rotation=0, style=list(fontStyle="italic")),
+        color = "rgba(237,28,36,.2)",
+        from = 0,
+        to = 1000
+      )
+    ),
+    plotLines = list(
+      list(
+        label = list(text = "Aliment sucré",
+                     rotation=0, style=list(fontStyle="italic")),
+        color = "black",
+        dashStyle= "dot",
+        width = 2,
+        value = 0,
+        zIndex=5
+      )
+    )
+    ) %>% 
   hc_caption(
     text = caption_txt,
     useHTML = TRUE
   ) %>%
+  hc_size(height=700) %>% 
   hc_add_theme(my_own_theme) %>% 
+  hc_add_theme(hc_theme(chart=list(backgroundColor="#f2efe8"))) %>% 
   frameWidget(elementId = "focusProduit")
 ```
+
+
+</br>
+
+<div class="encadre">
+Apprendre à <b>lire les étiquettes alimentaires</b> vous aidera à <b>prévenir votre santé</b> en déterminant si le produit doit être consommé tous les jours ou plutôt à titre occasionnel. 
+</div>
 

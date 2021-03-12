@@ -76,7 +76,7 @@ p4 <- drawGauge(87, width=1000)
    frameWidget(elementId = "p1", height=200, options = frameOptions(id="iframepetit1"))
 ```
 <p class="caption"><b>des Français</b></p>
-<p class="caption"></br>ont <b>entendu parler ou vu le logo</b> du nutri-score</br>(+23 points en un an).</p>
+<p class="caption"></br>ont <b>entendu parler ou vu le logo</b> du Nutri-Score</br>(+23 points en un an).</p>
 <p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France.</i></p>  
 </div>
 
@@ -87,7 +87,7 @@ p2 %>%
 ```
 <p class="caption"><b>des Français</b></p>
 <p class="caption"></br><b>identifient bien</b> que le Nutri‑Score permet de qualifier la <b>qualité nutritionnelle</b> des produits.</p>
-<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France.</i></p>  
 </div>
 
 <div class="element">
@@ -96,8 +96,8 @@ p3 %>%
   frameWidget(elementId = "p3", height=200, options = frameOptions(id="iframepetit3"))
 ```
 <p class="caption"><b>des Français</b></p>
-<p class="caption"><b>citent spontanément</b> le nutri-score comme un critère qu'ils utilisent pour évaluer la qualité nutritionnelle des produits (+7 points en un an).</p> 
-<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
+<p class="caption"><b>citent spontanément</b> le Nutri‑Score comme un critère qu'ils utilisent pour évaluer la qualité nutritionnelle des produits (+7 points en un an).</p> 
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France.</i></p>  
 </div>
 <div class="element">
 
@@ -108,7 +108,7 @@ p4 %>%
 
 <p class="caption"><b>des Français</b></p>
 <p class="caption"></br>pensent que l’apposition  du Nutri‑Score sur les produits <b>devrait être obligatoire</b>.</p>
-<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France</i></p>  
+<p class="caption" style="font-size:1.2rem;line-height: 1.2em;text-align:left;"><i>Source : Enquête sur la connaissance et la perception des Français à l’égard du logo Nutri-Score (3ème vague ; septembre 2019) - Santé publique France.</i></p>  
 </div>
 <!-- Flèches de navigation -->
 <i id="nav-gauche" class="las la-chevron-left" onclick="plusSlides2(-1)"></i>
@@ -118,7 +118,7 @@ p4 %>%
 
 <center>
 <p style="font-size:4rem;"><b>Et vous ?</b></p>
-<p>Savez-vous ce qu'est le <b>nutri-score</b> ?</p>
+<p>Savez-vous ce qu'est le <b>Nutri‑Score</b> ?</p>
 <p>Nous allons le découvrir ensemble en <b>graphiques</b> 
 en explorant les données de<a href="https://fr.openfoodfacts.org/"><img src="images/openfoodfacts_logo.png" alt="Openfoodfacts" height="80"/></a></p>
 </center>
