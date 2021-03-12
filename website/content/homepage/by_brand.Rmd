@@ -9,9 +9,9 @@ Explorons désormais la qualité des produits des  principales **marques frança
 En <b>France</b>, la catégorie <b>Nutri-Score D</b> est la plus représentée dans la plupart des <b>grandes marques</b>. 
 </div>
 
-À l'image de la répartition globale des aliments par Nutri-Score, la plupart des grandes marques vendent de nombreux produits de **Nutri-Score D** (26,7 % des produits Auchan, 28,4 % des produits Carrefour...). 
+À l'image de la répartition globale des aliments par Nutri-Score, la plupart des grandes marques vendent de nombreux produits de **Nutri-Score D** (26,7 % des produits Auchan, 27,6 % des produits Carrefour...). 
 
-Ce n'est pas le cas pour quelques marques. Chez **Le Gaulois** et **Fleury Michon,** les aliments de **catégorie C** sont majoritaires. Et chez l'enseigne de surgelés **Picard** près de **3 produits sur 10** sont de catégorie A, ce qui est très élevé par rapport aux autres marques. 
+Ce n'est pas le cas pour quelques marques. Chez **Le Gaulois** les aliments de **catégorie C** sont majoritaires. Et chez l'enseigne de surgelés **Picard** près de **3 produits sur 10** sont de catégorie A, ce qui est très élevé par rapport aux autres marques. 
 
 
 ```{r, include=FALSE}
@@ -31,7 +31,8 @@ brand_grade_t15_nova <- readRDS("data/top15_brands_nova.RDS")
 
 ```{r treemapBrand, echo=FALSE}
 titre <- "Répartition des Nutri-Scores par marque"
-caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-Score est disponible."
+caption_txt <- paste("On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-Score est disponible.",
+      "NB : certains produits peuvent avoir plusieurs marques.", sep = "<br>")
 
 js = 'function(){
   var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
@@ -98,7 +99,7 @@ hchart(
   hc_title(
     text = titre
   ) %>% hc_caption(
-    text = caption_txt
+    text = caption_txt, useHTML = TRUE
   ) %>%
   hc_add_theme(my_own_theme) %>% 
   hc_tooltip(pointFormatter = JS(js)) %>% 
@@ -118,7 +119,8 @@ Ce n'est pas le cas pour la marque **La Vie Claire**, spécialisée dans les pro
 
 ```{r treemapBrandNova, echo=FALSE}
 titre <- "Répartition des groupes NOVA par marque"
-caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le groupe NOVA est disponible."
+caption_txt <- paste("On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le groupe NOVA est disponible.",
+      "NB : certains produits peuvent avoir plusieurs marques.", sep = "<br>")
 
 js = 'function(){
   var res = "<b>"+this.name+"</b> : "+ this.value + " produits<br/>"
@@ -185,7 +187,7 @@ hchart(
   hc_title(
     text = titre
   ) %>% hc_caption(
-    text = caption_txt
+    text = caption_txt, useHTML = TRUE
   ) %>%
   hc_add_theme(my_own_theme) %>% 
   hc_tooltip(pointFormatter = JS(js)) %>% 
