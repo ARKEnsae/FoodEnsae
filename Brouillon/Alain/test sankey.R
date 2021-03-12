@@ -90,13 +90,31 @@ p <- highchart() %>%
     nodes = nodes_color
   ) 
 p%>% 
-  hc_plotOptions(headerFormat="")%>% 
+  hc_plotOptions(headerFormat="",
+                 series = list(
+                   events = list(
+                     legendItemClick = JS("function(event) {
+                    return false;
+                }")
+                   )
+                 ))%>% 
   hc_tooltip(headerFormat = "",
              pointFormat = "{point.comment}",
              nodeFormat = "{point.comment}",
-             useHTML = TRUE)
-
-
+             useHTML = TRUE) %>% 
+  add_legend(colors_nutri, "Nutri-score ")
+?hc_add_series
+add_legend = function(p, colors, prefix="", symbol = "square"){
+  for(i in names(colors)){
+    p <- p %>%  
+      hc_add_series(type = "scatter",
+                    name = paste0(prefix,i),
+                    color = as.character(colors[i]),
+                    marker = list(symbol = symbol))
+    p$x$hc_opts$series
+  }
+  p
+}
 index <- c(unique(donnees_sankey$target),unique(donnees_sankey$source))
 names(index)<-0:(length(index)-1)
 
