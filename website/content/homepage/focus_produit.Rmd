@@ -228,7 +228,7 @@ C
 
 
 
-En guise de conclusion (et d'exercice !), nous vous laissons explorer dans le **graphique interactif** qui suit la **diversité de la qualité nutritionnelle** de différentes **salades composées** que vous pourrez trouver dans votre supermarché. 
+En guise de conclusion (et d'exercice ! ), nous vous laissons explorer dans le **graphique interactif** qui suit la **diversité de la qualité nutritionnelle** de différentes **salades composées** que vous pourrez trouver dans votre supermarché. 
 
 
 ```{r, include=FALSE}
