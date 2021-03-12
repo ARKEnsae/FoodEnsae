@@ -28,6 +28,7 @@ brand_grade_t15_nova <- readRDS("data/top15_brands_nova.RDS")
 ```
 
 
+
 ```{r treemapBrand, echo=FALSE}
 titre <- "Répartition des Nutri-Scores par marque"
 caption_txt <- "On se restreint aux 10 principales marques en terme de nombre de produits vendus en France recensés dans la base d'OpenFoodFacts pour lesquels le Nutri-Score est disponible."
@@ -104,7 +105,16 @@ hchart(
   frameWidget(elementId = "treemapBrand")
 ```
 
-<br/><br/>
+<br/>
+
+<div class="encadre">
+En <b>France</b>, les aliments <b>ultra-transformés</b> sont les plus représentés dans la plupart des <b>grandes marques</b>. 
+</div>
+
+La plupart des grandes marques vendent également de nombreux produits de groupe **NOVA 4** (<mark>XX,X</mark> % des produits Auchan, <mark>XX,X</mark> % des produits Carrefour...). 
+
+Ce n'est pas le cas pour la marque **La Vie Claire**, spécialisée dans les produits bios, pour laquelle les aliments de groupe **NOVA 3**  sont majoritaires (<mark>XX,X</mark> % des produits contre <mark>XX,X</mark> % de NOVA 4).
+
 
 ```{r treemapBrandNova, echo=FALSE}
 titre <- "Répartition des groupes NOVA par marque"

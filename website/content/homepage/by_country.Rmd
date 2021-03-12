@@ -26,13 +26,13 @@ options(highcharter.lang = hcoptslang_nouv)
 </br>
 
 <div class="encadre">
-Des <b>informations très riches</b> concernant les <b>produits français</b>.
+Les informations concernant les <b>produits français</b> sont <b>très riches</b>.
 </div>
 
 La base de données d'**Openfoodfacts**, d'initiative Française, contient **une majorité de produits vendus en France **. Pour les autres pays du monde, la base est donc loin d'être exhaustive. 
 
 ```{r bubbleCountry,echo=FALSE}
-titre <- "Nombre de produits par vendus par pays et en fonction de la disponibilité du Nutri-Score et du score Nova"
+titre <- "Nombre de produits vendus par pays et en fonction de la disponibilité du Nutri-Score et du score Nova"
 caption_txt <- sprintf(paste(c("On ne garde que les pays où il y a plus de 1 500 produits vendus recensés dans la base d'OpenFoodFaces (%i pays).",
                                "NB : certains produits peuvent être vendus dans plusieurs pays"),
                              collapse = "<br>"),
@@ -93,7 +93,7 @@ Les <b>informations sur la qualité des produits</b> diffèrent selon les pays.
 </div>
 
 
-Selon les pays où les produits sont vendus, les <b>renseignements mis à disposition sur la qualité nutritionnelle des aliments ne sont pas les mêmes</b>. Par exemple, si la France liste davantage de produits dont la qualité nutritionnelle est renseignée que les Etats-Unis (271&nbsp;808 produits contre 238&nbsp;899), les Etats-Unis listent davantage de produits dont le type de transformation est renseigné (299&nbsp;788 contre 201&nbsp;947). 
+Selon les pays, les <b>renseignements mis à disposition sur la qualité nutritionnelle des aliments ne sont pas les mêmes</b>. Par exemple, si la France liste davantage de produits dont la qualité nutritionnelle est renseignée que les Etats-Unis (271&nbsp;808 produits contre 238&nbsp;899), les Etats-Unis listent davantage de produits dont le type de transformation est renseigné (299&nbsp;788 contre 201&nbsp;947). 
 
 </br> 
 

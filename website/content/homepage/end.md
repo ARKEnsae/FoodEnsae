@@ -11,3 +11,6 @@ Cette page web a été réalisée dans le cadre d'un projet libre pour un cours 
 
 Vous pouvez nous contacter sur [**notre github**](https://github.com/ARKEnsae) pour toute demande.
 
+
+<small><i>Note à destination du professeur concernant la diffusion du site :</br>En date du 12/03/2021, ce site a été visité par 63 utilisateurs (128 sessions d'une durée moyenne de 10min36).</i></small>
+

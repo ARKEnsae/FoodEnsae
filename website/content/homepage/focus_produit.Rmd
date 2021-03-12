@@ -9,7 +9,7 @@ Il est donc également utile de savoir lire **la liste des ingrédients** et le 
 
 Par exemple, une règle simple à retenir pour s’assurer de manger des aliments **peu gras** et **peu sucrés** est d’avoir respectivement des **quantités de matières grasses et de sucres inférieures à celle en protéines**.
 
-<i>Selon ce critère, la salade piémontaise suivante serait à considérer comme grasse <mark>16 g</mark> &gt; <mark>0,4 g</mark>) et très sucrée ( <mark>0,6 g</mark> &gt; <mark>0,4 g</mark>).</i>
+<i>Selon ce critère, la salade piémontaise suivante serait à considérer comme très grasse <mark>16 g</mark> &gt; <mark>0,4 g</mark>) et sucrée ( <mark>0,6 g</mark> &gt; <mark>0,4 g</mark>).</i>
 
 <table id="nutrition_data_table" class="data_table">
 <caption>Exemple du tableau nutritionnel d'une <a href="https://fr.openfoodfacts.org/produit/0201400016732/" target="_blank">salade piémontaise</a></caption>

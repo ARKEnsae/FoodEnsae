@@ -76,7 +76,7 @@ p1 %>% frameWidget()
 ```
 
 
-Une étude française menée par l'Inserm, l'Inra, le CNAM et la Sorbonne Paris-Nord, publié en septembre 2020^[https://presse.inserm.fr/la-consommation-daliments-moins-bien-classes-au-moyen-du-nutri-score-associee-a-une-mortalite-accrue/40805/], a mis en évidence que la consommation d’aliments moins bien notés est associée à une mortalité accrue (mortalité totale et celle liée au **cancer et aux maladies des appareils circulatoires, respiratoires et digestifs**). 
+Une étude française menée par l'Inserm, l'Inra, le CNAM et la Sorbonne Paris-Nord, publié en septembre 2020^[https://presse.inserm.fr/la-consommation-daliments-moins-bien-classes-au-moyen-du-nutri-score-associee-a-une-mortalite-accrue/40805/], a mis en évidence que la consommation d’aliments moins bien notés est associée à une mortalité accrue (que ce soit pour la mortalité totale comme pour celles liées  **au cancer et aux maladies des appareils circulatoires, respiratoires et digestifs**). 
 
 ##### 1. NOVA pour la transformation des aliments
 
@@ -125,7 +125,7 @@ Des recherches récentes de l'Inserm, de l'Inra et de l'Université Paris 13 (ER
 <div class="encadre">
 De <b>nombreux produits</b> des supermarchés représentent un <b>danger potentiel pour notre santé</b> sur le long terme. 
 
-<b>Près d'un tiers</b> des produits recensés par Openfoodfacts sont de <b>Nutri-Score D</b> et les <b>deux tiers</b> 
+Or, <b>près d'un tiers</b> des produits recensés par Openfoodfacts sont de <b>Nutri-Score D</b> et les <b>deux tiers</b> 
 sont de catégorie <b>NOVA 4</b>, c'est-à-dire ultra-transformés.
 </div>
 
@@ -243,10 +243,10 @@ p3  %>% frameWidget()
 
 Toutefois, il existe aussi des aliments ultra-transformés classés en nutri-score A ou B (<b>20,1&nbsp;%</b>).
 
-Cela a valu au Nutri-Score d’être soupçonné par certains de favoriser certaines industries alimentaires. Cela se justifie par le fait que **ces deux indicateurs couvrent des dimensions différentes** (degré de transformation versus qualité nutritionnelle des aliments). 
+Cela a valu au Nutri-Score d’être soupçonné par certains de favoriser certaines industries alimentaires. Pourtant, ces différences entre indicateurs ne sont pas surprenantes puisqu'ils **couvrent des dimensions différentes** (degré de transformation versus qualité nutritionnelle des aliments). 
 
 
 <div class="encadre">
-Il existe une <b>corrélation positive</b> entre la classification NOVA et le nutri-score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
+Il existe une <b>corrélation positive</b> entre la classification NOVA et le Nutri-Score mais ces deux indicateurs couvrent des <b>champs différents</b>. Ils sont donc <b>tous les deux importants pour connaître la qualité du contenu de votre caddie</b>. 
 </div>
 
