@@ -78,9 +78,3 @@ for(nom_cor in names(brands_cor)){
 
 saveRDS(brand_grade_t15, file = "content/homepage/data/top15_brands.RDS")
 saveRDS(brand_grade_t15_nova, file = "content/homepage/data/top15_brands_nova.RDS")
-
-c("la vie claire", "sans marque"
-)
-
-list("Carrefour" = "carrefou")
-
