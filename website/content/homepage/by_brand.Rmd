@@ -114,8 +114,6 @@ En <b>France</b>, les aliments <b>ultra-transformés</b> sont les plus représen
 
 La plupart des grandes marques vendent également de nombreux produits de groupe **NOVA 4** (65,6 % des produits Auchan, 68,6 % des produits Carrefour...). 
 
-Ce n'est pas le cas pour la marque **La Vie Claire**, spécialisée dans les produits bios, pour laquelle les aliments de groupe **NOVA 3**  sont plus nombreux (39,0 % des produits contre 32,1 % de NOVA 4).
-
 
 ```{r treemapBrandNova, echo=FALSE}
 titre <- "Répartition des groupes NOVA par marque"

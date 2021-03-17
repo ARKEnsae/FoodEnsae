@@ -64,7 +64,8 @@ brands_cor <- c("Auchan" = "auchan", "Carrefour"= "carrefour", "U"="u", "Marque 
                 "Cora"="cora", "Monoprix"="monoprix", "Picard"= "picard", "Nestlé"="nestlé", 
                 "Belle France" = "belle france", "Netto"="netto", 
                 "Franprix"="franprix", "Le Gaulois"="le gaulois", "La Vie Claire"="la vie claire",
-                "Fleury Michon" = "fleury michon", "Danone" = "danone")
+                "Fleury Michon" = "fleury michon", "Danone" = "danone",
+                "Sans marque"="sans marque")
 for(nom_cor in names(brands_cor)){
   brand_grade_t15$brands = gsub(paste0("(^",
                                  brands_cor[nom_cor],
