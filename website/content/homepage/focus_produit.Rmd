@@ -369,6 +369,6 @@ p %>%
 </br>
 
 <div class="encadre">
-Apprendre à <b>lire les étiquettes alimentaires</b> vous aidera à <b>prévenir votre santé</b> en déterminant si le produit doit être consommé tous les jours ou plutôt à titre occasionnel. 
+Apprendre à **lire les étiquettes alimentaires**^[Qu'on arrête de nous prendre pour des salades !] vous aidera à <b>prévenir votre santé</b> en déterminant si le produit doit être consommé tous les jours ou plutôt à titre occasionnel. 
 </div>
 
